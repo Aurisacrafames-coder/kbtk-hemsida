@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "title": "Provträning för nya spelare",
+      "text": "Klubben erbjuder en provträning för dig som vill testa pingis innan du bestämmer dig.",
+      "link": {
+        "label": "styrelsen@kungalvsbtk.se",
+        "href": "mailto:styrelsen@kungalvsbtk.se"
+      },
+      "startDate": "2026-01-01",
+      "endDate": "2026-12-31"
+    },
+    {
+      "title": "Nya anmälningar inför höstsäsong",
+      "text": "Vi tar emot nya anmälningar från 1 augusti. Hör av dig om du vill börja till hösten.",
+      "link": {
+        "label": "Anmäl intresse",
+        "href": "mailto:styrelsen@kungalvsbtk.se"
+      },
+      "startDate": "2026-08-01",
+      "endDate": "2026-08-31"
+    }
+  ]
+}
