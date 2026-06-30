@@ -143,6 +143,37 @@ const seasonFees = [
   { group: 'Grupp A', training: 1800, membership: 350, license: 'A-licens ingår', total: 2800 },
 ];
 
+const clubInfoRows = [
+  { label: 'Bildad', value: '1970-09-01' },
+  { label: 'Föreningsnummer', value: '6013-06' },
+  { label: 'Postadress', value: 'Brushanestigen 3, 442 49 Kungälv' },
+  { label: 'Besöksadress', value: 'Brushanestigen 3, 442 49 Kungälv' },
+  { label: 'Sommartid', value: 'Stängt juni–augusti' },
+  {
+    label: 'Telefon',
+    value: '076-111 65 10',
+    href: 'tel:+46761116510',
+  },
+  {
+    label: 'E-post',
+    value: 'styrelsen@kungalvsbtk.se',
+    href: 'mailto:styrelsen@kungalvsbtk.se',
+  },
+  {
+    label: 'Hemsida',
+    value: 'www.kungalvsbtk.se',
+    href: 'https://kungalvsbtk.se/',
+  },
+  { label: 'Bankgiro', value: '479-3915' },
+  { label: 'Swish', value: '123 260 3272' },
+  { label: 'Organisationsnummer', value: '802421-9860' },
+  {
+    label: 'Stadgar',
+    value: 'Stadgar 2024',
+    href: 'https://kungalvsbtk.se/wp-content/uploads/2026/01/KBTK-stadgar-2024.pdf',
+  },
+];
+
 const checkinScheduleUrl = `${checkinBaseUrl}/schema`;
 const checkinScheduleEmbedUrl = `${checkinBaseUrl}/schema/embed`;
 
@@ -459,32 +490,48 @@ function App() {
           </div>
         </section>
 
-        <section className="section split" id="klubbinfo">
-          <div>
+        <section className="section club-info-section" id="klubbinfo">
+          <div className="section-heading">
             <p className="eyebrow">Klubbinfo</p>
-            <h2>Om Kungälvs Bordtennisklubb</h2>
+            <h2>Fakta om Kungälvs Bordtennisklubb</h2>
             <p>
-              KBTK är en aktiv bordtennisklubb i Kungälv där barn, ungdomar,
-              vuxna och motionärer tränar tillsammans. Vi satsar på spelglädje,
-              trygghet och utveckling — oavsett om du vill träna för motion,
-              tävla i serie eller bara prova på.
+              Kontaktuppgifter, adress och övrig information om klubben.
             </p>
-            <div className="quick-links">
-              <a href="#sponsorer">Våra sponsorer</a>
-              <a href="#kontakt">Kontakta styrelsen</a>
-            </div>
           </div>
 
-          <div className="panel">
-            <h3>KBTK-hallen</h3>
-            <p>Brushanestigen 3, 442 49 Kungälv</p>
-            <a className="text-link" href="https://maps.app.goo.gl/m25uwm9upuVWwbq98">
-              Öppna i Google Maps
-            </a>
-            <p>
-              Har du frågor om hallen, dörraccess eller besök? Hör av dig till
-              styrelsen eller läs mer under <a href="#fragor">Vanliga frågor</a>.
-            </p>
+          <div className="club-info-layout">
+            <div className="club-info-table-wrap">
+              <table className="club-info-table">
+                <tbody>
+                  {clubInfoRows.map((row) => (
+                    <tr key={row.label}>
+                      <th scope="row">{row.label}</th>
+                      <td>
+                        {row.href ? (
+                          <a href={row.href} rel={row.href.endsWith('.pdf') ? 'noreferrer' : undefined} target={row.href.endsWith('.pdf') ? '_blank' : undefined}>
+                            {row.value}
+                          </a>
+                        ) : (
+                          row.value
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <aside className="club-info-aside">
+              <img className="club-logo-card" src={clubLogo} alt="KBTK logotyp" />
+              <a className="text-link" href="https://maps.app.goo.gl/m25uwm9upuVWwbq98">
+                Öppna hallen i Google Maps
+              </a>
+              <div className="quick-links">
+                <a href="#sponsorer">Våra sponsorer</a>
+                <a href="#kontakt">Kontakta styrelsen</a>
+                <a href="https://kungalvsbtk.se/boka-kbtk-hallen/">Boka KBTK-hallen</a>
+              </div>
+            </aside>
           </div>
         </section>
 

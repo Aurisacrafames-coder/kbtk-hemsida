@@ -387,6 +387,78 @@ a {
   width: min(1180px, calc(100% - 40px));
 }
 
+.club-info-section {
+  width: min(1180px, calc(100% - 40px));
+}
+
+.club-info-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.8fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.club-info-table-wrap {
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid rgba(18, 32, 51, 0.08);
+  border-radius: 18px;
+}
+
+.club-info-table {
+  width: 100%;
+  min-width: 420px;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.club-info-table th,
+.club-info-table td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid rgba(18, 32, 51, 0.08);
+  vertical-align: top;
+}
+
+.club-info-table th {
+  width: 38%;
+  color: var(--navy);
+  font-weight: 900;
+  background: #f7f3ea;
+}
+
+.club-info-table td {
+  color: var(--muted);
+}
+
+.club-info-table td a {
+  color: var(--navy);
+  font-weight: 800;
+}
+
+.club-info-table tr:last-child th,
+.club-info-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.club-info-aside {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid rgba(18, 32, 51, 0.08);
+  border-radius: 18px;
+}
+
+.club-info-aside .club-logo-card {
+  width: min(220px, 100%);
+  margin: 0 auto;
+}
+
+.club-info-aside .quick-links {
+  justify-content: flex-start;
+}
+
 .fee-season-label {
   margin: 0 0 14px;
   color: var(--navy);
@@ -795,7 +867,8 @@ a {
   .hero,
   .split,
   .split.reverse,
-  .contact-section {
+  .contact-section,
+  .club-info-layout {
     grid-template-columns: 1fr;
   }
 
