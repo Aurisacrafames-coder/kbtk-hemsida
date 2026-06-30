@@ -322,7 +322,19 @@ a {
 }
 
 .path-card p {
-  margin: 16px 0 22px;
+  margin: 16px 0 14px;
+}
+
+.path-topics {
+  margin: 0 0 22px;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.path-topics li + li {
+  margin-top: 4px;
 }
 
 .path-card span {
@@ -369,6 +381,111 @@ a {
   padding: 32px;
   background: #ffffff;
   border-radius: 22px;
+}
+
+.fee-section {
+  width: min(1180px, calc(100% - 40px));
+}
+
+.fee-season-label {
+  margin: 0 0 14px;
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.fee-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(18, 32, 51, 0.08);
+  border-radius: 18px;
+}
+
+.fee-table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.fee-table th,
+.fee-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(18, 32, 51, 0.08);
+}
+
+.fee-table thead th {
+  color: var(--navy);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: #f7f3ea;
+}
+
+.fee-table tbody th {
+  color: var(--navy);
+  font-weight: 800;
+}
+
+.fee-table tbody tr:last-child th,
+.fee-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.fee-footnote {
+  max-width: 760px;
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.fee-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.fee-card {
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid rgba(18, 32, 51, 0.08);
+  border-radius: 18px;
+}
+
+.fee-card h3 {
+  margin: 0 0 12px;
+  color: var(--navy);
+  font-size: 1.05rem;
+}
+
+.fee-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.fee-card .text-link {
+  display: inline-block;
+  margin-top: 14px;
+}
+
+.fee-card.featured {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--navy), var(--navy-soft));
+  border-top: 6px solid var(--orange);
+}
+
+.fee-card.featured h3,
+.fee-card.featured p {
+  color: #ffffff;
+}
+
+.fee-card.featured .info-box {
+  margin: 16px 0;
+  color: var(--navy);
+  background: #ffffff;
 }
 
 .info-box {
@@ -685,7 +802,8 @@ a {
   .intro-grid,
   .path-grid,
   .schedule-grid,
-  .sponsor-grid {
+  .sponsor-grid,
+  .fee-grid {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -729,7 +847,8 @@ a {
   .intro-grid,
   .path-grid,
   .schedule-grid,
-  .sponsor-grid {
+  .sponsor-grid,
+  .fee-grid {
     grid-template-columns: 1fr;
   }
 }

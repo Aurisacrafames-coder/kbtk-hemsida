@@ -99,7 +99,6 @@ const quickLinks = [
   { label: 'Licensanmälan', href: 'https://kungalvsbtk.se/tavling/licens-anmalan/' },
   { label: 'Tävlingsanmälan', href: 'https://kungalvsbtk.se/tavling/tavlingsanmalan/' },
   { label: 'Dörraccess', href: 'https://kungalvsbtk.se/ansok-om-access-till-dorren/' },
-  { label: 'Spela som gäst', href: 'https://kungalvsbtk.se/spela-som-gast/' },
 ];
 
 const sponsors = [
@@ -135,39 +134,53 @@ const sponsors = [
   },
 ];
 
-const checkinScheduleUrl = 'https://kbtk-checkin.vercel.app/schema';
-const checkinScheduleEmbedUrl = 'https://kbtk-checkin.vercel.app/schema/embed';
+const seasonFees = [
+  { group: 'Nybörjare', training: 1000, membership: 350, license: 'Vid behov', total: 1350 },
+  { group: 'Motionsgrupp', training: 1150, membership: 350, license: 'Vid behov', total: 1500 },
+  { group: 'Grupp D', training: 1000, membership: 350, license: 'Vid behov', total: 1350 },
+  { group: 'Grupp C', training: 1250, membership: 350, license: 'Vid behov', total: 1600 },
+  { group: 'Grupp B', training: 1650, membership: 350, license: 'Vid behov', total: 2000 },
+  { group: 'Grupp A', training: 1800, membership: 350, license: 'A-licens ingår', total: 2800 },
+];
+
+const checkinScheduleUrl = `${checkinBaseUrl}/schema`;
+const checkinScheduleEmbedUrl = `${checkinBaseUrl}/schema/embed`;
 
 const visitorPaths = [
   {
-    title: 'Jag vill börja spela',
-    text: 'Provträning, grupper, avgifter och hur du anmäler intresse.',
+    title: 'Börja spela',
+    text: 'Kom igång som ny spelare, prova på eller spela som gäst.',
+    topics: ['Prova på', 'Gästspel', 'Anmäl intresse'],
     href: '#borja-spela',
     cta: 'Till börja spela',
   },
   {
-    title: 'Jag är redan medlem',
-    text: 'Hitta träningstider, hallinformation, Swish och kontaktvägar.',
-    href: '#traning',
-    cta: 'Se medlemsinfo',
-  },
-  {
-    title: 'Jag vill tävla',
-    text: 'Licens, tävlingsanmälan, serier och Profixio-länkar samlat.',
+    title: 'Tävling/Serie',
+    text: 'Serier, licens och anmälan till tävling.',
+    topics: ['Seriestatus', 'Licens', 'Tävlingsanmälan'],
     href: '#serier',
     cta: 'Till tävling',
   },
   {
-    title: 'Jag är förälder',
-    text: 'Vilken grupp passar, vad kostar det och vem kontaktar jag?',
-    href: '#fragor',
-    cta: 'Läs vanliga frågor',
+    title: 'Klubbinfo',
+    text: 'Om klubben, hallen och hur du når oss.',
+    topics: ['Om KBTK', 'Hallen', 'Kontakt'],
+    href: '#klubbinfo',
+    cta: 'Läs klubbinfo',
   },
   {
-    title: 'Jag vill besöka hallen',
-    text: 'Adress, karta, gästspel och information om dörraccess.',
-    href: '#kontakt',
-    cta: 'Hitta hit',
+    title: 'Vanliga frågor',
+    text: 'Svar på det som oftast dyker upp.',
+    topics: ['Träningstider', 'Grupper', 'Dörraccess'],
+    href: '#fragor',
+    cta: 'Läs FAQ',
+  },
+  {
+    title: 'Avgifter',
+    text: 'Medlems- och träningsavgifter samt betalning.',
+    topics: ['Medlemsavgift', 'Träningsavgift', 'Swish'],
+    href: '#avgifter',
+    cta: 'Se avgifter',
   },
 ];
 
@@ -175,7 +188,8 @@ const faqs = [
   {
     question: 'När tränar min grupp?',
     answer:
-      'Aktuella tider samlas under Träningstider. Om du är osäker på grupp eller nivå är det bäst att kontakta styrelsen.',
+      'Aktuella tider finns under Träningstider. Om du är osäker på grupp eller nivå är det bäst att kontakta styrelsen.',
+    link: { label: 'Se träningstider', href: '#traning' },
   },
   {
     question: 'Vilken grupp passar mitt barn?',
@@ -190,7 +204,8 @@ const faqs = [
   {
     question: 'Vad kostar det och hur betalar jag?',
     answer:
-      'Efter provträningen betalar du medlems- och träningsavgift om du vill fortsätta. Swishnumret är 123 260 3272.',
+      'Medlemsavgiften är 350 kr per säsong. Träningsavgiften varierar per grupp (1 000–1 800 kr för höst/vår). Betala via Swish 123 260 3272 eller enligt faktura från klubben.',
+    link: { label: 'Se alla avgifter', href: '#avgifter' },
   },
   {
     question: 'Hur får jag access till hallen?',
@@ -259,6 +274,7 @@ function App() {
 
         <nav className="main-nav" aria-label="Huvudmeny">
           <a href="#top">Hem</a>
+          <a href="#borja-spela">Börja spela</a>
           <a href="#traning">Träningstider</a>
           <a href="#fragor">FAQ</a>
           <a href="#kontakt">Kontakt</a>
@@ -282,6 +298,11 @@ function App() {
               <a className="path-card" href={path.href} key={path.title}>
                 <h3>{path.title}</h3>
                 <p>{path.text}</p>
+                <ul className="path-topics">
+                  {path.topics.map((topic) => (
+                    <li key={topic}>{topic}</li>
+                  ))}
+                </ul>
                 <span>{path.cta}</span>
               </a>
             ))}
@@ -336,15 +357,16 @@ function App() {
         <section className="section split" id="borja-spela">
           <div>
             <p className="eyebrow">Börja spela</p>
-            <h2>Testa pingis med en provträning.</h2>
+            <h2>Prova på, spela som gäst eller bli medlem.</h2>
             <p>
-              Anmäl intresse så hjälper klubben dig till rätt grupp. Efter
-              provträningen betalas medlems- och träningsavgift om du vill
-              fortsätta.
+              Ny i klubben? Börja med en provträning så hjälper vi dig till rätt
+              grupp. Vill du bara testa en kväll kan du spela som gäst. Efter
+              provträningen betalar du medlems- och träningsavgift om du vill
+              fortsätta — se <a href="#avgifter">Avgifter</a> för mer info.
             </p>
-            <div className="info-box">
-              <strong>Swish:</strong> 123 260 3272
-              <span>Betala senast en vecka efter provträningen om du fortsätter.</span>
+            <div className="quick-links">
+              <a href="mailto:styrelsen@kungalvsbtk.se">Anmäl intresse</a>
+              <a href="https://kungalvsbtk.se/spela-som-gast/">Spela som gäst</a>
             </div>
           </div>
 
@@ -437,6 +459,147 @@ function App() {
           </div>
         </section>
 
+        <section className="section split" id="klubbinfo">
+          <div>
+            <p className="eyebrow">Klubbinfo</p>
+            <h2>Om Kungälvs Bordtennisklubb</h2>
+            <p>
+              KBTK är en aktiv bordtennisklubb i Kungälv där barn, ungdomar,
+              vuxna och motionärer tränar tillsammans. Vi satsar på spelglädje,
+              trygghet och utveckling — oavsett om du vill träna för motion,
+              tävla i serie eller bara prova på.
+            </p>
+            <div className="quick-links">
+              <a href="#sponsorer">Våra sponsorer</a>
+              <a href="#kontakt">Kontakta styrelsen</a>
+            </div>
+          </div>
+
+          <div className="panel">
+            <h3>KBTK-hallen</h3>
+            <p>Brushanestigen 3, 442 49 Kungälv</p>
+            <a className="text-link" href="https://maps.app.goo.gl/m25uwm9upuVWwbq98">
+              Öppna i Google Maps
+            </a>
+            <p>
+              Har du frågor om hallen, dörraccess eller besök? Hör av dig till
+              styrelsen eller läs mer under <a href="#fragor">Vanliga frågor</a>.
+            </p>
+          </div>
+        </section>
+
+        <section className="section fee-section" id="avgifter">
+          <div className="section-heading">
+            <p className="eyebrow">Avgifter</p>
+            <h2>Medlems- och träningsavgifter</h2>
+            <p>
+              Träningsavgifterna gäller hela säsongen höst/vår (september–maj). Avgifterna
+              faktureras vid höstsäsongens början — inga återbetalningar sker vid avslutat
+              spel under säsongen, t.ex. om man bara spelar höstterminen.
+            </p>
+          </div>
+
+          <p className="fee-season-label">Säsong 2025–2026</p>
+
+          <div className="fee-table-wrap">
+            <table className="fee-table">
+              <thead>
+                <tr>
+                  <th scope="col">Grupp</th>
+                  <th scope="col">Träningsavgift</th>
+                  <th scope="col">Medlemsavgift</th>
+                  <th scope="col">Licens</th>
+                  <th scope="col">Totalt</th>
+                </tr>
+              </thead>
+              <tbody>
+                {seasonFees.map((row) => (
+                  <tr key={row.group}>
+                    <th scope="row">{row.group}</th>
+                    <td>{row.training.toLocaleString('sv-SE')} kr</td>
+                    <td>{row.membership.toLocaleString('sv-SE')} kr</td>
+                    <td>{row.license}</td>
+                    <td>{row.total.toLocaleString('sv-SE')} kr</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p className="fee-footnote">
+            Börjar man på vårsäsongen kan träningsavgiften halveras i pingisskolan. Grupper
+            startar i regel på hösten. Nya avgifter för kommande säsong publiceras innan
+            höststart.
+          </p>
+
+          <div className="fee-grid">
+            <article className="fee-card">
+              <h3>Föräldramedlemskap</h3>
+              <p>
+                För föräldrar som vill vara i hallen med sitt barn under fria tider:{' '}
+                <strong>350 kr per säsong</strong> (sept–maj).
+              </p>
+            </article>
+
+            <article className="fee-card">
+              <h3>Sommarträning</h3>
+              <p>
+                Gäller juni–augusti: <strong>350 kr</strong> för alla medlemmar.
+              </p>
+            </article>
+
+            <article className="fee-card">
+              <h3>Gästspel</h3>
+              <p>
+                <strong>50 kr per person och tillfälle.</strong> Anmäl gäst i förväg och
+                swisha till 123 260 3272.
+              </p>
+              <a className="text-link" href="https://kungalvsbtk.se/spela-som-gast/">
+                Anmäl gästspel
+              </a>
+            </article>
+
+            <article className="fee-card">
+              <h3>Tävlingsavgift</h3>
+              <p>
+                Betalas via Swish innan tävling. Anmäl dig på tävlingsanmälan efter
+                betalning.
+              </p>
+              <a className="text-link" href="https://kungalvsbtk.se/tavling/tavlingsanmalan/">
+                Till tävlingsanmälan
+              </a>
+            </article>
+
+            <article className="fee-card">
+              <h3>Faktura</h3>
+              <p>
+                Fakturor för träningsavgift skickas via e-post i första eller andra veckan
+                av oktober varje säsong.
+              </p>
+              <a className="text-link" href="mailto:kassor@kungalvsbtk.se">
+                kassor@kungalvsbtk.se
+              </a>
+            </article>
+
+            <article className="fee-card featured">
+              <h3>Betalning</h3>
+              <div className="info-box">
+                <strong>Swish:</strong> 123 260 3272
+                <span>Ange namn och grupp i meddelandet.</span>
+              </div>
+              <p>
+                <strong>Bankgiro:</strong> 479-3915
+                <br />
+                <strong>Friskvårdsbidrag:</strong> via Epassi
+              </p>
+              <p>
+                Efter provträning: swisha senast inom en vecka om du vill fortsätta. Vill
+                du inte fortsätta, meddela styrelsen inom en vecka så slipper du faktura.
+              </p>
+            </article>
+          </div>
+        </section>
+
         <section className="section sponsors-section" id="sponsorer" aria-labelledby="sponsors-title">
           <div className="section-heading">
             <p className="eyebrow">Sponsorer</p>
@@ -476,6 +639,11 @@ function App() {
               <details key={faq.question} className="faq-item">
                 <summary>{faq.question}</summary>
                 <p>{faq.answer}</p>
+                {faq.link ? (
+                  <a className="text-link" href={faq.link.href}>
+                    {faq.link.label}
+                  </a>
+                ) : null}
               </details>
             ))}
           </div>
