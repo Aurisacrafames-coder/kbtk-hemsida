@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import HomePage from './HomePage';
 import { FormPage } from './FormPage';
+import { FaqBot } from './FaqBot';
 import { getFormSlugFromPath } from './lib/forms';
 
 function readPathname() {
@@ -44,6 +45,7 @@ export default function App() {
         <span>Kungälvs Bordtennisklubb</span>
         <span>Vi älskar pingis</span>
       </footer>
+      <FaqBot />
     </>
   );
 }

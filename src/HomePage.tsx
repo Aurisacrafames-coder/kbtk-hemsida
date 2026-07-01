@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { FAQ_ENTRIES } from './lib/faq-knowledge';
 
 type AktuelltItem = {
   title: string;
@@ -213,41 +214,11 @@ const visitorPaths = [
   },
 ];
 
-const faqs = [
-  {
-    question: 'När tränar min grupp?',
-    answer: 'Titta i schemat under Träningstider — där ser du när varje grupp tränar.',
-    link: { label: 'Se träningstider', href: '#traning' },
-  },
-  {
-    question: 'Vilken grupp passar mitt barn?',
-    answer:
-      'Klubben försöker matcha spelare efter ålder, nivå, gruppstorlek och kompisar. Börja med en provträning så hjälper vi er rätt.',
-  },
-  {
-    question: 'Hur anmäler jag mig till provträning?',
-    answer:
-      'Använd formuläret under Börja spela med namn, ålder, kontaktuppgifter och eventuell tidigare erfarenhet.',
-    link: { label: 'Anmäl intresse', href: '/form/borja-spela' },
-  },
-  {
-    question: 'Vad kostar det och hur betalar jag?',
-    answer:
-      'Medlemsavgiften är 350 kr per säsong. Träningsavgiften varierar per grupp (1 000–1 800 kr för höst/vår). Betala via Swish 123 260 3272.',
-    link: { label: 'Se alla avgifter', href: '#avgifter' },
-  },
-  {
-    question: 'Hur får jag access till hallen?',
-    answer:
-      'Ansök om dörraccess via formuläret på hemsidan, eller hör av dig till klubben om du är osäker.',
-    link: { label: 'Ansök om dörraccess', href: '/form/doraccess' },
-  },
-  {
-    question: 'Hur anmäler jag mig till tävling?',
-    answer:
-      'Under Tävling finns länkar för licensanmälan, tävlingsanmälan och seriestatus. Där hittar du rätt väg vidare.',
-  },
-];
+const faqs = FAQ_ENTRIES.map((entry) => ({
+  question: entry.question,
+  answer: entry.answer,
+  link: entry.link,
+}));
 
 const clubLogo = '/kbtk-logo.png';
 
