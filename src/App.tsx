@@ -35,7 +35,6 @@ export default function App() {
             <a href="/">Hem</a>
             <a href="/#borja-spela">Börja spela</a>
             <a href="/#traning">Träningstider</a>
-            <a href="/#fragor">FAQ</a>
             <a href="/form/kontakt">Kontakt</a>
           </nav>
         ) : null}

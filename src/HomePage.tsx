@@ -199,13 +199,6 @@ const visitorPaths = [
     cta: 'Läs klubbinfo',
   },
   {
-    title: 'Vanliga frågor',
-    text: 'Svar på det som oftast dyker upp.',
-    topics: ['Träningstider', 'Grupper', 'Dörraccess'],
-    href: '#fragor',
-    cta: 'Läs FAQ',
-  },
-  {
     title: 'Avgifter',
     text: 'Medlems- och träningsavgifter samt betalning.',
     topics: ['Medlemsavgift', 'Träningsavgift', 'Swish'],
