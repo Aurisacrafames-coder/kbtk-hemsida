@@ -83,7 +83,7 @@ function TrialSignupForm() {
     return (
       <FormShell
         title="Tack för din anmälan"
-        intro={<p>Vi har tagit emot ditt intresse. Styrelsen återkommer så snart vi kan.</p>}
+        intro={<p>Vi har tagit emot ditt intresse och återkommer så snart vi kan.</p>}
       >
         <a className="button primary" href="/">
           Till startsidan
@@ -452,7 +452,7 @@ function HallBookingForm() {
 
   if (success) {
     return (
-      <FormShell title="Tack!" intro={<p>Bokningsförfrågan är mottagen. Styrelsen återkommer.</p>}>
+      <FormShell title="Tack!" intro={<p>Bokningsförfrågan är mottagen. Vi återkommer så snart vi kan.</p>}>
         <a className="button primary" href="/">
           Till startsidan
         </a>
@@ -557,7 +557,7 @@ function ContactForm() {
 
   if (success) {
     return (
-      <FormShell title="Tack!" intro={<p>Ditt meddelande är skickat till styrelsen.</p>}>
+      <FormShell title="Tack!" intro={<p>Ditt meddelande är skickat. Vi återkommer så snart vi kan.</p>}>
         <a className="button primary" href="/">
           Till startsidan
         </a>
@@ -568,7 +568,7 @@ function ContactForm() {
   return (
     <FormShell
       title="Kontakta oss"
-      intro={<p>Skicka ett meddelande till styrelsen så återkommer vi.</p>}
+      intro={<p>Skicka ett meddelande till klubben så återkommer vi.</p>}
     >
       <form
         className="site-form"

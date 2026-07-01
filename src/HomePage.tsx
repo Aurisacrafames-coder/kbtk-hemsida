@@ -24,8 +24,8 @@ const defaultAktuelltItems: AktuelltItem[] = [
     title: 'Provträning för nya spelare',
     text: 'Klubben erbjuder en provträning för dig som vill testa pingis innan du bestämmer dig.',
     link: {
-      label: 'styrelsen@kungalvsbtk.se',
-      href: 'mailto:styrelsen@kungalvsbtk.se',
+      label: 'Anmäl intresse',
+      href: '/form/borja-spela',
     },
   },
 ];
@@ -154,9 +154,9 @@ const clubInfoRows = [
     href: 'tel:+46761116510',
   },
   {
-    label: 'E-post',
-    value: 'styrelsen@kungalvsbtk.se',
-    href: 'mailto:styrelsen@kungalvsbtk.se',
+    label: 'Kontakt',
+    value: 'Kontaktformulär',
+    href: '/form/kontakt',
   },
   {
     label: 'Hemsida',
@@ -217,7 +217,7 @@ const faqs = [
   {
     question: 'När tränar min grupp?',
     answer:
-      'Aktuella tider finns under Träningstider. Om du är osäker på grupp eller nivå är det bäst att kontakta styrelsen.',
+      'Aktuella tider finns under Träningstider. Om du är osäker på grupp eller nivå kan du höra av dig via kontaktformuläret.',
     link: { label: 'Se träningstider', href: '#traning' },
   },
   {
@@ -228,7 +228,8 @@ const faqs = [
   {
     question: 'Hur anmäler jag mig till provträning?',
     answer:
-      'Skicka intresse via mejl till styrelsen@kungalvsbtk.se med namn, ålder, kontaktuppgifter och eventuell tidigare erfarenhet.',
+      'Använd formuläret under Börja spela med namn, ålder, kontaktuppgifter och eventuell tidigare erfarenhet.',
+    link: { label: 'Anmäl intresse', href: '/form/borja-spela' },
   },
   {
     question: 'Vad kostar det och hur betalar jag?',
@@ -239,7 +240,7 @@ const faqs = [
   {
     question: 'Hur får jag access till hallen?',
     answer:
-      'Ansök om dörraccess via formuläret på hemsidan, eller kontakta styrelsen om du är osäker.',
+      'Ansök om dörraccess via formuläret på hemsidan, eller hör av dig till klubben om du är osäker.',
     link: { label: 'Ansök om dörraccess', href: '/form/doraccess' },
   },
   {
@@ -343,7 +344,7 @@ function HomePage() {
             <span className="card-label">Aktuellt</span>
             {aktuelltItems.length === 0 ? (
               <p className="aktuellt-empty">
-                Inget aktuellt just nu. Hör av dig till styrelsen om du har frågor.
+                Inget aktuellt just nu. Hör av dig till klubben om du har frågor.
               </p>
             ) : (
               <div className="aktuellt-list">
@@ -394,7 +395,7 @@ function HomePage() {
             <h2>Träningstider</h2>
             <p>
               Här visas klubbens aktuella träningstider per grupp. Schemat
-              uppdateras automatiskt när styrelsen gör ändringar.
+              uppdateras automatiskt när klubben gör ändringar.
             </p>
           </div>
 
@@ -474,7 +475,7 @@ function HomePage() {
               </a>
               <div className="quick-links">
                 <a href="#sponsorer">Våra sponsorer</a>
-                <a href="#kontakt">Kontakta styrelsen</a>
+                <a href="#kontakt">Kontakta klubben</a>
                 <a href="/form/doraccess">Dörraccess</a>
                 <a href="/form/boka-hall">Boka KBTK-hallen</a>
               </div>
@@ -577,7 +578,7 @@ function HomePage() {
               </p>
               <p>
                 Efter provträning: swisha senast inom en vecka om du vill fortsätta. Vill
-                du inte fortsätta, meddela styrelsen inom en vecka så slipper du faktura.
+                du inte fortsätta, hör av dig till klubben inom en vecka så slipper du faktura.
               </p>
             </article>
           </div>
@@ -638,12 +639,14 @@ function HomePage() {
             <h2>Prata med Kungälvs BTK</h2>
             <p>
               Har du frågor om träning, medlemskap, tävling eller hallen? Hör av
-              dig till styrelsen så hjälper vi dig vidare.
+              dig till klubben så hjälper vi dig vidare.
             </p>
           </div>
           <div className="contact-card">
-            <a href="mailto:styrelsen@kungalvsbtk.se">styrelsen@kungalvsbtk.se</a>
-            <a className="button secondary contact-form-link" href="/form/kontakt">
+            <p className="contact-lead">
+              Det enklaste sättet att nå oss är via kontaktformuläret.
+            </p>
+            <a className="button primary contact-form-link" href="/form/kontakt">
               Skicka meddelande
             </a>
             <div className="social-links" aria-label="Sociala medier">
