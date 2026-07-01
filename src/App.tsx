@@ -22,7 +22,7 @@ export default function App() {
     <>
       <header className="site-header">
         <a className="brand" href="/" aria-label="Till startsidan">
-          <img className="brand-logo" src="/kbtk-club-logo.webp?v=3" alt="Kungälvs Bordtennisklubb" />
+          <img className="brand-logo" src="/kbtk-logo.png" alt="Kungälvs Bordtennisklubb" />
           <span>
             <strong>Kungälvs BTK</strong>
             <small>Vi älskar pingis</small>

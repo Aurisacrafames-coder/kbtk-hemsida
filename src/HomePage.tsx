@@ -250,7 +250,7 @@ const faqs = [
   },
 ];
 
-const clubLogo = '/kbtk-club-logo.webp?v=3';
+const clubLogo = '/kbtk-logo.png';
 
 function HomePage() {
   const [aktuelltItems, setAktuelltItems] = useState<AktuelltItem[]>(
