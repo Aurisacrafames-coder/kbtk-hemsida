@@ -173,7 +173,6 @@ const clubInfoRows = [
   },
 ];
 
-const checkinScheduleUrl = `${checkinBaseUrl}/schema`;
 const checkinScheduleEmbedUrl = `${checkinBaseUrl}/schema/embed`;
 
 const visitorPaths = [
@@ -394,8 +393,8 @@ function HomePage() {
             <p className="eyebrow">Träning</p>
             <h2>Träningstider</h2>
             <p>
-              Aktuellt gruppschema hämtas från KBTK Check-in. Om schemat inte
-              visas kan du öppna det i en egen flik.
+              Här visas klubbens aktuella träningstider per grupp. Schemat
+              uppdateras automatiskt när styrelsen gör ändringar.
             </p>
           </div>
 
@@ -405,12 +404,6 @@ function HomePage() {
               title="KBTK träningsschema"
               loading="lazy"
             />
-          </div>
-
-          <div className="schedule-actions">
-            <a className="button primary" href={checkinScheduleUrl}>
-              Öppna hela schemat
-            </a>
           </div>
         </section>
 
