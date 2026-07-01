@@ -39,16 +39,24 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     id: 'fees',
     question: 'Vad kostar det och hur betalar jag?',
     answer:
-      'Medlemsavgiften är 350 kr per säsong. Träningsavgiften varierar per grupp (1 000–1 800 kr för höst/vår). Betala via Swish 123 260 3272.',
-    keywords: ['avgift', 'kostnad', 'pris', 'swish', 'betala', 'pengar', 'medlemsavgift'],
+      'Medlemsavgiften är 350 kr per säsong. Träningsavgiften varierar per grupp (1 000–1 800 kr för höst/vår). Betala via Swish 123 260 3272. När avgiften är betald registrerar klubben dig och du får en inchecknings-tagg i hallen.',
+    keywords: ['avgift', 'kostnad', 'pris', 'swish', 'betala', 'pengar', 'medlemsavgift', 'tagg', 'inchecknings-tagg'],
     link: { label: 'Se alla avgifter', href: '#avgifter' },
+  },
+  {
+    id: 'checkin',
+    question: 'Hur fungerar incheckning i hallen?',
+    answer:
+      'Medlemmar checkar in med en personlig inchecknings-tagg vid läsaren i hallen. Taggen kopplas till dig när du är registrerad och har betalat avgiften. Incheckningen hjälper klubben följa närvaro och ligger till grund för träningsschemat på hemsidan.',
+    keywords: ['incheckning', 'check-in', 'tagg', 'inchecknings-tagg', 'rfid', 'kiosk', 'närvaro', 'läsare'],
+    link: { label: 'Läs om check-in', href: '#incheckning' },
   },
   {
     id: 'door-access',
     question: 'Hur får jag access till hallen?',
     answer:
-      'Ansök om dörraccess via formuläret på hemsidan, eller hör av dig till klubben om du är osäker.',
-    keywords: ['dörr', 'access', 'kod', 'lås', 'hallen', 'öppna'],
+      'Medlemmar använder inchecknings-tagg vid träning. Föräldrar som behöver kunna öppna dörren själva (t.ex. under fria tider med barnet) kan ansöka om dörraccess via formuläret.',
+    keywords: ['dörr', 'access', 'kod', 'lås', 'hallen', 'öppna', 'förälder'],
     link: { label: 'Ansök om dörraccess', href: '/form/doraccess' },
   },
   {
@@ -80,6 +88,6 @@ export const FAQ_ENTRIES: FaqEntry[] = [
 export const FAQ_STARTER_QUESTIONS = [
   'När tränar min grupp?',
   'Vad kostar det?',
+  'Hur fungerar incheckning?',
   'Hur anmäler jag provträning?',
-  'Hur får jag dörraccess?',
 ];

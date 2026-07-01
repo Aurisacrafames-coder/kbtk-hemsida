@@ -105,7 +105,8 @@ function TrialSignupForm() {
       intro={
         <p>
           Anmäl intresse till provträning. Om du vill fortsätta efteråt swishar du medlems- och
-          träningsavgiften till klubben senast inom en vecka.
+          träningsavgiften till klubben senast inom en vecka. Därefter registrerar klubben dig och
+          du får en inchecknings-tagg i hallen.
         </p>
       }
     >
@@ -481,7 +482,13 @@ function DoorAccessForm() {
   return (
     <FormShell
       title="Ansök om dörraccess"
-      intro={<p>För föräldrar till barn i träningsgrupp som behöver access till hallen.</p>}
+      intro={
+        <p>
+          För föräldrar till barn i träningsgrupp som behöver kunna öppna dörren själva, t.ex.
+          under fria tider i hallen. Medlemmens inchecknings-tagg vid träning är något annat — läs
+          mer under <a href="/#incheckning">check-in i hallen</a>.
+        </p>
+      }
     >
       <form
         className="site-form"

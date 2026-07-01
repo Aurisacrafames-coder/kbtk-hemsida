@@ -194,7 +194,7 @@ const visitorPaths = [
   {
     title: 'Klubbinfo',
     text: 'Om klubben, hallen och hur du når oss.',
-    topics: ['Om KBTK', 'Hallen', 'Dörraccess'],
+    topics: ['Om KBTK', 'Hallen', 'Incheckning', 'Dörraccess'],
     href: '#klubbinfo',
     cta: 'Läs klubbinfo',
   },
@@ -332,7 +332,8 @@ function HomePage() {
             <p>
               Ny i klubben? Börja med en provträning så hjälper vi dig till rätt
               grupp. Efter provträningen betalar du medlems- och träningsavgift om du vill
-              fortsätta — se <a href="#avgifter">Avgifter</a> för mer info.
+              fortsätta — då registreras du som medlem och får en inchecknings-tagg i hallen.
+              Se <a href="#avgifter">Avgifter</a> och <a href="#incheckning">check-in</a>.
             </p>
             <div className="quick-links">
               <a href="/form/borja-spela">Anmäl intresse</a>
@@ -358,7 +359,7 @@ function HomePage() {
             <h2>Träningstider</h2>
             <p>
               Här visas klubbens aktuella träningstider per grupp. Schemat
-              uppdateras automatiskt när klubben gör ändringar.
+              uppdateras automatiskt när klubben gör ändringar i check-in-systemet.
             </p>
           </div>
 
@@ -368,6 +369,47 @@ function HomePage() {
               title="KBTK träningsschema"
               loading="lazy"
             />
+          </div>
+        </section>
+
+        <section className="section split" id="incheckning">
+          <div>
+            <p className="eyebrow">Incheckning</p>
+            <h2>Check-in i hallen — varför och hur</h2>
+            <p>
+              KBTK använder ett enkelt check-in-system i hallen. När du betalat
+              medlems- och träningsavgift registrerar klubben dig och du får ett
+              personlig inchecknings-tagg som du använder vid varje träning.
+            </p>
+            <p>
+              Incheckningen hjälper oss att veta vem som är på plats, planera träningen
+              bättre och följa närvaro. Uppgifterna ligger också till grund för
+              närvarorapportering mot Riksidrottförbundet (LOK). Träningsschemat ovan
+              hämtas från samma system.
+            </p>
+            <p>
+              Föräldrar som själva behöver kunna öppna dörren utanför barnets träning
+              ansöker separat om <a href="/form/doraccess">dörraccess</a> — det är
+              inte samma sak som medlemmens inchecknings-tagg.
+            </p>
+          </div>
+
+          <div className="panel">
+            <h3>Så kommer du igång</h3>
+            <ol className="checkin-steps">
+              <li>Provträna och anmäl intresse via formuläret.</li>
+              <li>Swisha medlems- och träningsavgiften inom en vecka om du vill fortsätta.</li>
+              <li>Klubben registrerar dig och kopplar din inchecknings-tagg.</li>
+              <li>Vid träning håller du taggen mot läsaren vid ingången — klart!</li>
+            </ol>
+            <p className="checkin-note">
+              Saknar du tagg eller fungerar det inte? Hör av dig till tränare eller styrelsen
+              så hjälper vi dig.
+            </p>
+            <div className="quick-links">
+              <a href="/form/borja-spela">Anmäl intresse</a>
+              <a href="/form/doraccess">Dörraccess för föräldrar</a>
+            </div>
           </div>
         </section>
 
@@ -438,6 +480,7 @@ function HomePage() {
               </a>
               <div className="quick-links">
                 <a href="#sponsorer">Våra sponsorer</a>
+                <a href="#incheckning">Check-in i hallen</a>
                 <a href="#kontakt">Kontakta klubben</a>
                 <a href="/form/doraccess">Dörraccess</a>
                 <a href="/form/boka-hall">Boka KBTK-hallen</a>
@@ -536,8 +579,12 @@ function HomePage() {
               </p>
               <p>
                 Efter provträning: swisha medlems- och träningsavgiften senast inom en vecka om du
-                vill fortsätta. Vill du inte fortsätta, hör av dig till klubben inom en vecka.
+                vill fortsätta. När betalningen är registrerad får du en inchecknings-tagg i hallen.
+                Vill du inte fortsätta, hör av dig till klubben inom en vecka.
               </p>
+              <a className="text-link" href="#incheckning">
+                Läs om check-in i hallen
+              </a>
             </article>
           </div>
         </section>
