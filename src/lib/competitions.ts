@@ -27,6 +27,27 @@ export type PublicCompetition = {
   classes: PublicCompetitionClass[];
 };
 
+export type PublicCompetitionRegistrations = {
+  submission_count: number;
+  by_class: Array<{
+    class_id: string;
+    class_label: string;
+    count: number;
+    names: string[];
+  }>;
+  entries: Array<{
+    submission_id: string;
+    name: string;
+    classes: { id: string; label: string }[];
+    registered_at: string;
+  }>;
+};
+
+export type PublicCompetitionDetails = {
+  competition: PublicCompetition;
+  registrations: PublicCompetitionRegistrations;
+};
+
 export async function fetchPublishedCompetitions() {
   const response = await fetch(`${checkinBaseUrl}/api/public/competitions`);
   const data = (await response.json()) as {
@@ -43,12 +64,20 @@ export async function fetchPublishedCompetition(slug: string) {
   const response = await fetch(`${checkinBaseUrl}/api/public/competitions/${encodeURIComponent(slug)}`);
   const data = (await response.json()) as {
     competition?: PublicCompetition;
+    registrations?: PublicCompetitionRegistrations;
     error?: string;
   };
   if (!response.ok || !data.competition) {
     throw new Error(data.error ?? 'Tävlingen hittades inte.');
   }
-  return data.competition;
+  return {
+    competition: data.competition,
+    registrations: data.registrations ?? {
+      submission_count: 0,
+      by_class: [],
+      entries: [],
+    },
+  } satisfies PublicCompetitionDetails;
 }
 
 export function formatCompetitionDate(value: string | null) {

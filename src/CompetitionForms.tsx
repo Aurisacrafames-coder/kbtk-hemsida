@@ -4,6 +4,7 @@ import {
   fetchPublishedCompetitions,
   formatCompetitionDate,
   type PublicCompetition,
+  type PublicCompetitionRegistrations,
   type PublicCompetitionSummary,
 } from './lib/competitions';
 import { FORM_SLUG_TYPES, submitSiteForm } from './lib/forms';
@@ -82,8 +83,69 @@ export function CompetitionListPage() {
   );
 }
 
+function CompetitionRegistrationsPanel({
+  registrations,
+  classes,
+}: {
+  registrations: PublicCompetitionRegistrations;
+  classes: PublicCompetition['classes'];
+}) {
+  const classBuckets = classes
+    .map((competitionClass) => {
+      const bucket = registrations.by_class.find((item) => item.class_id === competitionClass.id);
+      return (
+        bucket ?? {
+          class_id: competitionClass.id,
+          class_label: competitionClass.label,
+          count: 0,
+          names: [],
+        }
+      );
+    })
+    .filter((item) => item.count > 0);
+
+  if (registrations.submission_count === 0) {
+    return (
+      <section className="competition-registrations" aria-labelledby="competition-registrations-title">
+        <h3 id="competition-registrations-title">Anmälda</h3>
+        <p className="form-hint">Inga anmälda ännu.</p>
+      </section>
+    );
+  }
+
+  return (
+    <section className="competition-registrations" aria-labelledby="competition-registrations-title">
+      <h3 id="competition-registrations-title">
+        Anmälda ({registrations.submission_count})
+      </h3>
+      <p className="competition-registrations-lead">
+        Namn visas offentligt per klass så att du ser vilka som redan är anmälda.
+      </p>
+
+      <div className="competition-registrations-grid">
+        {classBuckets.map((bucket) => (
+          <article key={bucket.class_id} className="competition-registrations-class">
+            <h4>
+              {bucket.class_label}{' '}
+              <span>
+                {bucket.count} anmäld{bucket.count === 1 ? '' : 'a'}
+              </span>
+            </h4>
+            <ul>
+              {bucket.names.map((name, index) => (
+                <li key={`${bucket.class_id}-${index}-${name}`}>{name}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function CompetitionSignupPage({ slug }: { slug: string }) {
   const [competition, setCompetition] = useState<PublicCompetition | null>(null);
+  const [registrations, setRegistrations] = useState<PublicCompetitionRegistrations | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [submitError, setSubmitError] = useState('');
@@ -94,7 +156,10 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
 
   useEffect(() => {
     void fetchPublishedCompetition(slug)
-      .then(setCompetition)
+      .then((data) => {
+        setCompetition(data.competition);
+        setRegistrations(data.registrations);
+      })
       .catch((err) => setError(err instanceof Error ? err.message : 'Kunde inte ladda tävlingen.'))
       .finally(() => setLoading(false));
   }, [slug]);
@@ -198,6 +263,10 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
       <a className="text-link form-back" href="/form/tavling">
         Till alla tävlingar
       </a>
+
+      {registrations ? (
+        <CompetitionRegistrationsPanel registrations={registrations} classes={competition.classes} />
+      ) : null}
 
       <form className="site-form" onSubmit={(event) => void handleSubmit(event)}>
         <fieldset className="competition-class-picker">
