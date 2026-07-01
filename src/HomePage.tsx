@@ -421,10 +421,10 @@ function HomePage() {
 
           <div>
             <p className="eyebrow">Tävling</p>
-            <h2>Snabbt vidare till serier och anmälningar.</h2>
+            <h2>Serier, licens och tävlingsanmälan</h2>
             <p>
-              Samla tävlingsflödet på ett ställe så att spelare och föräldrar
-              snabbt hittar rätt länkar.
+              Följ serieläget för klubbens lag och anmäl licens eller tävling via
+              formulären.
             </p>
             <div className="quick-links">
               {quickLinks.map((item) => (
