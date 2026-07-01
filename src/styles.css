@@ -1156,6 +1156,22 @@ a {
   margin-top: 4px;
 }
 
+.swish-fee-breakdown {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.swish-fee-total {
+  margin: 10px 0 0;
+  color: var(--navy);
+  font-weight: 700;
+}
+
 .contact-form-link {
   display: inline-flex;
   margin-top: 16px;

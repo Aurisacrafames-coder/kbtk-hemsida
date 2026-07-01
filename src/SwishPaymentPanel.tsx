@@ -5,6 +5,11 @@ import {
   copyText,
 } from './lib/swish';
 
+export type SwishFeeLine = {
+  label: string;
+  amountSek: number;
+};
+
 type SwishPaymentPanelProps = {
   purpose: string;
   amount?: number | null;
@@ -12,6 +17,10 @@ type SwishPaymentPanelProps = {
   checkboxName: string;
   checkboxLabel: string;
   requireAmountField?: boolean;
+  /** `after_trial` = betalning efter provträning, inte före inskick. */
+  timing?: 'before_submit' | 'after_trial';
+  feeBreakdown?: SwishFeeLine[];
+  feeNote?: string;
 };
 
 export function SwishPaymentPanel({
@@ -21,8 +30,12 @@ export function SwishPaymentPanel({
   checkboxName,
   checkboxLabel,
   requireAmountField = false,
+  timing = 'before_submit',
+  feeBreakdown,
+  feeNote,
 }: SwishPaymentPanelProps) {
   const [copiedField, setCopiedField] = useState<'number' | 'message' | null>(null);
+  const afterTrial = timing === 'after_trial';
 
   async function handleCopy(field: 'number' | 'message', value: string) {
     const ok = await copyText(value);
@@ -33,9 +46,15 @@ export function SwishPaymentPanel({
 
   return (
     <section className="swish-flow" aria-labelledby="swish-flow-title">
-      <h3 id="swish-flow-title">Betala med Swish innan du skickar in</h3>
+      <h3 id="swish-flow-title">
+        {afterTrial
+          ? 'Så swishar du medlems- och träningsavgiften'
+          : 'Betala med Swish innan du skickar in'}
+      </h3>
       <p className="swish-flow-lead">
-        Anmälan behandlas när klubben ser betalningen på Swish. Följ stegen nedan i ordning.
+        {afterTrial
+          ? 'Du swishar inte nu. Om du vill fortsätta efter provträningen gör du det senast inom en vecka.'
+          : 'Anmälan behandlas när klubben ser betalningen på Swish. Följ stegen nedan i ordning.'}
       </p>
 
       <ol className="swish-flow-steps">
@@ -51,7 +70,22 @@ export function SwishPaymentPanel({
               {copiedField === 'number' ? 'Kopierat' : 'Kopiera nummer'}
             </button>
           </div>
+          {feeBreakdown && feeBreakdown.length > 0 ? (
+            <ul className="swish-fee-breakdown">
+              {feeBreakdown.map((line) => (
+                <li key={line.label}>
+                  {line.label}: <strong>{line.amountSek.toLocaleString('sv-SE')} kr</strong>
+                </li>
+              ))}
+            </ul>
+          ) : null}
           {amount ? (
+            <p className="swish-fee-total">
+              Totalt att swisha: <strong>{amount.toLocaleString('sv-SE')} kr</strong>
+            </p>
+          ) : null}
+          {!amount && feeNote ? <p className="swish-step-note">{feeNote}</p> : null}
+          {!feeBreakdown?.length && amount && !afterTrial ? (
             <p className="swish-step-note">
               Belopp: <strong>{amount.toLocaleString('sv-SE')} kr</strong>
             </p>
@@ -74,7 +108,9 @@ export function SwishPaymentPanel({
         </li>
 
         <li>
-          <span className="swish-step-title">Bekräfta och skicka formuläret</span>
+          <span className="swish-step-title">
+            {afterTrial ? 'Bekräfta och skicka intresseanmälan' : 'Bekräfta och skicka formuläret'}
+          </span>
           {requireAmountField ? (
             <label className="swish-amount-field">
               Belopp du swishat (kr)

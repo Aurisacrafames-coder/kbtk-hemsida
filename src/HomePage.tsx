@@ -518,19 +518,25 @@ function HomePage() {
             </article>
 
             <article className="fee-card featured">
-              <h3>Betalning</h3>
+              <h3>Betalning med Swish</h3>
               <div className="info-box">
                 <strong>Swish:</strong> 123 260 3272
-                <span>Ange namn och grupp i meddelandet.</span>
+                <span>Skriv namn och grupp i meddelandet.</span>
               </div>
+              <p>
+                <strong>Medlemsavgift:</strong> 350 kr/säsong
+                <br />
+                <strong>Träningsavgift:</strong> 1 000–1 800 kr/säsong beroende på grupp (se tabellen
+                ovan)
+              </p>
               <p>
                 <strong>Bankgiro:</strong> 479-3915
                 <br />
                 <strong>Friskvårdsbidrag:</strong> via Epassi
               </p>
               <p>
-                Efter provträning: swisha senast inom en vecka om du vill fortsätta. Vill
-                du inte fortsätta, hör av dig till klubben inom en vecka.
+                Efter provträning: swisha medlems- och träningsavgiften senast inom en vecka om du
+                vill fortsätta. Vill du inte fortsätta, hör av dig till klubben inom en vecka.
               </p>
             </article>
           </div>

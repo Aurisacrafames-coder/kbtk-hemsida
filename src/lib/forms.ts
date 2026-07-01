@@ -86,6 +86,35 @@ export const TRIAL_GROUP_OPTIONS = [
   'Övriga spelare',
 ] as const;
 
+export const MEMBERSHIP_FEE_SEK = 350;
+
+export type TrialGroupFeeInfo = {
+  trainingFeeSek: number | null;
+  trainingLabel: string;
+  trainingNote?: string;
+};
+
+/** Avgifter per provträningsgrupp (höst/vår, sept–maj). */
+export const TRIAL_GROUP_FEE_INFO: Record<(typeof TRIAL_GROUP_OPTIONS)[number], TrialGroupFeeInfo> = {
+  'Nybörjare 7-10 år': { trainingFeeSek: 1000, trainingLabel: 'Nybörjare' },
+  'Nybörjare 11-14 år': { trainingFeeSek: 1000, trainingLabel: 'Nybörjare' },
+  Motionärer: { trainingFeeSek: 1150, trainingLabel: 'Motionsgrupp' },
+  'Övriga spelare': {
+    trainingFeeSek: null,
+    trainingLabel: 'Enligt grupp',
+    trainingNote:
+      'Träningsavgiften beror på vilken grupp du placeras i (1 000–1 800 kr/säsong). Klubben bekräftar belopp efter provträningen.',
+  },
+};
+
+export function getTrialMembershipTotal(group: string) {
+  const info = TRIAL_GROUP_FEE_INFO[group as (typeof TRIAL_GROUP_OPTIONS)[number]];
+  if (!info || info.trainingFeeSek === null) {
+    return null;
+  }
+  return MEMBERSHIP_FEE_SEK + info.trainingFeeSek;
+}
+
 export const LICENSE_OPTIONS = [
   { value: 'd', label: 'D-licens', fee: 190 },
   { value: 'a_barn', label: 'A-licens barn', fee: 350 },

@@ -4,7 +4,10 @@ import {
   FORM_SLUG_TYPES,
   HALL_BOOKING_SLOTS,
   LICENSE_OPTIONS,
+  MEMBERSHIP_FEE_SEK,
+  TRIAL_GROUP_FEE_INFO,
   TRIAL_GROUP_OPTIONS,
+  getTrialMembershipTotal,
   submitSiteForm,
   type FormSlug,
 } from './lib/forms';
@@ -72,6 +75,16 @@ function TrialSignupForm() {
   const { pending, error, success, handleSubmit } = useSiteForm(FORM_SLUG_TYPES['borja-spela']);
   const [parentMembership, setParentMembership] = useState(false);
   const [name, setName] = useState('');
+  const [group, setGroup] = useState('');
+
+  const groupFeeInfo =
+    TRIAL_GROUP_FEE_INFO[group as (typeof TRIAL_GROUP_OPTIONS)[number]] ?? null;
+  const membershipTotal = group ? getTrialMembershipTotal(group) : null;
+  const membershipSwishMessage = buildSwishMessage({
+    purpose: 'Medlemsavgift och träning',
+    name,
+    detail: group || undefined,
+  });
 
   if (success) {
     return (
@@ -91,8 +104,8 @@ function TrialSignupForm() {
       title="Börja spela"
       intro={
         <p>
-          Anmäl intresse till provträning. Efter provträningen swishar du inom en vecka om du
-          vill fortsätta. Föräldramedlemskap kostar 350 kr per säsong.
+          Anmäl intresse till provträning. Om du vill fortsätta efteråt swishar du medlems- och
+          träningsavgiften till klubben senast inom en vecka.
         </p>
       }
     >
@@ -125,7 +138,12 @@ function TrialSignupForm() {
       >
         <label>
           Välj grupp att provträna i
-          <select name="group" required defaultValue="">
+          <select
+            name="group"
+            required
+            defaultValue=""
+            onChange={(event) => setGroup(event.target.value)}
+          >
             <option value="" disabled>
               Välj grupp
             </option>
@@ -204,25 +222,45 @@ function TrialSignupForm() {
           </span>
         </label>
 
+        {group && groupFeeInfo ? (
+          <SwishPaymentPanel
+            purpose="Medlemsavgift och träning"
+            amount={membershipTotal}
+            feeBreakdown={[
+              { label: 'Medlemsavgift', amountSek: MEMBERSHIP_FEE_SEK },
+              ...(groupFeeInfo.trainingFeeSek !== null
+                ? [
+                    {
+                      label: `Träningsavgift (${groupFeeInfo.trainingLabel})`,
+                      amountSek: groupFeeInfo.trainingFeeSek,
+                    },
+                  ]
+                : []),
+            ]}
+            feeNote={groupFeeInfo.trainingNote}
+            message={membershipSwishMessage}
+            timing="after_trial"
+            checkboxName="continue_intent_confirmed"
+            checkboxLabel="Jag förstår att jag swishar medlems- och träningsavgiften inom en vecka om jag vill fortsätta efter provträningen."
+          />
+        ) : (
+          <p className="form-hint">
+            Välj grupp ovan för att se avgifter och Swish-instruktioner.
+          </p>
+        )}
+
         {parentMembership ? (
           <SwishPaymentPanel
             purpose="Föräldramedlemskap"
-            amount={350}
+            amount={MEMBERSHIP_FEE_SEK}
             message={buildSwishMessage({
               purpose: 'Föräldramedlemskap',
               name,
             })}
             checkboxName="parent_swish_confirmed"
-            checkboxLabel="Jag har swishat 350 kr till klubben innan jag skickar in."
+            checkboxLabel={`Jag har swishat ${MEMBERSHIP_FEE_SEK.toLocaleString('sv-SE')} kr för föräldramedlemskap innan jag skickar in.`}
           />
-        ) : (
-          <label className="checkbox-row">
-            <input type="checkbox" name="continue_intent_confirmed" required />
-            <span>
-              Jag swishar inom en vecka efter provträningen om jag vill fortsätta (123 260 3272).
-            </span>
-          </label>
-        )}
+        ) : null}
 
         {error ? <p className="form-error">{error}</p> : null}
         <button className="button primary" type="submit" disabled={pending}>
