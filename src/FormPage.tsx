@@ -1,0 +1,630 @@
+import { useState, type FormEvent, type ReactNode } from 'react';
+import {
+  FORM_SLUG_LABELS,
+  FORM_SLUG_TYPES,
+  HALL_BOOKING_SLOTS,
+  LICENSE_OPTIONS,
+  TRIAL_GROUP_OPTIONS,
+  submitSiteForm,
+  type FormSlug,
+} from './lib/forms';
+import { validateSwedishPersonalId } from './lib/personal-id';
+
+type FormPageProps = {
+  slug: FormSlug;
+};
+
+type FormShellProps = {
+  title: string;
+  intro: ReactNode;
+  children: ReactNode;
+};
+
+function FormShell({ title, intro, children }: FormShellProps) {
+  return (
+    <main className="section form-page">
+      <a className="text-link form-back" href="/">
+        Tillbaka till startsidan
+      </a>
+      <div className="section-heading">
+        <p className="eyebrow">Formulär</p>
+        <h1>{title}</h1>
+        <div className="form-intro">{intro}</div>
+      </div>
+      <div className="form-panel">{children}</div>
+    </main>
+  );
+}
+
+function useSiteForm(formType: string) {
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement>,
+    buildPayload: (formData: FormData) => Record<string, unknown>,
+  ) {
+    event.preventDefault();
+    setPending(true);
+    setError('');
+    try {
+      const formData = new FormData(event.currentTarget);
+      await submitSiteForm({
+        form_type: formType,
+        ...buildPayload(formData),
+      });
+      setSuccess(true);
+      event.currentTarget.reset();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Kunde inte skicka formuläret.');
+    } finally {
+      setPending(false);
+    }
+  }
+
+  return { pending, error, success, handleSubmit };
+}
+
+function SwishNote({ amount }: { amount?: number }) {
+  return (
+    <div className="info-box">
+      <strong>Swish:</strong> 123 260 3272
+      {amount ? <span>Betala {amount.toLocaleString('sv-SE')} kr innan du skickar in.</span> : null}
+    </div>
+  );
+}
+
+function TrialSignupForm() {
+  const { pending, error, success, handleSubmit } = useSiteForm(FORM_SLUG_TYPES['borja-spela']);
+  const [parentMembership, setParentMembership] = useState(false);
+
+  if (success) {
+    return (
+      <FormShell
+        title="Tack för din anmälan"
+        intro={<p>Vi har tagit emot ditt intresse. Styrelsen återkommer så snart vi kan.</p>}
+      >
+        <a className="button primary" href="/">
+          Till startsidan
+        </a>
+      </FormShell>
+    );
+  }
+
+  return (
+    <FormShell
+      title="Börja spela"
+      intro={
+        <p>
+          Anmäl intresse till provträning. Efter provträningen swishar du inom en vecka om du
+          vill fortsätta. Föräldramedlemskap kostar 350 kr per säsong.
+        </p>
+      }
+    >
+      <form
+        className="site-form"
+        onSubmit={(event) =>
+          void handleSubmit(event, (formData) => {
+            const personalId = validateSwedishPersonalId(
+              String(formData.get('personal_id_date') ?? ''),
+              String(formData.get('personal_id_suffix') ?? ''),
+            );
+            if (!personalId.ok) {
+              throw new Error(personalId.message);
+            }
+
+            return {
+              group: formData.get('group'),
+              name: formData.get('name'),
+              email: formData.get('email'),
+              phone: formData.get('phone'),
+              personal_id_date: personalId.normalizedDate,
+              personal_id_suffix: personalId.normalizedSuffix,
+              experience: formData.get('experience'),
+              parent_membership: formData.get('parent_membership') === 'on',
+              parent_swish_confirmed: formData.get('parent_swish_confirmed') === 'on',
+              continue_intent_confirmed: formData.get('continue_intent_confirmed') === 'on',
+            };
+          })
+        }
+      >
+        <label>
+          Välj grupp att provträna i
+          <select name="group" required defaultValue="">
+            <option value="" disabled>
+              Välj grupp
+            </option>
+            {TRIAL_GROUP_OPTIONS.map((group) => (
+              <option key={group} value={group}>
+                {group}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Namn
+          <input name="name" required autoComplete="name" />
+        </label>
+
+        <label>
+          Mejladress
+          <input name="email" type="email" required autoComplete="email" />
+        </label>
+
+        <label>
+          Telefonnummer
+          <input name="phone" type="tel" required autoComplete="tel" />
+        </label>
+
+        <label>
+          Personnummer (ååååmmdd)
+          <input
+            name="personal_id_date"
+            inputMode="numeric"
+            pattern="[0-9]{8}"
+            maxLength={8}
+            required
+            placeholder="19900101"
+          />
+        </label>
+
+        <label>
+          Personnummer (fyra siffror)
+          <input
+            name="personal_id_suffix"
+            inputMode="numeric"
+            pattern="[0-9]{4}"
+            maxLength={4}
+            required
+            placeholder="1234"
+          />
+        </label>
+        <p className="form-hint">Vi kontrollerar att datum och kontrollsiffra är giltiga.</p>
+
+        <label>
+          Tidigare erfarenhet
+          <textarea
+            name="experience"
+            rows={4}
+            placeholder="Hjälp oss placera dig i rätt grupp."
+          />
+        </label>
+
+        <label className="checkbox-row">
+          <input
+            type="checkbox"
+            name="parent_membership"
+            checked={parentMembership}
+            onChange={(event) => setParentMembership(event.target.checked)}
+          />
+          <span>
+            Jag är förälder till ett barn i KBTK och vill ha föräldramedlemskap (350 kr/säsong).
+          </span>
+        </label>
+
+        {parentMembership ? (
+          <>
+            <SwishNote amount={350} />
+            <label className="checkbox-row">
+              <input type="checkbox" name="parent_swish_confirmed" required />
+              <span>Jag har swishat 350 kr till klubben.</span>
+            </label>
+          </>
+        ) : (
+          <label className="checkbox-row">
+            <input type="checkbox" name="continue_intent_confirmed" required />
+            <span>
+              Jag swishar inom en vecka efter provträningen om jag vill fortsätta (123 260 3272).
+            </span>
+          </label>
+        )}
+
+        {error ? <p className="form-error">{error}</p> : null}
+        <button className="button primary" type="submit" disabled={pending}>
+          {pending ? 'Skickar…' : 'Skicka in'}
+        </button>
+      </form>
+    </FormShell>
+  );
+}
+
+function LicenseForm() {
+  const { pending, error, success, handleSubmit } = useSiteForm(FORM_SLUG_TYPES.licens);
+  const [fee, setFee] = useState<number | null>(null);
+
+  if (success) {
+    return (
+      <FormShell title="Tack!" intro={<p>Licensanmälan är mottagen.</p>}>
+        <a className="button primary" href="/">
+          Till startsidan
+        </a>
+      </FormShell>
+    );
+  }
+
+  return (
+    <FormShell
+      title="Licensanmälan"
+      intro={<p>Anmäl licens och swisha innan du skickar in formuläret.</p>}
+    >
+      <form
+        className="site-form"
+        onSubmit={(event) =>
+          void handleSubmit(event, (formData) => ({
+            name: formData.get('name'),
+            email: formData.get('email'),
+            license_type: formData.get('license_type'),
+            swish_confirmed: formData.get('swish_confirmed') === 'on',
+          }))
+        }
+      >
+        <label>
+          Namn
+          <input name="name" required />
+        </label>
+        <label>
+          Mejladress
+          <input name="email" type="email" required />
+        </label>
+        <label>
+          Välj licens
+          <select
+            name="license_type"
+            required
+            defaultValue=""
+            onChange={(event) => {
+              const option = LICENSE_OPTIONS.find((item) => item.value === event.target.value);
+              setFee(option?.fee ?? null);
+            }}
+          >
+            <option value="" disabled>
+              Välj licens
+            </option>
+            {LICENSE_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label} ({option.fee} kr)
+              </option>
+            ))}
+          </select>
+        </label>
+        <SwishNote amount={fee ?? undefined} />
+        <label className="checkbox-row">
+          <input type="checkbox" name="swish_confirmed" required />
+          <span>Jag har swishat licensavgiften.</span>
+        </label>
+        {error ? <p className="form-error">{error}</p> : null}
+        <button className="button primary" type="submit" disabled={pending}>
+          {pending ? 'Skickar…' : 'Skicka in'}
+        </button>
+      </form>
+    </FormShell>
+  );
+}
+
+function CompetitionForm() {
+  const { pending, error, success, handleSubmit } = useSiteForm(FORM_SLUG_TYPES.tavling);
+
+  if (success) {
+    return (
+      <FormShell title="Tack!" intro={<p>Tävlingsanmälan är mottagen.</p>}>
+        <a className="button primary" href="/">
+          Till startsidan
+        </a>
+      </FormShell>
+    );
+  }
+
+  return (
+    <FormShell
+      title="Tävlingsanmälan"
+      intro={<p>Swisha tävlingsavgiften innan du skickar in. Ange tävling och klass.</p>}
+    >
+      <form
+        className="site-form"
+        onSubmit={(event) =>
+          void handleSubmit(event, (formData) => ({
+            name: formData.get('name'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            competition: formData.get('competition'),
+            class_info: formData.get('class_info'),
+            team_interest: formData.get('team_interest'),
+            swish_confirmed: formData.get('swish_confirmed') === 'on',
+          }))
+        }
+      >
+        <label>
+          Namn
+          <input name="name" required />
+        </label>
+        <label>
+          Mejladress
+          <input name="email" type="email" required />
+        </label>
+        <label>
+          Telefonnummer
+          <input name="phone" type="tel" required />
+        </label>
+        <label>
+          Tävling
+          <input name="competition" required placeholder="T.ex. Bajen Cup höst" />
+        </label>
+        <label>
+          Klass/dag
+          <textarea name="class_info" rows={3} placeholder="Skriv klass och dag." />
+        </label>
+        <label>
+          Lag-DM eller önskemål
+          <textarea
+            name="team_interest"
+            rows={3}
+            placeholder="Intresse för lagtävling eller spelpartner."
+          />
+        </label>
+        <SwishNote />
+        <label className="checkbox-row">
+          <input type="checkbox" name="swish_confirmed" required />
+          <span>Jag har swishat tävlingsavgiften.</span>
+        </label>
+        {error ? <p className="form-error">{error}</p> : null}
+        <button className="button primary" type="submit" disabled={pending}>
+          {pending ? 'Skickar…' : 'Skicka in'}
+        </button>
+      </form>
+    </FormShell>
+  );
+}
+
+function DoorAccessForm() {
+  const { pending, error, success, handleSubmit } = useSiteForm(FORM_SLUG_TYPES.doraccess);
+
+  if (success) {
+    return (
+      <FormShell title="Tack!" intro={<p>Din ansökan om dörraccess är mottagen.</p>}>
+        <a className="button primary" href="/">
+          Till startsidan
+        </a>
+      </FormShell>
+    );
+  }
+
+  return (
+    <FormShell
+      title="Ansök om dörraccess"
+      intro={<p>För föräldrar till barn i träningsgrupp som behöver access till hallen.</p>}
+    >
+      <form
+        className="site-form"
+        onSubmit={(event) =>
+          void handleSubmit(event, (formData) => ({
+            parent_name: formData.get('parent_name'),
+            child_name: formData.get('child_name'),
+            group_info: formData.get('group_info'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            rules_accepted: formData.get('rules_accepted') === 'on',
+          }))
+        }
+      >
+        <label>
+          Förälderns namn
+          <input name="parent_name" required />
+        </label>
+        <label>
+          Barnets namn
+          <input name="child_name" required />
+        </label>
+        <label>
+          Vilken grupp tränar barnet i?
+          <textarea
+            name="group_info"
+            rows={3}
+            required
+            placeholder="T.ex. 10, 11, 12, 13, 14, D, C eller B."
+          />
+        </label>
+        <label>
+          Mejladress
+          <input name="email" type="email" required />
+        </label>
+        <label>
+          Telefonnummer
+          <input name="phone" type="tel" required />
+        </label>
+        <label className="checkbox-row">
+          <input type="checkbox" name="rules_accepted" required />
+          <span>Jag försäkrar att uppgifterna stämmer och att jag följer klubbens regler.</span>
+        </label>
+        {error ? <p className="form-error">{error}</p> : null}
+        <button className="button primary" type="submit" disabled={pending}>
+          {pending ? 'Skickar…' : 'Skicka in'}
+        </button>
+      </form>
+    </FormShell>
+  );
+}
+
+function HallBookingForm() {
+  const { pending, error, success, handleSubmit } = useSiteForm(FORM_SLUG_TYPES['boka-hall']);
+  const [isMember, setIsMember] = useState(true);
+
+  if (success) {
+    return (
+      <FormShell title="Tack!" intro={<p>Bokningsförfrågan är mottagen. Styrelsen återkommer.</p>}>
+        <a className="button primary" href="/">
+          Till startsidan
+        </a>
+      </FormShell>
+    );
+  }
+
+  return (
+    <FormShell
+      title="Boka KBTK-hallen"
+      intro={
+        <p>
+          Hallen kan bokas för pingisfest när ingen träning eller match är inplanerad. Tider:
+          fre/lör 16:00–20:00. Swisha enligt prislista på klubbens sida efter bekräftelse.
+        </p>
+      }
+    >
+      <form
+        className="site-form"
+        onSubmit={(event) =>
+          void handleSubmit(event, (formData) => ({
+            first_name: formData.get('first_name'),
+            last_name: formData.get('last_name'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            booking_date: formData.get('booking_date'),
+            time_slot: formData.get('time_slot'),
+            is_member: formData.get('is_member') === 'on',
+            guest_count: formData.get('guest_count'),
+            member_reference: formData.get('member_reference'),
+            details: formData.get('details'),
+          }))
+        }
+      >
+        <label>
+          Datum
+          <input name="booking_date" type="date" required />
+        </label>
+        <label>
+          Tid
+          <select name="time_slot" required defaultValue="">
+            <option value="" disabled>
+              Välj tid
+            </option>
+            {HALL_BOOKING_SLOTS.map((slot) => (
+              <option key={slot.value} value={slot.value}>
+                {slot.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Förnamn
+          <input name="first_name" required />
+        </label>
+        <label>
+          Efternamn
+          <input name="last_name" required />
+        </label>
+        <label>
+          Mejladress
+          <input name="email" type="email" required />
+        </label>
+        <label>
+          Telefonnummer
+          <input name="phone" type="tel" required />
+        </label>
+        <label>
+          Antal personer
+          <input name="guest_count" type="number" min={1} required />
+        </label>
+        <label className="checkbox-row">
+          <input
+            type="checkbox"
+            name="is_member"
+            checked={isMember}
+            onChange={(event) => setIsMember(event.target.checked)}
+          />
+          <span>Jag är medlem</span>
+        </label>
+        {!isMember ? (
+          <label>
+            Medlemsreferens (minst en medlem ska vara närvarande)
+            <input name="member_reference" required />
+          </label>
+        ) : null}
+        <label>
+          Övrig info
+          <textarea name="details" rows={4} />
+        </label>
+        {error ? <p className="form-error">{error}</p> : null}
+        <button className="button primary" type="submit" disabled={pending}>
+          {pending ? 'Skickar…' : 'Skicka förfrågan'}
+        </button>
+      </form>
+    </FormShell>
+  );
+}
+
+function ContactForm() {
+  const { pending, error, success, handleSubmit } = useSiteForm(FORM_SLUG_TYPES.kontakt);
+
+  if (success) {
+    return (
+      <FormShell title="Tack!" intro={<p>Ditt meddelande är skickat till styrelsen.</p>}>
+        <a className="button primary" href="/">
+          Till startsidan
+        </a>
+      </FormShell>
+    );
+  }
+
+  return (
+    <FormShell
+      title="Kontakta oss"
+      intro={<p>Skicka ett meddelande till styrelsen så återkommer vi.</p>}
+    >
+      <form
+        className="site-form"
+        onSubmit={(event) =>
+          void handleSubmit(event, (formData) => ({
+            name: formData.get('name'),
+            email: formData.get('email'),
+            subject: formData.get('subject'),
+            message: formData.get('message'),
+          }))
+        }
+      >
+        <label>
+          Namn
+          <input name="name" required />
+        </label>
+        <label>
+          Mejladress
+          <input name="email" type="email" required />
+        </label>
+        <label>
+          Ämne
+          <input name="subject" required />
+        </label>
+        <label>
+          Meddelande
+          <textarea name="message" rows={6} required />
+        </label>
+        {error ? <p className="form-error">{error}</p> : null}
+        <button className="button primary" type="submit" disabled={pending}>
+          {pending ? 'Skickar…' : 'Skicka meddelande'}
+        </button>
+      </form>
+    </FormShell>
+  );
+}
+
+export function FormPage({ slug }: FormPageProps) {
+  switch (slug) {
+    case 'borja-spela':
+      return <TrialSignupForm />;
+    case 'licens':
+      return <LicenseForm />;
+    case 'tavling':
+      return <CompetitionForm />;
+    case 'doraccess':
+      return <DoorAccessForm />;
+    case 'boka-hall':
+      return <HallBookingForm />;
+    case 'kontakt':
+      return <ContactForm />;
+    default:
+      return null;
+  }
+}
+
+export function FormPageTitle({ slug }: FormPageProps) {
+  return FORM_SLUG_LABELS[slug];
+}
