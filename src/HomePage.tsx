@@ -509,8 +509,8 @@ function HomePage() {
             <article className="fee-card">
               <h3>Tävlingsavgift</h3>
               <p>
-                Betalas via Swish innan tävling. Anmäl dig på tävlingsanmälan efter
-                betalning.
+                Swisha tävlingsavgiften till klubben innan du skickar in anmälan. Formuläret
+                visar vilket belopp och meddelande du ska använda.
               </p>
               <a className="text-link" href="/form/tavling">
                 Till tävlingsanmälan

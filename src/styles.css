@@ -999,6 +999,97 @@ a {
   font-size: 0.92rem;
 }
 
+.swish-flow {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  background: var(--orange-soft);
+  border: 1px solid rgba(242, 140, 34, 0.35);
+  border-radius: 18px;
+}
+
+.swish-flow h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--navy);
+}
+
+.swish-flow-lead {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.swish-flow-steps {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 16px;
+}
+
+.swish-flow-steps li {
+  line-height: 1.55;
+}
+
+.swish-step-title {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--navy);
+  font-weight: 800;
+}
+
+.swish-step-note {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.swish-copy-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.swish-message-preview {
+  display: inline-block;
+  padding: 8px 10px;
+  background: #ffffff;
+  border: 1px solid rgba(7, 31, 58, 0.1);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  word-break: break-word;
+}
+
+.swish-copy-button {
+  padding: 8px 12px;
+  border: 1px solid rgba(7, 31, 58, 0.14);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--navy);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.swish-amount-field {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0 12px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.swish-amount-field input {
+  font-weight: 400;
+}
+
+.swish-confirm-row {
+  margin-top: 4px;
+}
+
 .contact-form-link {
   display: inline-flex;
   margin-top: 16px;

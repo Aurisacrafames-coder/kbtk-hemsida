@@ -9,6 +9,8 @@ import {
   type FormSlug,
 } from './lib/forms';
 import { validateSwedishPersonalId } from './lib/personal-id';
+import { buildSwishMessage } from './lib/swish';
+import { SwishPaymentPanel } from './SwishPaymentPanel';
 
 type FormPageProps = {
   slug: FormSlug;
@@ -66,18 +68,10 @@ function useSiteForm(formType: string) {
   return { pending, error, success, handleSubmit };
 }
 
-function SwishNote({ amount }: { amount?: number }) {
-  return (
-    <div className="info-box">
-      <strong>Swish:</strong> 123 260 3272
-      {amount ? <span>Betala {amount.toLocaleString('sv-SE')} kr innan du skickar in.</span> : null}
-    </div>
-  );
-}
-
 function TrialSignupForm() {
   const { pending, error, success, handleSubmit } = useSiteForm(FORM_SLUG_TYPES['borja-spela']);
   const [parentMembership, setParentMembership] = useState(false);
+  const [name, setName] = useState('');
 
   if (success) {
     return (
@@ -145,7 +139,13 @@ function TrialSignupForm() {
 
         <label>
           Namn
-          <input name="name" required autoComplete="name" />
+          <input
+            name="name"
+            required
+            autoComplete="name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
         </label>
 
         <label>
@@ -205,13 +205,16 @@ function TrialSignupForm() {
         </label>
 
         {parentMembership ? (
-          <>
-            <SwishNote amount={350} />
-            <label className="checkbox-row">
-              <input type="checkbox" name="parent_swish_confirmed" required />
-              <span>Jag har swishat 350 kr till klubben.</span>
-            </label>
-          </>
+          <SwishPaymentPanel
+            purpose="Föräldramedlemskap"
+            amount={350}
+            message={buildSwishMessage({
+              purpose: 'Föräldramedlemskap',
+              name,
+            })}
+            checkboxName="parent_swish_confirmed"
+            checkboxLabel="Jag har swishat 350 kr till klubben innan jag skickar in."
+          />
         ) : (
           <label className="checkbox-row">
             <input type="checkbox" name="continue_intent_confirmed" required />
@@ -233,6 +236,8 @@ function TrialSignupForm() {
 function LicenseForm() {
   const { pending, error, success, handleSubmit } = useSiteForm(FORM_SLUG_TYPES.licens);
   const [fee, setFee] = useState<number | null>(null);
+  const [name, setName] = useState('');
+  const [licenseLabel, setLicenseLabel] = useState('');
 
   if (success) {
     return (
@@ -247,7 +252,11 @@ function LicenseForm() {
   return (
     <FormShell
       title="Licensanmälan"
-      intro={<p>Anmäl licens och swisha innan du skickar in formuläret.</p>}
+      intro={
+        <p>
+          Fyll i uppgifterna, swisha licensavgiften till klubben och skicka sedan in formuläret.
+        </p>
+      }
     >
       <form
         className="site-form"
@@ -262,7 +271,12 @@ function LicenseForm() {
       >
         <label>
           Namn
-          <input name="name" required />
+          <input
+            name="name"
+            required
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
         </label>
         <label>
           Mejladress
@@ -277,6 +291,7 @@ function LicenseForm() {
             onChange={(event) => {
               const option = LICENSE_OPTIONS.find((item) => item.value === event.target.value);
               setFee(option?.fee ?? null);
+              setLicenseLabel(option?.label ?? '');
             }}
           >
             <option value="" disabled>
@@ -289,11 +304,21 @@ function LicenseForm() {
             ))}
           </select>
         </label>
-        <SwishNote amount={fee ?? undefined} />
-        <label className="checkbox-row">
-          <input type="checkbox" name="swish_confirmed" required />
-          <span>Jag har swishat licensavgiften.</span>
-        </label>
+        {fee ? (
+          <SwishPaymentPanel
+            purpose="Licens"
+            amount={fee}
+            message={buildSwishMessage({
+              purpose: 'Licens',
+              name,
+              detail: licenseLabel || undefined,
+            })}
+            checkboxName="swish_confirmed"
+            checkboxLabel={`Jag har swishat ${fee.toLocaleString('sv-SE')} kr för licensen innan jag skickar in.`}
+          />
+        ) : (
+          <p className="form-hint">Välj licens ovan för att se belopp och Swish-instruktioner.</p>
+        )}
         {error ? <p className="form-error">{error}</p> : null}
         <button className="button primary" type="submit" disabled={pending}>
           {pending ? 'Skickar…' : 'Skicka in'}
@@ -305,6 +330,8 @@ function LicenseForm() {
 
 function CompetitionForm() {
   const { pending, error, success, handleSubmit } = useSiteForm(FORM_SLUG_TYPES.tavling);
+  const [name, setName] = useState('');
+  const [competition, setCompetition] = useState('');
 
   if (success) {
     return (
@@ -319,7 +346,12 @@ function CompetitionForm() {
   return (
     <FormShell
       title="Tävlingsanmälan"
-      intro={<p>Swisha tävlingsavgiften innan du skickar in. Ange tävling och klass.</p>}
+      intro={
+        <p>
+          Fyll i tävlingsuppgifterna, swisha avgiften till klubben och skicka sedan in anmälan.
+          Klubben behandlar anmälan när betalningen syns på Swish.
+        </p>
+      }
     >
       <form
         className="site-form"
@@ -331,13 +363,19 @@ function CompetitionForm() {
             competition: formData.get('competition'),
             class_info: formData.get('class_info'),
             team_interest: formData.get('team_interest'),
+            swish_amount: formData.get('swish_amount'),
             swish_confirmed: formData.get('swish_confirmed') === 'on',
           }))
         }
       >
         <label>
           Namn
-          <input name="name" required />
+          <input
+            name="name"
+            required
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
         </label>
         <label>
           Mejladress
@@ -349,7 +387,13 @@ function CompetitionForm() {
         </label>
         <label>
           Tävling
-          <input name="competition" required placeholder="T.ex. Bajen Cup höst" />
+          <input
+            name="competition"
+            required
+            placeholder="T.ex. Bajen Cup höst"
+            value={competition}
+            onChange={(event) => setCompetition(event.target.value)}
+          />
         </label>
         <label>
           Klass/dag
@@ -363,11 +407,17 @@ function CompetitionForm() {
             placeholder="Intresse för lagtävling eller spelpartner."
           />
         </label>
-        <SwishNote />
-        <label className="checkbox-row">
-          <input type="checkbox" name="swish_confirmed" required />
-          <span>Jag har swishat tävlingsavgiften.</span>
-        </label>
+        <SwishPaymentPanel
+          purpose="Tävlingsavgift"
+          message={buildSwishMessage({
+            purpose: 'Tävling',
+            name,
+            detail: competition || undefined,
+          })}
+          checkboxName="swish_confirmed"
+          checkboxLabel="Jag har swishat tävlingsavgiften innan jag skickar in."
+          requireAmountField
+        />
         {error ? <p className="form-error">{error}</p> : null}
         <button className="button primary" type="submit" disabled={pending}>
           {pending ? 'Skickar…' : 'Skicka in'}
