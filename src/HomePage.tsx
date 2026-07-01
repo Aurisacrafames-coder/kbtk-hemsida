@@ -216,8 +216,7 @@ const visitorPaths = [
 const faqs = [
   {
     question: 'När tränar min grupp?',
-    answer:
-      'Aktuella tider finns under Träningstider. Om du är osäker på grupp eller nivå kan du höra av dig via kontaktformuläret.',
+    answer: 'Titta i schemat under Träningstider — där ser du när varje grupp tränar.',
     link: { label: 'Se träningstider', href: '#traning' },
   },
   {
