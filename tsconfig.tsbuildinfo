@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts"],"version":"6.0.3"}
+{"root":["./src/app.tsx","./src/competitionforms.tsx","./src/faqbot.tsx","./src/formpage.tsx","./src/homepage.tsx","./src/swishpaymentpanel.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/lib/competitions.ts","./src/lib/faq-knowledge.ts","./src/lib/faq-search.ts","./src/lib/forms.ts","./src/lib/personal-id.ts","./src/lib/swish.ts"],"version":"6.0.3"}

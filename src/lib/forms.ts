@@ -39,6 +39,33 @@ export function getFormSlugFromPath(pathname: string): FormSlug | null {
   return FORM_SLUGS.includes(slug) ? slug : null;
 }
 
+export type FormRoute =
+  | { kind: 'form'; slug: FormSlug }
+  | { kind: 'competition-list' }
+  | { kind: 'competition'; slug: string };
+
+export function getFormRouteFromPath(pathname: string): FormRoute | null {
+  const match = pathname.match(/^\/form\/([^/]+)(?:\/([^/]+))?\/?$/);
+  if (!match) {
+    return null;
+  }
+
+  const [, first, second] = match;
+  if (first === 'tavling') {
+    if (second) {
+      return { kind: 'competition', slug: decodeURIComponent(second) };
+    }
+    return { kind: 'competition-list' };
+  }
+
+  const slug = first as FormSlug;
+  if (FORM_SLUGS.includes(slug)) {
+    return { kind: 'form', slug };
+  }
+
+  return null;
+}
+
 export async function submitSiteForm(payload: Record<string, unknown>) {
   const response = await fetch(`${checkinBaseUrl}/api/public/forms`, {
     method: 'POST',

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import HomePage from './HomePage';
 import { FormPage } from './FormPage';
+import { CompetitionListPage, CompetitionSignupPage } from './CompetitionForms';
 import { FaqBot } from './FaqBot';
-import { getFormSlugFromPath } from './lib/forms';
+import { getFormRouteFromPath } from './lib/forms';
 
 function readPathname() {
   return window.location.pathname;
@@ -17,7 +18,8 @@ export default function App() {
     return () => window.removeEventListener('popstate', onNavigate);
   }, []);
 
-  const formSlug = getFormSlugFromPath(pathname);
+  const formRoute = getFormRouteFromPath(pathname);
+  const showMainNav = !formRoute;
 
   return (
     <>
@@ -30,7 +32,7 @@ export default function App() {
           </span>
         </a>
 
-        {!formSlug ? (
+        {showMainNav ? (
           <nav className="main-nav" aria-label="Huvudmeny">
             <a href="/">Hem</a>
             <a href="/#borja-spela">Börja spela</a>
@@ -39,7 +41,12 @@ export default function App() {
           </nav>
         ) : null}
       </header>
-      {formSlug ? <FormPage slug={formSlug} /> : <HomePage />}
+      {formRoute?.kind === 'competition-list' ? <CompetitionListPage /> : null}
+      {formRoute?.kind === 'competition' ? (
+        <CompetitionSignupPage slug={formRoute.slug} />
+      ) : null}
+      {formRoute?.kind === 'form' ? <FormPage slug={formRoute.slug} /> : null}
+      {!formRoute ? <HomePage /> : null}
       <footer className="site-footer">
         <span>Kungälvs Bordtennisklubb</span>
         <span>Vi älskar pingis</span>
