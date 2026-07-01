@@ -98,7 +98,6 @@ const series = [
 const quickLinks = [
   { label: 'Licensanmälan', href: '/form/licens' },
   { label: 'Tävlingsanmälan', href: '/form/tavling' },
-  { label: 'Dörraccess', href: '/form/doraccess' },
 ];
 
 const sponsors = [
@@ -180,8 +179,8 @@ const checkinScheduleEmbedUrl = `${checkinBaseUrl}/schema/embed`;
 const visitorPaths = [
   {
     title: 'Börja spela',
-    text: 'Kom igång som ny spelare, prova på eller spela som gäst.',
-    topics: ['Prova på', 'Gästspel', 'Anmäl intresse'],
+    text: 'Kom igång som ny spelare eller prova på via provträning.',
+    topics: ['Prova på', 'Anmäl intresse', 'Grupper'],
     href: '#borja-spela',
     cta: 'Till börja spela',
   },
@@ -195,7 +194,7 @@ const visitorPaths = [
   {
     title: 'Klubbinfo',
     text: 'Om klubben, hallen och hur du når oss.',
-    topics: ['Om KBTK', 'Hallen', 'Kontakt'],
+    topics: ['Om KBTK', 'Hallen', 'Dörraccess'],
     href: '#klubbinfo',
     cta: 'Läs klubbinfo',
   },
@@ -366,16 +365,14 @@ function HomePage() {
         <section className="section split" id="borja-spela">
           <div>
             <p className="eyebrow">Börja spela</p>
-            <h2>Prova på, spela som gäst eller bli medlem.</h2>
+            <h2>Prova på eller bli medlem.</h2>
             <p>
               Ny i klubben? Börja med en provträning så hjälper vi dig till rätt
-              grupp. Vill du bara testa en kväll kan du spela som gäst. Efter
-              provträningen betalar du medlems- och träningsavgift om du vill
+              grupp. Efter provträningen betalar du medlems- och träningsavgift om du vill
               fortsätta — se <a href="#avgifter">Avgifter</a> för mer info.
             </p>
             <div className="quick-links">
               <a href="/form/borja-spela">Anmäl intresse</a>
-              <a href="https://kungalvsbtk.se/spela-som-gast/">Spela som gäst</a>
             </div>
           </div>
 
@@ -414,28 +411,6 @@ function HomePage() {
             <a className="button primary" href={checkinScheduleUrl}>
               Öppna hela schemat
             </a>
-          </div>
-
-          <div className="schedule-grid compact">
-            <article className="schedule-card">
-              <h3>KBTK-hallen</h3>
-              <p>Brushanestigen 3, 442 49 Kungälv</p>
-              <a href="https://maps.app.goo.gl/m25uwm9upuVWwbq98">Öppna i Google Maps</a>
-            </article>
-            <article className="schedule-card featured">
-              <h3>Träningsgrupper</h3>
-              <p>
-                Vi eftersträvar jämn spelstandard, lagom stora grupper och att
-                kompisar kan spela tillsammans.
-              </p>
-            </article>
-            <article className="schedule-card">
-              <h3>Säsong</h3>
-              <p>
-                Nuvarande information på klubbsidan anger att nya anmälningar tas
-                emot inför kommande säsong.
-              </p>
-            </article>
           </div>
         </section>
 
@@ -507,6 +482,7 @@ function HomePage() {
               <div className="quick-links">
                 <a href="#sponsorer">Våra sponsorer</a>
                 <a href="#kontakt">Kontakta styrelsen</a>
+                <a href="/form/doraccess">Dörraccess</a>
                 <a href="/form/boka-hall">Boka KBTK-hallen</a>
               </div>
             </aside>
@@ -592,17 +568,6 @@ function HomePage() {
               </p>
               <a className="text-link" href="/form/tavling">
                 Till tävlingsanmälan
-              </a>
-            </article>
-
-            <article className="fee-card">
-              <h3>Faktura</h3>
-              <p>
-                Fakturor för träningsavgift skickas via e-post i första eller andra veckan
-                av oktober varje säsong.
-              </p>
-              <a className="text-link" href="mailto:kassor@kungalvsbtk.se">
-                kassor@kungalvsbtk.se
               </a>
             </article>
 
