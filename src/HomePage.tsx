@@ -234,7 +234,7 @@ const faqs = [
   {
     question: 'Vad kostar det och hur betalar jag?',
     answer:
-      'Medlemsavgiften är 350 kr per säsong. Träningsavgiften varierar per grupp (1 000–1 800 kr för höst/vår). Betala via Swish 123 260 3272 eller enligt faktura från klubben.',
+      'Medlemsavgiften är 350 kr per säsong. Träningsavgiften varierar per grupp (1 000–1 800 kr för höst/vår). Betala via Swish 123 260 3272.',
     link: { label: 'Se alla avgifter', href: '#avgifter' },
   },
   {
@@ -544,17 +544,6 @@ function HomePage() {
             </article>
 
             <article className="fee-card">
-              <h3>Gästspel</h3>
-              <p>
-                <strong>50 kr per person och tillfälle.</strong> Anmäl gäst i förväg och
-                swisha till 123 260 3272.
-              </p>
-              <a className="text-link" href="https://kungalvsbtk.se/spela-som-gast/">
-                Anmäl gästspel
-              </a>
-            </article>
-
-            <article className="fee-card">
               <h3>Tävlingsavgift</h3>
               <p>
                 Betalas via Swish innan tävling. Anmäl dig på tävlingsanmälan efter
@@ -578,7 +567,7 @@ function HomePage() {
               </p>
               <p>
                 Efter provträning: swisha senast inom en vecka om du vill fortsätta. Vill
-                du inte fortsätta, hör av dig till klubben inom en vecka så slipper du faktura.
+                du inte fortsätta, hör av dig till klubben inom en vecka.
               </p>
             </article>
           </div>
