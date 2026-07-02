@@ -3,6 +3,7 @@ import {
   FORM_SLUG_LABELS,
   FORM_SLUG_TYPES,
   HALL_BOOKING_SLOTS,
+  getSignupGroupDescription,
   LICENSE_OPTIONS,
   MEMBERSHIP_FEE_SEK,
   TRIAL_GROUP_FEE_INFO,
@@ -138,7 +139,7 @@ function TrialSignupForm() {
         }
       >
         <label>
-          Välj grupp att provträna i
+          Välj gruppkategori att provträna i
           <select
             name="group"
             required
@@ -146,7 +147,7 @@ function TrialSignupForm() {
             onChange={(event) => setGroup(event.target.value)}
           >
             <option value="" disabled>
-              Välj grupp
+              Välj gruppkategori
             </option>
             {TRIAL_GROUP_OPTIONS.map((group) => (
               <option key={group} value={group}>
@@ -155,6 +156,9 @@ function TrialSignupForm() {
             ))}
           </select>
         </label>
+        {group ? (
+          <p className="form-hint">{getSignupGroupDescription(group)}</p>
+        ) : null}
 
         <label>
           Namn

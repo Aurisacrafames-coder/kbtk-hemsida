@@ -6,6 +6,7 @@ import {
   type PublicCompetitionSummary,
 } from './lib/competitions';
 import { FAQ_ENTRIES } from './lib/faq-knowledge';
+import { SIGNUP_GROUP_CATEGORIES } from './lib/forms';
 
 type AktuelltItem = {
   title: string;
@@ -70,14 +71,6 @@ function parseAktuelltFile(data: AktuelltFile | AktuelltItem): AktuelltItem[] {
   return defaultAktuelltItems;
 }
 
-const trainingGroups = [
-  'Nybörjare 7-10 år',
-  'Nybörjare 11-14 år',
-  'Motionärer',
-  'Föräldramedlemskap',
-  'Övriga spelare',
-];
-
 const series = [
   {
     name: 'Division 1',
@@ -141,7 +134,7 @@ const sponsors = [
 
 const seasonFees = [
   { group: 'Nybörjare', training: 1000, membership: 350, license: 'Vid behov', total: 1350 },
-  { group: 'Motionsgrupp', training: 1150, membership: 350, license: 'Vid behov', total: 1500 },
+  { group: 'Motionärer och pensionärer', training: 1150, membership: 350, license: 'Vid behov', total: 1500 },
   { group: 'Grupp D', training: 1000, membership: 350, license: 'Vid behov', total: 1350 },
   { group: 'Grupp C', training: 1250, membership: 350, license: 'Vid behov', total: 1600 },
   { group: 'Grupp B', training: 1650, membership: 350, license: 'Vid behov', total: 2000 },
@@ -185,7 +178,7 @@ const visitorPaths = [
   {
     title: 'Börja spela',
     text: 'Kom igång som ny spelare eller prova på via provträning.',
-    topics: ['Prova på', 'Anmäl intresse', 'Grupper'],
+    topics: ['Prova på', 'Anmäl intresse', 'Gruppkategorier'],
     href: '#borja-spela',
     cta: 'Till börja spela',
   },
@@ -375,10 +368,13 @@ function HomePage() {
           </div>
 
           <div className="panel">
-            <h3>Grupper</h3>
+            <h3>Gruppkategorier</h3>
             <ul className="check-list">
-              {trainingGroups.map((group) => (
-                <li key={group}>{group}</li>
+              {SIGNUP_GROUP_CATEGORIES.map((category) => (
+                <li key={category.name}>
+                  <strong>{category.name}</strong>
+                  <p className="check-list-desc">{category.description}</p>
+                </li>
               ))}
             </ul>
             <a className="text-link" href="/form/borja-spela">

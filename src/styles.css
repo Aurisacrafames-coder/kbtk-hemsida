@@ -725,10 +725,22 @@ a {
 .check-list li {
   padding: 14px 16px;
   color: var(--navy);
-  font-weight: 800;
   background: #f7f3ea;
   border-left: 4px solid var(--orange);
   border-radius: 10px;
+}
+
+.check-list strong {
+  display: block;
+  font-weight: 800;
+}
+
+.check-list-desc {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.45;
 }
 
 .section-heading {

@@ -79,12 +79,53 @@ export async function submitSiteForm(payload: Record<string, unknown>) {
   }
 }
 
-export const TRIAL_GROUP_OPTIONS = [
+export const SIGNUP_GROUP_CATEGORIES = [
+  {
+    name: 'Nybörjare 7-10 år',
+    description:
+      'Pingisskola för yngre barn. Lek, grundteknik och en rolig introduktion till bordtennis.',
+    forTrialSignup: true,
+  },
+  {
+    name: 'Nybörjare 11-14 år',
+    description:
+      'För dig som är ny eller nästan ny i tonåren. Fokus på grundteknik och spel i lagom gruppstorlek.',
+    forTrialSignup: true,
+  },
+  {
+    name: 'Motionärer och pensionärer',
+    description:
+      'Vuxna, motionärer och pensionärer som vill träna regelbundet. Nivå och tempo anpassas efter gruppen.',
+    forTrialSignup: true,
+  },
+  {
+    name: 'Föräldramedlemskap',
+    description:
+      'Medlemskap för föräldrar till barn i klubben — utan egen träningstid. Väljs i formuläret om du är förälder.',
+    forTrialSignup: false,
+  },
+  {
+    name: 'Övriga spelare',
+    description:
+      'Om du redan spelat mer eller ska placeras i seriegrupp (t.ex. C–A). Klubben hjälper dig efter provträning.',
+    forTrialSignup: true,
+  },
+] as const;
+
+export type SignupGroupCategoryName = (typeof SIGNUP_GROUP_CATEGORIES)[number]['name'];
+
+export const TRIAL_GROUP_OPTIONS = SIGNUP_GROUP_CATEGORIES.filter(
+  (category) => category.forTrialSignup,
+).map((category) => category.name) as [
   'Nybörjare 7-10 år',
   'Nybörjare 11-14 år',
-  'Motionärer',
+  'Motionärer och pensionärer',
   'Övriga spelare',
-] as const;
+];
+
+export function getSignupGroupDescription(name: string): string | undefined {
+  return SIGNUP_GROUP_CATEGORIES.find((category) => category.name === name)?.description;
+}
 
 export const MEMBERSHIP_FEE_SEK = 350;
 
@@ -98,7 +139,10 @@ export type TrialGroupFeeInfo = {
 export const TRIAL_GROUP_FEE_INFO: Record<(typeof TRIAL_GROUP_OPTIONS)[number], TrialGroupFeeInfo> = {
   'Nybörjare 7-10 år': { trainingFeeSek: 1000, trainingLabel: 'Nybörjare' },
   'Nybörjare 11-14 år': { trainingFeeSek: 1000, trainingLabel: 'Nybörjare' },
-  Motionärer: { trainingFeeSek: 1150, trainingLabel: 'Motionsgrupp' },
+  'Motionärer och pensionärer': {
+    trainingFeeSek: 1150,
+    trainingLabel: 'Motionärer och pensionärer',
+  },
   'Övriga spelare': {
     trainingFeeSek: null,
     trainingLabel: 'Enligt grupp',
