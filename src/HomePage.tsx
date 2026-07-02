@@ -1,4 +1,10 @@
 import { useEffect, useState } from 'react';
+import { fetchPublicCheckinStats, type PublicCheckinCounts } from './lib/checkin-stats';
+import {
+  fetchPublishedCompetitions,
+  formatCompetitionDate,
+  type PublicCompetitionSummary,
+} from './lib/competitions';
 import { FAQ_ENTRIES } from './lib/faq-knowledge';
 
 type AktuelltItem = {
@@ -226,6 +232,10 @@ function HomePage() {
   const [aktuelltItems, setAktuelltItems] = useState<AktuelltItem[]>(
     getActiveAktuellt(defaultAktuelltItems),
   );
+  const [competitions, setCompetitions] = useState<PublicCompetitionSummary[]>([]);
+  const [competitionsError, setCompetitionsError] = useState('');
+  const [checkinStats, setCheckinStats] = useState<PublicCheckinCounts | null>(null);
+  const [checkinStatsError, setCheckinStatsError] = useState('');
 
   useEffect(() => {
     async function loadAktuellt() {
@@ -256,6 +266,22 @@ function HomePage() {
     }
 
     void loadAktuellt();
+  }, []);
+
+  useEffect(() => {
+    void fetchPublishedCompetitions()
+      .then(setCompetitions)
+      .catch((err) =>
+        setCompetitionsError(err instanceof Error ? err.message : 'Kunde inte ladda tävlingar.'),
+      );
+  }, []);
+
+  useEffect(() => {
+    void fetchPublicCheckinStats()
+      .then(setCheckinStats)
+      .catch((err) =>
+        setCheckinStatsError(err instanceof Error ? err.message : 'Kunde inte ladda statistik.'),
+      );
   }, []);
 
   return (
@@ -394,6 +420,36 @@ function HomePage() {
               närvarorapportering mot Riksidrottförbundet (LOK). Träningsschemat ovan
               hämtas från samma system.
             </p>
+
+            {checkinStats ? (
+              <section className="checkin-stats" aria-label="Incheckningar klubben totalt">
+                <header className="checkin-stats-header">
+                  <h3>Incheckningar</h3>
+                  <p>Klubben totalt</p>
+                </header>
+                <div className="checkin-stats-grid">
+                  <div className="checkin-stat-cell">
+                    <span>Idag</span>
+                    <strong>{checkinStats.today}</strong>
+                  </div>
+                  <div className="checkin-stat-cell">
+                    <span>7 dagar</span>
+                    <strong>{checkinStats.last7Days}</strong>
+                  </div>
+                  <div className="checkin-stat-cell">
+                    <span>30 dagar</span>
+                    <strong>{checkinStats.last30Days}</strong>
+                  </div>
+                  <div className="checkin-stat-cell">
+                    <span>6 mån</span>
+                    <strong>{checkinStats.last6Months}</strong>
+                  </div>
+                </div>
+              </section>
+            ) : checkinStatsError ? (
+              <p className="form-hint">{checkinStatsError}</p>
+            ) : null}
+
             <p>
               Föräldrar som själva behöver kunna öppna dörren utanför barnets träning
               ansöker separat om <a href="/form/doraccess">dörraccess</a> — det är
@@ -420,14 +476,43 @@ function HomePage() {
         </section>
 
         <section className="section split reverse" id="serier">
-          <div className="panel dark-panel">
-            <h3>Seriestatus</h3>
-            <div className="link-grid">
-              {series.map((item) => (
-                <a key={item.name} href={item.href}>
-                  {item.name}
-                </a>
-              ))}
+          <div className="panel-stack">
+            <div className="panel dark-panel">
+              <h3>Seriestatus</h3>
+              <div className="link-grid">
+                {series.map((item) => (
+                  <a key={item.name} href={item.href} rel="noreferrer" target="_blank">
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="panel dark-panel">
+              <h3>Aktuella tävlingar</h3>
+              {competitions.length > 0 ? (
+                <div className="link-grid competition-status-grid">
+                  {competitions.map((item) => (
+                    <a key={item.slug} href={`/form/tavling/${item.slug}`}>
+                      <span className="competition-status-title">{item.title}</span>
+                      <span className="competition-status-meta">
+                        {item.registration_count} anmäld
+                        {item.registration_count === 1 ? '' : 'a'}
+                        {formatCompetitionDate(item.event_date)
+                          ? ` · ${formatCompetitionDate(item.event_date)}`
+                          : ''}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <p className="panel-empty-copy">
+                  {competitionsError || 'Inga öppna tävlingar just nu.'}
+                </p>
+              )}
+              <a className="panel-inline-link" href="/form/tavling">
+                Till tävlingsanmälan
+              </a>
             </div>
           </div>
 

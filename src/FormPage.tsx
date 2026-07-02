@@ -223,7 +223,7 @@ function TrialSignupForm() {
           </span>
         </label>
 
-        {group && groupFeeInfo ? (
+        {group && groupFeeInfo && name.trim() && membershipSwishMessage ? (
           <SwishPaymentPanel
             purpose="Medlemsavgift och träning"
             amount={membershipTotal}
@@ -246,11 +246,15 @@ function TrialSignupForm() {
           />
         ) : (
           <p className="form-hint">
-            Välj grupp ovan för att se avgifter och Swish-instruktioner.
+            {group && groupFeeInfo
+              ? name.trim()
+                ? 'Kunde inte skapa Swish-meddelande. Kontrollera att namn är ifyllt.'
+                : 'Fyll i namn ovan för att se Swish-instruktioner.'
+              : 'Välj grupp ovan för att se avgifter och Swish-instruktioner.'}
           </p>
         )}
 
-        {parentMembership ? (
+        {parentMembership && name.trim() ? (
           <SwishPaymentPanel
             purpose="Föräldramedlemskap"
             amount={MEMBERSHIP_FEE_SEK}
@@ -343,7 +347,7 @@ function LicenseForm() {
             ))}
           </select>
         </label>
-        {fee ? (
+        {fee && name.trim() ? (
           <SwishPaymentPanel
             purpose="Licens"
             amount={fee}
@@ -446,17 +450,21 @@ function CompetitionForm() {
             placeholder="Intresse för lagtävling eller spelpartner."
           />
         </label>
-        <SwishPaymentPanel
-          purpose="Tävlingsavgift"
-          message={buildSwishMessage({
-            purpose: 'Tävling',
-            name,
-            detail: competition || undefined,
-          })}
-          checkboxName="swish_confirmed"
-          checkboxLabel="Jag har swishat tävlingsavgiften innan jag skickar in."
-          requireAmountField
-        />
+        {name.trim() ? (
+          <SwishPaymentPanel
+            purpose="Tävlingsavgift"
+            message={buildSwishMessage({
+              purpose: 'Tävling',
+              name,
+              detail: competition || undefined,
+            })}
+            checkboxName="swish_confirmed"
+            checkboxLabel="Jag har swishat tävlingsavgiften innan jag skickar in."
+            requireAmountField
+          />
+        ) : (
+          <p className="form-hint">Fyll i namn ovan för att se Swish-instruktioner.</p>
+        )}
         {error ? <p className="form-error">{error}</p> : null}
         <button className="button primary" type="submit" disabled={pending}>
           {pending ? 'Skickar…' : 'Skicka in'}

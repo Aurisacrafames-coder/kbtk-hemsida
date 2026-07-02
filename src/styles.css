@@ -657,6 +657,98 @@ a {
   color: #ffffff;
 }
 
+.panel-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.panel-empty-copy {
+  margin: 24px 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.5;
+}
+
+.panel-inline-link {
+  display: inline-block;
+  margin-top: 18px;
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.competition-status-grid a {
+  display: grid;
+  gap: 4px;
+  min-width: min(100%, 220px);
+}
+
+.competition-status-title {
+  font-weight: 900;
+}
+
+.competition-status-meta {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.checkin-stats {
+  margin: 24px 0;
+  padding: 18px 20px;
+  border: 1px solid rgba(18, 32, 51, 0.1);
+  border-radius: 16px;
+  background: rgba(242, 140, 34, 0.08);
+}
+
+.checkin-stats-header h3 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1rem;
+}
+
+.checkin-stats-header p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.checkin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.checkin-stat-cell {
+  display: grid;
+  gap: 4px;
+  padding: 12px 10px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid rgba(18, 32, 51, 0.08);
+  border-radius: 12px;
+}
+
+.checkin-stat-cell span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.checkin-stat-cell strong {
+  color: var(--navy);
+  font-size: 1.7rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 640px) {
+  .checkin-stats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 .link-grid,
 .quick-links,
 .social-links {

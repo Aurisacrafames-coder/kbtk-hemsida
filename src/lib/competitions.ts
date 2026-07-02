@@ -9,6 +9,7 @@ export type PublicCompetitionSummary = {
   registration_deadline: string | null;
   description: string | null;
   class_count: number;
+  registration_count: number;
 };
 
 export type PublicCompetitionClass = {

@@ -366,7 +366,7 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
           />
         </label>
 
-        {selectedClasses.length > 0 && totalAmount > 0 ? (
+        {selectedClasses.length > 0 && totalAmount > 0 && name.trim() && swishMessage ? (
           <SwishPaymentPanel
             purpose={competition.title}
             amount={totalAmount}
@@ -375,7 +375,13 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
             checkboxLabel={`Jag har swishat ${totalAmount.toLocaleString('sv-SE')} kr innan jag skickar in.`}
           />
         ) : (
-          <p className="form-hint">Välj minst en klass för att se Swish-instruktioner.</p>
+          <p className="form-hint">
+            {selectedClasses.length > 0 && totalAmount > 0
+              ? name.trim()
+                ? 'Kunde inte skapa Swish-meddelande. Kontrollera att namn är ifyllt.'
+                : 'Fyll i namn ovan för att se Swish-instruktioner.'
+              : 'Välj minst en klass för att se Swish-instruktioner.'}
+          </p>
         )}
 
         {submitError ? <p className="form-error">{submitError}</p> : null}

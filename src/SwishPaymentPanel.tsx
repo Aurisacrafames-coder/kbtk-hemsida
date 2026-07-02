@@ -106,8 +106,9 @@ export function SwishPaymentPanel({
             </button>
           </div>
           <p className="swish-step-note">
-            Använd samma text så att klubben kan matcha betalningen. Max{' '}
+            Meddelandet ska innehålla ditt namn och vad betalningen gäller. Max{' '}
             {SWISH_MESSAGE_MAX_LENGTH} tecken i Swish.
+            {!message ? ' Fyll i namn ovan först.' : null}
           </p>
         </li>
 

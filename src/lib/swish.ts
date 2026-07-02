@@ -61,16 +61,19 @@ export function buildSwishMessage(parts: {
   const name = parts.name?.trim() ?? '';
   let detail = parts.detail?.trim() ?? '';
 
+  if (!purpose || !name) {
+    return '';
+  }
+
   if (detail.includes(',')) {
     detail = shortenCommaSeparatedDetail(detail);
   }
 
   const variants = [
     joinParts([purpose, name, detail]),
+    joinParts([name, purpose, detail]),
     joinParts([purpose, name]),
     joinParts([name, purpose]),
-    name,
-    purpose,
   ];
 
   for (const variant of variants) {
@@ -79,7 +82,7 @@ export function buildSwishMessage(parts: {
     }
   }
 
-  return trimToMax(joinParts([purpose, name, detail]), SWISH_MESSAGE_MAX_LENGTH);
+  return trimToMax(joinParts([name, purpose]), SWISH_MESSAGE_MAX_LENGTH);
 }
 
 export async function copyText(value: string) {
