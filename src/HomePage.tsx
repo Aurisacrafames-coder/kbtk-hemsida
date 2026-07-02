@@ -403,8 +403,7 @@ function HomePage() {
               <li>Vid träning håller du taggen mot läsaren vid ingången — klart!</li>
             </ol>
             <p className="checkin-note">
-              Saknar du tagg eller fungerar det inte? Hör av dig till tränare eller styrelsen
-              så hjälper vi dig.
+              Inchecknings-taggen delas ut vid nästkommande träningstillfälle efter att du betalat.
             </p>
             <div className="quick-links">
               <a href="/form/borja-spela">Anmäl intresse</a>
