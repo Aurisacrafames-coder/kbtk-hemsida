@@ -47,8 +47,8 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     id: 'checkin',
     question: 'Hur fungerar incheckning i hallen?',
     answer:
-      'Medlemmar checkar in med en personlig inchecknings-tagg vid läsaren i hallen. Taggen kopplas till dig när du är registrerad och har betalat avgiften. Incheckningen hjälper klubben följa närvaro och ligger till grund för träningsschemat på hemsidan.',
-    keywords: ['incheckning', 'check-in', 'tagg', 'inchecknings-tagg', 'rfid', 'kiosk', 'närvaro', 'läsare'],
+      'Medlemmar checkar in med en personlig inchecknings-tagg vid läsaren i hallen. Taggen kopplas till dig när du är registrerad och har betalat avgiften. Incheckningen hjälper klubben följa närvaro och ligger till grund för LOK-registrering.',
+    keywords: ['incheckning', 'check-in', 'tagg', 'inchecknings-tagg', 'rfid', 'kiosk', 'närvaro', 'läsare', 'lok'],
     link: { label: 'Läs om check-in', href: '#incheckning' },
   },
   {
