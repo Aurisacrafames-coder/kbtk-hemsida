@@ -93,9 +93,9 @@ export const SIGNUP_GROUP_CATEGORIES = [
     forTrialSignup: true,
   },
   {
-    name: 'Motionärer och pensionärer',
+    name: 'Motionärer',
     description:
-      'Vuxna, motionärer och pensionärer som vill träna regelbundet. Nivå och tempo anpassas efter gruppen.',
+      'Vuxna, motionärer och pensionärer som vill spela regelbundet.',
     forTrialSignup: true,
   },
   {
@@ -119,7 +119,7 @@ export const TRIAL_GROUP_OPTIONS = SIGNUP_GROUP_CATEGORIES.filter(
 ).map((category) => category.name) as [
   'Nybörjare 7-10 år',
   'Nybörjare 11-14 år',
-  'Motionärer och pensionärer',
+  'Motionärer',
   'Övriga spelare',
 ];
 
@@ -139,10 +139,7 @@ export type TrialGroupFeeInfo = {
 export const TRIAL_GROUP_FEE_INFO: Record<(typeof TRIAL_GROUP_OPTIONS)[number], TrialGroupFeeInfo> = {
   'Nybörjare 7-10 år': { trainingFeeSek: 1000, trainingLabel: 'Nybörjare' },
   'Nybörjare 11-14 år': { trainingFeeSek: 1000, trainingLabel: 'Nybörjare' },
-  'Motionärer och pensionärer': {
-    trainingFeeSek: 1150,
-    trainingLabel: 'Motionärer och pensionärer',
-  },
+  Motionärer: { trainingFeeSek: 1150, trainingLabel: 'Motionsgrupp' },
   'Övriga spelare': {
     trainingFeeSek: null,
     trainingLabel: 'Enligt grupp',
