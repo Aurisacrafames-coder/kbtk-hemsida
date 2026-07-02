@@ -362,7 +362,7 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
           <textarea
             name="team_interest"
             rows={3}
-            placeholder="Övrig information till arrangören."
+            placeholder="Valfria kompletterande uppgifter till anmälan."
           />
         </label>
 
