@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from 're
 import {
   fetchPublishedCompetition,
   fetchPublishedCompetitions,
+  formatClassesPerPassInfo,
   formatCompetitionDate,
   type PublicCompetition,
   type PublicCompetitionRegistrations,
@@ -246,6 +247,8 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
     );
   }
 
+  const classesPerPassInfo = formatClassesPerPassInfo(competition);
+
   return (
     <FormShell
       title={competition.title}
@@ -253,6 +256,11 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
         <div>
           {competition.organizer ? <p>{competition.organizer}</p> : null}
           {competition.description ? <p>{competition.description}</p> : null}
+          {classesPerPassInfo ? (
+            <p>
+              <strong>Klasser per pass:</strong> {classesPerPassInfo}
+            </p>
+          ) : null}
           <p>
             Välj klasser, swisha totalbeloppet och skicka in anmälan. Klubben behandlar anmälan
             när betalningen syns på Swish.

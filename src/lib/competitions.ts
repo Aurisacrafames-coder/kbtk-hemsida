@@ -24,6 +24,8 @@ export type PublicCompetition = {
   event_date: string | null;
   registration_deadline: string | null;
   description: string | null;
+  max_classes_per_pass: number | null;
+  classes_per_pass_note: string | null;
   classes: PublicCompetitionClass[];
 };
 
@@ -78,6 +80,24 @@ export async function fetchPublishedCompetition(slug: string) {
       entries: [],
     },
   } satisfies PublicCompetitionDetails;
+}
+
+export function formatClassesPerPassInfo(competition: {
+  max_classes_per_pass?: number | null;
+  classes_per_pass_note?: string | null;
+}) {
+  const parts: string[] = [];
+
+  if (competition.max_classes_per_pass && competition.max_classes_per_pass > 0) {
+    parts.push(`Högst ${competition.max_classes_per_pass} klasser per pass.`);
+  }
+
+  const note = competition.classes_per_pass_note?.trim();
+  if (note) {
+    parts.push(note);
+  }
+
+  return parts.join(' ');
 }
 
 export function formatCompetitionDate(value: string | null) {
