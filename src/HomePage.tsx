@@ -22,7 +22,11 @@ type AktuelltFile = {
   items: AktuelltItem[];
 };
 
-const MAX_AKTUELLT = 3;
+function getActiveAktuellt(items: AktuelltItem[]) {
+  const today = getLocalDateString();
+  return items.filter((item) => isAktuelltActive(item, today));
+}
+
 const checkinBaseUrl =
   import.meta.env.VITE_CHECKIN_URL ?? 'https://kbtk-checkin.vercel.app';
 
@@ -52,11 +56,6 @@ function isAktuelltActive(item: AktuelltItem, today: string) {
     return false;
   }
   return true;
-}
-
-function getActiveAktuellt(items: AktuelltItem[]) {
-  const today = getLocalDateString();
-  return items.filter((item) => isAktuelltActive(item, today)).slice(0, MAX_AKTUELLT);
 }
 
 function parseAktuelltFile(data: AktuelltFile | AktuelltItem): AktuelltItem[] {
@@ -246,7 +245,7 @@ function HomePage() {
         }
         const data = (await response.json()) as { items?: AktuelltItem[] };
         if (Array.isArray(data.items)) {
-          setAktuelltItems(data.items.slice(0, MAX_AKTUELLT));
+          setAktuelltItems(getActiveAktuellt(data.items));
           return;
         }
       } catch {
@@ -331,13 +330,14 @@ function HomePage() {
             </div>
           </div>
 
-          <aside className="hero-card" aria-label="Snabb information">
+          <aside className="hero-card" aria-label="Aktuellt">
             <img
               className="club-logo-card"
               src={clubLogo}
               alt=""
             />
-            <span className="card-label">Aktuellt</span>
+            <span className="card-label hero-card-label">Aktuellt</span>
+            <div className="hero-card-content">
             {aktuelltItems.length === 0 ? (
               <p className="aktuellt-empty">
                 Inget aktuellt just nu. Hör av dig till klubben om du har frågor.
@@ -355,6 +355,7 @@ function HomePage() {
                 ))}
               </div>
             )}
+            </div>
           </aside>
         </section>
 

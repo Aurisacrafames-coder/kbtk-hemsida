@@ -319,13 +319,41 @@ a {
 }
 
 .hero-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  column-gap: 12px;
+  row-gap: 20px;
+  align-items: start;
   min-height: 360px;
   padding: 30px;
   background: #ffffff;
   border-radius: 22px;
+}
+
+.club-logo-card {
+  grid-column: 1;
+  grid-row: 1;
+  width: 112px;
+  height: 112px;
+  object-fit: contain;
+  border-radius: 50%;
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.1);
+}
+
+.hero-card-label {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  justify-self: end;
+  margin: 0;
+  text-align: right;
+}
+
+.hero-card-content {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  min-width: 0;
 }
 
 .aktuellt-list {
@@ -351,15 +379,6 @@ a {
 
 .aktuellt-empty {
   margin: 0;
-}
-
-.club-logo-card {
-  width: 132px;
-  height: 132px;
-  margin-bottom: auto;
-  object-fit: contain;
-  border-radius: 50%;
-  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.1);
 }
 
 .hero-card h2,
