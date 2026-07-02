@@ -185,6 +185,13 @@ const visitorPaths = [
     cta: 'Till börja spela',
   },
   {
+    title: 'Träningstider',
+    text: 'Se när varje grupp tränar i KBTK-hallen.',
+    topics: ['Veckoschema', 'Grupper', 'Pass'],
+    href: '#traning',
+    cta: 'Se träningstider',
+  },
+  {
     title: 'Tävling/Serie',
     text: 'Serier, licens och anmälan till tävling.',
     topics: ['Seriestatus', 'Licens', 'Tävlingsanmälan'],
