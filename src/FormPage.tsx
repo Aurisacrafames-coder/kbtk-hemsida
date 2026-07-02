@@ -443,11 +443,11 @@ function CompetitionForm() {
           <textarea name="class_info" rows={3} placeholder="Skriv klass och dag." />
         </label>
         <label>
-          Lag-DM eller önskemål
+          Övrigt
           <textarea
             name="team_interest"
             rows={3}
-            placeholder="Intresse för lagtävling eller spelpartner."
+            placeholder="Övrig information till arrangören."
           />
         </label>
         {name.trim() ? (

@@ -358,11 +358,11 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
           <input name="phone" type="tel" required />
         </label>
         <label>
-          Lag-DM eller önskemål
+          Övrigt
           <textarea
             name="team_interest"
             rows={3}
-            placeholder="Intresse för lagtävling eller spelpartner."
+            placeholder="Övrig information till arrangören."
           />
         </label>
 
