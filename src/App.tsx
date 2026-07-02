@@ -3,6 +3,7 @@ import HomePage from './HomePage';
 import { FormPage } from './FormPage';
 import { CompetitionListPage, CompetitionSignupPage } from './CompetitionForms';
 import { FaqBot } from './FaqBot';
+import { HallTodayBar } from './HallTodayBar';
 import { getFormRouteFromPath } from './lib/forms';
 
 function readPathname() {
@@ -24,22 +25,26 @@ export default function App() {
   return (
     <>
       <header className="site-header">
-        <a className="brand" href="/" aria-label="Till startsidan">
-          <img className="brand-logo" src="/kbtk-logo.png" alt="Kungälvs Bordtennisklubb" />
-          <span>
-            <strong>Kungälvs BTK</strong>
-            <small>Vi älskar pingis</small>
-          </span>
-        </a>
+        <div className="site-header-top">
+          <a className="brand" href="/" aria-label="Till startsidan">
+            <img className="brand-logo" src="/kbtk-logo.png" alt="Kungälvs Bordtennisklubb" />
+            <span>
+              <strong>Kungälvs BTK</strong>
+              <small>Vi älskar pingis</small>
+            </span>
+          </a>
 
-        {showMainNav ? (
-          <nav className="main-nav" aria-label="Huvudmeny">
-            <a href="/">Hem</a>
-            <a href="/#borja-spela">Börja spela</a>
-            <a href="/#traning">Träningstider</a>
-            <a href="/form/kontakt">Kontakt</a>
-          </nav>
-        ) : null}
+          {showMainNav ? (
+            <nav className="main-nav" aria-label="Huvudmeny">
+              <a href="/">Hem</a>
+              <a href="/#borja-spela">Börja spela</a>
+              <a href="/#traning">Träningstider</a>
+              <a href="/form/kontakt">Kontakt</a>
+            </nav>
+          ) : null}
+        </div>
+
+        {showMainNav ? <HallTodayBar /> : null}
       </header>
       {formRoute?.kind === 'competition-list' ? <CompetitionListPage /> : null}
       {formRoute?.kind === 'competition' ? (

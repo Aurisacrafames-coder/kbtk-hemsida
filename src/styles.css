@@ -39,14 +39,137 @@ a {
   position: sticky;
   top: 0;
   z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  display: grid;
+  gap: 14px;
   padding: 18px clamp(20px, 5vw, 72px);
   background: rgba(255, 250, 241, 0.92);
   border-bottom: 1px solid rgba(18, 32, 51, 0.08);
   backdrop-filter: blur(12px);
+}
+
+.site-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.hall-today-bar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  padding: 10px;
+  border: 1px solid rgba(242, 140, 34, 0.28);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(7, 31, 58, 0.04), rgba(242, 140, 34, 0.08)),
+    #fffdf8;
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+}
+
+.hall-today-checkins {
+  display: grid;
+  gap: 4px;
+  min-width: 132px;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: var(--navy);
+  background: #ffffff;
+  border: 1px solid rgba(18, 32, 51, 0.08);
+  border-radius: 14px;
+}
+
+.hall-today-checkins:hover {
+  border-color: rgba(242, 140, 34, 0.45);
+}
+
+.hall-today-checkins-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hall-today-checkins-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hall-today-checkins-value strong {
+  font-size: 1.55rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.hall-today-live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #1f9d55;
+  box-shadow: 0 0 0 4px rgba(31, 157, 85, 0.18);
+}
+
+.hall-today-schedule {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+  min-width: 0;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: thin;
+}
+
+.hall-today-session,
+.hall-today-empty,
+.hall-today-loading {
+  display: grid;
+  gap: 2px;
+  min-width: 148px;
+  padding: 10px 12px;
+  text-decoration: none;
+  border-radius: 14px;
+  white-space: nowrap;
+}
+
+.hall-today-session {
+  color: var(--navy);
+  background: linear-gradient(135deg, var(--navy), var(--navy-soft));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 160ms ease;
+}
+
+.hall-today-session:hover {
+  transform: translateY(-1px);
+}
+
+.hall-today-session-group {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.hall-today-session-time {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.hall-today-empty,
+.hall-today-loading {
+  align-content: center;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px dashed rgba(18, 32, 51, 0.12);
+}
+
+.hall-today-empty {
+  color: var(--navy-soft);
+  text-decoration: none;
 }
 
 .brand {
@@ -948,9 +1071,13 @@ a {
 }
 
 @media (max-width: 900px) {
-  .site-header {
+  .site-header-top {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .hall-today-bar {
+    grid-template-columns: 1fr;
   }
 
   .main-nav {
