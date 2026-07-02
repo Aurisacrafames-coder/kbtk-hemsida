@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {
   CLUB_SWISH_NUMBER,
   CLUB_SWISH_NUMBER_DISPLAY,
+  SWISH_MESSAGE_MAX_LENGTH,
   copyText,
 } from './lib/swish';
 
@@ -104,7 +105,10 @@ export function SwishPaymentPanel({
               {copiedField === 'message' ? 'Kopierat' : 'Kopiera text'}
             </button>
           </div>
-          <p className="swish-step-note">Använd samma text så att klubben kan matcha betalningen.</p>
+          <p className="swish-step-note">
+            Använd samma text så att klubben kan matcha betalningen. Max{' '}
+            {SWISH_MESSAGE_MAX_LENGTH} tecken i Swish.
+          </p>
         </li>
 
         <li>
