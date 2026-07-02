@@ -25,26 +25,24 @@ export default function App() {
   return (
     <>
       <header className="site-header">
-        <div className="site-header-top">
-          <a className="brand" href="/" aria-label="Till startsidan">
-            <img className="brand-logo" src="/kbtk-logo.png" alt="Kungälvs Bordtennisklubb" />
-            <span>
-              <strong>Kungälvs BTK</strong>
-              <small>Vi älskar pingis</small>
-            </span>
-          </a>
-
-          {showMainNav ? (
-            <nav className="main-nav" aria-label="Huvudmeny">
-              <a href="/">Hem</a>
-              <a href="/#borja-spela">Börja spela</a>
-              <a href="/#traning">Träningstider</a>
-              <a href="/form/kontakt">Kontakt</a>
-            </nav>
-          ) : null}
-        </div>
+        <a className="brand" href="/" aria-label="Till startsidan">
+          <img className="brand-logo" src="/kbtk-logo.png" alt="Kungälvs Bordtennisklubb" />
+          <span>
+            <strong>Kungälvs BTK</strong>
+            <small>Vi älskar pingis</small>
+          </span>
+        </a>
 
         {showMainNav ? <HallTodayBar /> : null}
+
+        {showMainNav ? (
+          <nav className="main-nav" aria-label="Huvudmeny">
+            <a href="/">Hem</a>
+            <a href="/#borja-spela">Börja spela</a>
+            <a href="/#traning">Träningstider</a>
+            <a href="/form/kontakt">Kontakt</a>
+          </nav>
+        ) : null}
       </header>
       {formRoute?.kind === 'competition-list' ? <CompetitionListPage /> : null}
       {formRoute?.kind === 'competition' ? (
