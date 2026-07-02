@@ -1056,6 +1056,15 @@ a {
   margin-top: 10px;
 }
 
+.competition-class-option--disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.competition-class-option--disabled input {
+  cursor: not-allowed;
+}
+
 .competition-total {
   margin: 0;
   padding: 14px 16px;

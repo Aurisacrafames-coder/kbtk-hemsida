@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from 'react';
 import {
+  canSelectCompetitionClass,
   fetchPublishedCompetition,
   fetchPublishedCompetitions,
   formatClassesPerPassInfo,
   formatCompetitionDate,
+  getCompetitionClassSelectionBlockReason,
+  validateClassesPerPassLimit,
   type PublicCompetition,
   type PublicCompetitionRegistrations,
   type PublicCompetitionSummary,
@@ -150,6 +153,7 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [submitError, setSubmitError] = useState('');
+  const [selectionError, setSelectionError] = useState('');
   const [pending, setPending] = useState(false);
   const [success, setSuccess] = useState(false);
   const [name, setName] = useState('');
@@ -185,14 +189,36 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
   }, [competition, name, selectedClasses]);
 
   function toggleClass(classId: string) {
-    setSelectedClassIds((current) =>
-      current.includes(classId) ? current.filter((id) => id !== classId) : [...current, classId],
-    );
+    setSelectionError('');
+
+    if (selectedClassIds.includes(classId)) {
+      setSelectedClassIds((current) => current.filter((id) => id !== classId));
+      return;
+    }
+
+    if (!competition || !canSelectCompetitionClass(competition, selectedClassIds, classId)) {
+      setSelectionError(
+        competition
+          ? (getCompetitionClassSelectionBlockReason(competition, selectedClassIds, classId) ??
+            'Du kan inte välja fler klasser för det här passet.')
+          : 'Du kan inte välja fler klasser för det här passet.',
+      );
+      return;
+    }
+
+    setSelectedClassIds((current) => [...current, classId]);
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!competition) return;
+
+    const passLimit = validateClassesPerPassLimit(selectedClasses, competition.max_classes_per_pass);
+    if (!passLimit.ok) {
+      setSelectionError(passLimit.message);
+      return;
+    }
+
     setPending(true);
     setSubmitError('');
     try {
@@ -279,19 +305,35 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
       <form className="site-form" onSubmit={(event) => void handleSubmit(event)}>
         <fieldset className="competition-class-picker">
           <legend>Välj klasser</legend>
-          {competition.classes.map((item) => (
-            <label key={item.id} className="checkbox-row competition-class-option">
-              <input
-                type="checkbox"
-                checked={selectedClassIds.includes(item.id)}
-                onChange={() => toggleClass(item.id)}
-              />
-              <span>
-                {item.label} <strong>{item.fee_sek.toLocaleString('sv-SE')} kr</strong>
-              </span>
-            </label>
-          ))}
+          {competition.classes.map((item) => {
+            const isSelected = selectedClassIds.includes(item.id);
+            const canSelect = isSelected || canSelectCompetitionClass(competition, selectedClassIds, item.id);
+            const blockReason = isSelected
+              ? null
+              : getCompetitionClassSelectionBlockReason(competition, selectedClassIds, item.id);
+
+            return (
+              <label
+                key={item.id}
+                className={`checkbox-row competition-class-option${canSelect ? '' : ' competition-class-option--disabled'}`}
+                title={blockReason ?? undefined}
+              >
+                <input
+                  type="checkbox"
+                  checked={isSelected}
+                  disabled={!canSelect}
+                  onChange={() => toggleClass(item.id)}
+                />
+                <span>
+                  {item.label} <strong>{item.fee_sek.toLocaleString('sv-SE')} kr</strong>
+                  {blockReason ? <span className="form-hint"> {blockReason}</span> : null}
+                </span>
+              </label>
+            );
+          })}
         </fieldset>
+
+        {selectionError ? <p className="form-error">{selectionError}</p> : null}
 
         <p className="competition-total">
           Totalt att swisha:{' '}
