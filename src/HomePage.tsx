@@ -177,45 +177,27 @@ const checkinScheduleEmbedUrl = `${checkinBaseUrl}/schema/embed`;
 const visitorPaths = [
   {
     title: 'Börja spela',
-    text: 'Kom igång som ny spelare eller prova på via provträning.',
-    topics: ['Prova på', 'Anmäl intresse', 'Gruppkategorier'],
+    text: 'Provträning och väg in i klubben.',
     href: '#borja-spela',
-    cta: 'Till börja spela',
-  },
-  {
-    title: 'Para',
-    text: 'Pilotförening för ParaPingis 360 — en klubb för alla.',
-    topics: ['ParaPingis 360', 'Inkludering', 'Rätt förutsättningar'],
-    href: '#para',
-    cta: 'Läs om ParaPingis 360',
+    cta: 'Kom igång',
   },
   {
     title: 'Träningstider',
-    text: 'Se när varje grupp tränar i KBTK-hallen.',
-    topics: ['Veckoschema', 'Grupper', 'Pass'],
+    text: 'När varje grupp tränar i hallen.',
     href: '#traning',
-    cta: 'Se träningstider',
+    cta: 'Se schema',
   },
   {
-    title: 'Tävling/Serie',
-    text: 'Serier, licens och anmälan till tävling.',
-    topics: ['Seriestatus', 'Licens', 'Tävlingsanmälan'],
+    title: 'Tävling',
+    text: 'Serier, licens och anmälan.',
     href: '#serier',
     cta: 'Till tävling',
   },
   {
-    title: 'Klubbinfo',
-    text: 'Om klubben, hallen och hur du når oss.',
-    topics: ['Om KBTK', 'Hallen', 'Incheckning', 'Dörraccess'],
-    href: '#klubbinfo',
-    cta: 'Läs klubbinfo',
-  },
-  {
     title: 'Avgifter',
-    text: 'Medlems- och träningsavgifter samt betalning.',
-    topics: ['Medlemsavgift', 'Träningsavgift', 'Swish'],
+    text: 'Medlemsavgift, träning och Swish.',
     href: '#avgifter',
-    cta: 'Se avgifter',
+    cta: 'Se priser',
   },
 ];
 
@@ -305,10 +287,7 @@ function HomePage() {
             <h2 className="path-heading" id="paths-title">
               Hitta rätt snabbt
             </h2>
-            <p>
-              Välj det som passar dig bäst så kommer du direkt till rätt
-              information utan att behöva leta i menyer.
-            </p>
+            <p>Fyra genvägar till det viktigaste.</p>
           </div>
 
           <div className="path-grid">
@@ -316,11 +295,6 @@ function HomePage() {
               <a className="path-card" href={path.href} key={path.title}>
                 <h3>{path.title}</h3>
                 <p>{path.text}</p>
-                <ul className="path-topics">
-                  {path.topics.map((topic) => (
-                    <li key={topic}>{topic}</li>
-                  ))}
-                </ul>
                 <span>{path.cta}</span>
               </a>
             ))}
