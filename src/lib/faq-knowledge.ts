@@ -83,6 +83,22 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     keywords: ['boka', 'bokning', 'hyra', 'hall', 'fredag', 'lördag'],
     link: { label: 'Boka hallen', href: '/form/boka-hall' },
   },
+  {
+    id: 'para',
+    question: 'Finns det plats för spelare med funktionsnedsättning?',
+    answer:
+      'Ja. Kungälvs BTK är en förening för alla och arbetar aktivt med para — rekrytering, utveckling och långsiktig hållbarhet. Vi samarbetar med SBTF och andra aktörer för att skapa rätt förutsättningar för spelare, föräldrar och ledare.',
+    keywords: [
+      'para',
+      'funktionsnedsättning',
+      'funktionsvariation',
+      'inkludering',
+      'tillgänglighet',
+      'sbtf',
+      'parabordtennis',
+    ],
+    link: { label: 'Läs om para', href: '#para' },
+  },
 ];
 
 export const FAQ_STARTER_QUESTIONS = [

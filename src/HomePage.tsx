@@ -183,6 +183,13 @@ const visitorPaths = [
     cta: 'Till börja spela',
   },
   {
+    title: 'Para',
+    text: 'En klubb för alla — rekrytering, utveckling och långsiktig hållbarhet.',
+    topics: ['Inkludering', 'Samarbete', 'Rätt förutsättningar'],
+    href: '#para',
+    cta: 'Läs om para',
+  },
+  {
     title: 'Träningstider',
     text: 'Se när varje grupp tränar i KBTK-hallen.',
     topics: ['Veckoschema', 'Grupper', 'Pass'],
@@ -209,6 +216,21 @@ const visitorPaths = [
     topics: ['Medlemsavgift', 'Träningsavgift', 'Swish'],
     href: '#avgifter',
     cta: 'Se avgifter',
+  },
+];
+
+const paraFocusAreas = [
+  {
+    title: 'Rekrytering',
+    text: 'Vi skapar vägar in så fler med funktionsnedsättning kan hitta till pingisen och känna sig välkomna från första stunden.',
+  },
+  {
+    title: 'Utveckling',
+    text: 'Varje individ ska få rätt stöd, träning och möjligheter att växa — i sin egen takt och utifrån sina förutsättningar.',
+  },
+  {
+    title: 'Långsiktig hållbarhet',
+    text: 'Med tydliga strukturer, rutiner och verktyg underlättar vi för spelare, föräldrar och ledare över tid.',
   },
 ];
 
@@ -310,8 +332,9 @@ function HomePage() {
             <p className="eyebrow">Kungälvs Bordtennisklubb</p>
             <h1>Pingis, gemenskap och utveckling i Kungälv.</h1>
             <p className="hero-copy">
-              Välkommen till KBTK. Här tränar barn, ungdomar, vuxna och motionärer
-              i KBTK-hallen med fokus på spelglädje, trygghet och laganda.
+              Välkommen till KBTK — en förening för alla. Här tränar barn, ungdomar,
+              vuxna, motionärer och para-utövare i KBTK-hallen med fokus på spelglädje,
+              trygghet och laganda.
             </p>
             <div className="button-row">
               <a className="button primary" href="#borja-spela">
@@ -362,6 +385,10 @@ function HomePage() {
               fortsätta — då registreras du som medlem och får en inchecknings-tagg i hallen.
               Se <a href="#avgifter">Avgifter</a> och <a href="#incheckning">check-in</a>.
             </p>
+            <p>
+              Vi är en förening för alla. Läs mer om vårt arbete med{' '}
+              <a href="#para">para och inkludering</a>.
+            </p>
             <div className="quick-links">
               <a href="/form/borja-spela">Anmäl intresse</a>
             </div>
@@ -380,6 +407,50 @@ function HomePage() {
             <a className="text-link" href="/form/borja-spela">
               Anmäl intresse via formulär
             </a>
+          </div>
+        </section>
+
+        <section className="section split" id="para" aria-labelledby="para-title">
+          <div>
+            <p className="eyebrow">Para</p>
+            <h2 id="para-title">En klubb för alla</h2>
+            <p>
+              Vi är stolta över att vara en förening för alla. En av våra prioriterade
+              målgrupper är spelare med funktionsnedsättning. Där tar vi ett helhetsgrepp
+              kring rekrytering, utveckling och långsiktig hållbarhet.
+            </p>
+            <p>
+              Vårt mål är att skapa rätt förutsättningar och ge varje individ de
+              möjligheter som behövs för att kunna delta, utvecklas och trivas i vår
+              verksamhet. För att para-utövare ska ha samma möjligheter till ett aktivt
+              idrottsliv arbetar vi aktivt med samarbeten.
+            </p>
+            <p>
+              Vi samarbetar nära med SBTF och andra aktörer i vår närhet för att testa och
+              utveckla våra arbetssätt — så att vi kan behålla och utveckla våra
+              para-utövare. Tillsammans skapar vi tydliga strukturer, rutiner och verktyg
+              som underlättar för både spelare, föräldrar och ledare. Allt detta ser vi
+              som en självklarhet.
+            </p>
+            <div className="quick-links">
+              <a href="/form/borja-spela">Anmäl intresse</a>
+              <a href="/form/kontakt">Kontakta klubben</a>
+            </div>
+          </div>
+
+          <div className="panel para-panel">
+            <h3>Vårt helhetsgrepp</h3>
+            <ul className="para-focus-list">
+              {paraFocusAreas.map((area) => (
+                <li key={area.title}>
+                  <strong>{area.title}</strong>
+                  <p>{area.text}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="para-panel-note">
+              Vill du veta mer eller komma igång? Hör av dig så hjälper vi dig vidare.
+            </p>
           </div>
         </section>
 
@@ -568,6 +639,7 @@ function HomePage() {
               </a>
               <div className="quick-links">
                 <a href="#sponsorer">Våra sponsorer</a>
+                <a href="#para">Para — en klubb för alla</a>
                 <a href="#incheckning">Check-in i hallen</a>
                 <a href="#kontakt">Kontakta klubben</a>
                 <a href="/form/doraccess">Dörraccess</a>

@@ -433,7 +433,7 @@ a {
 }
 
 .path-grid {
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .path-card {
@@ -505,6 +505,47 @@ a {
   grid-template-columns: minmax(0, 1fr) minmax(300px, 0.85fr);
   gap: 42px;
   align-items: center;
+}
+
+.para-panel {
+  align-self: stretch;
+}
+
+.para-focus-list {
+  display: grid;
+  gap: 18px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.para-focus-list li {
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(7, 31, 58, 0.1);
+}
+
+.para-focus-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.para-focus-list strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--navy);
+  font-size: 1.05rem;
+}
+
+.para-focus-list p {
+  margin: 0;
+}
+
+.para-panel-note {
+  margin: 22px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(7, 31, 58, 0.1);
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
 .split.reverse {

@@ -39,6 +39,7 @@ export default function App() {
           <nav className="main-nav" aria-label="Huvudmeny">
             <a href="/">Hem</a>
             <a href="/#borja-spela">Börja spela</a>
+            <a href="/#para">Para</a>
             <a href="/#traning">Träningstider</a>
             <a href="/form/kontakt">Kontakt</a>
           </nav>
