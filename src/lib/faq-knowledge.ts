@@ -87,9 +87,12 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     id: 'para',
     question: 'Finns det plats för spelare med funktionsnedsättning?',
     answer:
-      'Ja. Kungälvs BTK är en förening för alla och arbetar aktivt med para — rekrytering, utveckling och långsiktig hållbarhet. Vi samarbetar med SBTF och andra aktörer för att skapa rätt förutsättningar för spelare, föräldrar och ledare.',
+      'Ja. Kungälvs BTK är pilotförening för ParaPingis 360 och arbetar aktivt med rekrytering, utveckling och långsiktig hållbarhet för spelare med funktionsnedsättning. Vi samarbetar med SBTF och andra aktörer för att skapa rätt förutsättningar för spelare, föräldrar och ledare.',
     keywords: [
       'para',
+      'parapingis',
+      'parapingis 360',
+      'pilotförening',
       'funktionsnedsättning',
       'funktionsvariation',
       'inkludering',
@@ -97,7 +100,7 @@ export const FAQ_ENTRIES: FaqEntry[] = [
       'sbtf',
       'parabordtennis',
     ],
-    link: { label: 'Läs om para', href: '#para' },
+    link: { label: 'Läs om ParaPingis 360', href: '#para' },
   },
 ];
 

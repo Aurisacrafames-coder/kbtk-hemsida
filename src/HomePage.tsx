@@ -184,10 +184,10 @@ const visitorPaths = [
   },
   {
     title: 'Para',
-    text: 'En klubb för alla — rekrytering, utveckling och långsiktig hållbarhet.',
-    topics: ['Inkludering', 'Samarbete', 'Rätt förutsättningar'],
+    text: 'Pilotförening för ParaPingis 360 — en klubb för alla.',
+    topics: ['ParaPingis 360', 'Inkludering', 'Rätt förutsättningar'],
     href: '#para',
-    cta: 'Läs om para',
+    cta: 'Läs om ParaPingis 360',
   },
   {
     title: 'Träningstider',
@@ -386,8 +386,8 @@ function HomePage() {
               Se <a href="#avgifter">Avgifter</a> och <a href="#incheckning">check-in</a>.
             </p>
             <p>
-              Vi är en förening för alla. Läs mer om vårt arbete med{' '}
-              <a href="#para">para och inkludering</a>.
+              Vi är en förening för alla. Läs mer om vårt arbete som pilotförening för{' '}
+              <a href="#para">ParaPingis 360</a>.
             </p>
             <div className="quick-links">
               <a href="/form/borja-spela">Anmäl intresse</a>
@@ -412,12 +412,14 @@ function HomePage() {
 
         <section className="section split" id="para" aria-labelledby="para-title">
           <div>
-            <p className="eyebrow">Para</p>
-            <h2 id="para-title">En klubb för alla</h2>
+            <p className="eyebrow">ParaPingis 360</p>
+            <h2 id="para-title">Pilotförening för ParaPingis 360</h2>
             <p>
-              Vi är stolta över att vara en förening för alla. En av våra prioriterade
-              målgrupper är spelare med funktionsnedsättning. Där tar vi ett helhetsgrepp
-              kring rekrytering, utveckling och långsiktig hållbarhet.
+              Kungälvs BTK är stolta över att vara pilotförening för{' '}
+              <strong>ParaPingis 360</strong>. Vi är en förening för alla, och en av våra
+              prioriterade målgrupper är spelare med funktionsnedsättning. Genom projektet
+              tar vi ett helhetsgrepp kring rekrytering, utveckling och långsiktig
+              hållbarhet.
             </p>
             <p>
               Vårt mål är att skapa rätt förutsättningar och ge varje individ de
@@ -449,7 +451,9 @@ function HomePage() {
               ))}
             </ul>
             <p className="para-panel-note">
-              Vill du veta mer eller komma igång? Hör av dig så hjälper vi dig vidare.
+              Som pilotförening för ParaPingis 360 utvecklar vi arbetssätt som fler
+              föreningar kan ha nytta av. Vill du veta mer eller komma igång? Hör av dig
+              så hjälper vi dig vidare.
             </p>
           </div>
         </section>
@@ -639,7 +643,7 @@ function HomePage() {
               </a>
               <div className="quick-links">
                 <a href="#sponsorer">Våra sponsorer</a>
-                <a href="#para">Para — en klubb för alla</a>
+                <a href="#para">ParaPingis 360</a>
                 <a href="#incheckning">Check-in i hallen</a>
                 <a href="#kontakt">Kontakta klubben</a>
                 <a href="/form/doraccess">Dörraccess</a>
