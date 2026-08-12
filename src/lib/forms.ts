@@ -110,6 +110,12 @@ export const SIGNUP_GROUP_CATEGORIES = [
       'Om du redan spelat mer eller ska placeras i seriegrupp (t.ex. C–A). Klubben hjälper dig efter provträning.',
     forTrialSignup: true,
   },
+  {
+    name: 'Parasport 360',
+    description:
+      'Träning för dig med funktionsvariation. Klubben hjälper dig till rätt grupp och upplägg efter provträning.',
+    forTrialSignup: true,
+  },
 ] as const;
 
 export type SignupGroupCategoryName = (typeof SIGNUP_GROUP_CATEGORIES)[number]['name'];
@@ -121,6 +127,7 @@ export const TRIAL_GROUP_OPTIONS = SIGNUP_GROUP_CATEGORIES.filter(
   'Nybörjare 11-14 år',
   'Motionärer',
   'Övriga spelare',
+  'Parasport 360',
 ];
 
 export function getSignupGroupDescription(name: string): string | undefined {
@@ -145,6 +152,12 @@ export const TRIAL_GROUP_FEE_INFO: Record<(typeof TRIAL_GROUP_OPTIONS)[number], 
     trainingLabel: 'Enligt grupp',
     trainingNote:
       'Träningsavgiften beror på vilken grupp du placeras i (1 000–1 800 kr/säsong). Klubben bekräftar belopp efter provträningen.',
+  },
+  'Parasport 360': {
+    trainingFeeSek: null,
+    trainingLabel: 'Parasport 360',
+    trainingNote:
+      'Träningsavgiften bekräftas av klubben efter provträningen.',
   },
 };
 
