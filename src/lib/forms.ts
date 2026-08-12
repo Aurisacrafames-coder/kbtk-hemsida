@@ -101,7 +101,7 @@ export const SIGNUP_GROUP_CATEGORIES = [
   {
     name: 'Föräldramedlemskap',
     description:
-      'Medlemskap för föräldrar till barn i klubben — utan egen träningstid. Väljs i formuläret om du är förälder.',
+      'Tilläggsmedlemskap för föräldrar till barn i klubben — 350 kr/säsong utöver barnets avgift, utan egen träningstid.',
     forTrialSignup: false,
   },
   {

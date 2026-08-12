@@ -223,7 +223,9 @@ function TrialSignupForm() {
             onChange={(event) => setParentMembership(event.target.checked)}
           />
           <span>
-            Jag är förälder till ett barn i KBTK och vill ha föräldramedlemskap (350 kr/säsong).
+            Jag är förälder till ett barn i KBTK och vill dessutom betala
+            föräldramedlemskap (+{MEMBERSHIP_FEE_SEK.toLocaleString('sv-SE')}{' '}
+            kr/säsong).
           </span>
         </label>
 
