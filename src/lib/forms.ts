@@ -93,6 +93,12 @@ export const SIGNUP_GROUP_CATEGORIES = [
     forTrialSignup: true,
   },
   {
+    name: 'Parasport 360',
+    description:
+      'Träning för dig med funktionsvariation. Klubben hjälper dig till rätt grupp och upplägg efter provträning.',
+    forTrialSignup: true,
+  },
+  {
     name: 'Motionärer',
     description:
       'Vuxna, motionärer och pensionärer som vill spela regelbundet.',
@@ -110,12 +116,6 @@ export const SIGNUP_GROUP_CATEGORIES = [
       'Om du redan spelat mer eller ska placeras i seriegrupp (t.ex. C–A). Klubben hjälper dig efter provträning.',
     forTrialSignup: true,
   },
-  {
-    name: 'Parasport 360',
-    description:
-      'Träning för dig med funktionsvariation. Klubben hjälper dig till rätt grupp och upplägg efter provträning.',
-    forTrialSignup: true,
-  },
 ] as const;
 
 export type SignupGroupCategoryName = (typeof SIGNUP_GROUP_CATEGORIES)[number]['name'];
@@ -125,9 +125,9 @@ export const TRIAL_GROUP_OPTIONS = SIGNUP_GROUP_CATEGORIES.filter(
 ).map((category) => category.name) as [
   'Nybörjare 7-10 år',
   'Nybörjare 11-14 år',
+  'Parasport 360',
   'Motionärer',
   'Övriga spelare',
-  'Parasport 360',
 ];
 
 export function getSignupGroupDescription(name: string): string | undefined {
@@ -146,18 +146,18 @@ export type TrialGroupFeeInfo = {
 export const TRIAL_GROUP_FEE_INFO: Record<(typeof TRIAL_GROUP_OPTIONS)[number], TrialGroupFeeInfo> = {
   'Nybörjare 7-10 år': { trainingFeeSek: 1000, trainingLabel: 'Nybörjare' },
   'Nybörjare 11-14 år': { trainingFeeSek: 1000, trainingLabel: 'Nybörjare' },
+  'Parasport 360': {
+    trainingFeeSek: null,
+    trainingLabel: 'Parasport 360',
+    trainingNote:
+      'Träningsavgiften bekräftas av klubben efter provträningen.',
+  },
   Motionärer: { trainingFeeSek: 1150, trainingLabel: 'Motionsgrupp' },
   'Övriga spelare': {
     trainingFeeSek: null,
     trainingLabel: 'Enligt grupp',
     trainingNote:
       'Träningsavgiften beror på vilken grupp du placeras i (1 000–1 800 kr/säsong). Klubben bekräftar belopp efter provträningen.',
-  },
-  'Parasport 360': {
-    trainingFeeSek: null,
-    trainingLabel: 'Parasport 360',
-    trainingNote:
-      'Träningsavgiften bekräftas av klubben efter provträningen.',
   },
 };
 
