@@ -135,8 +135,9 @@ const sponsors = [
 const seasonFees = [
   { group: 'Nybörjare', training: 1300, membership: 350, license: 'Vid behov', total: 1650 },
   { group: 'Motionsgrupp', training: 1500, membership: 350, license: 'Vid behov', total: 1850 },
-  { group: 'Grupp D', training: 1500, membership: 350, license: 'Vid behov', total: 1850 },
-  { group: 'Grupp C', training: 1550, membership: 350, license: 'Vid behov', total: 1900 },
+  { group: 'Grupp E', training: 1500, membership: 350, license: 'Vid behov', total: 1850 },
+  { group: 'Grupp D', training: 1700, membership: 350, license: 'Vid behov', total: 2050 },
+  { group: 'Grupp C', training: 1700, membership: 350, license: 'Vid behov', total: 2050 },
   { group: 'Grupp B', training: 2000, membership: 350, license: 'Vid behov', total: 2350 },
   { group: 'Grupp A', training: 2250, membership: 350, license: 'A-licens ingår', total: 3200 },
 ];

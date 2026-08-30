@@ -157,7 +157,7 @@ export const TRIAL_GROUP_FEE_INFO: Record<(typeof TRIAL_GROUP_OPTIONS)[number], 
     trainingFeeSek: null,
     trainingLabel: 'Enligt grupp',
     trainingNote:
-      'Träningsavgiften beror på vilken grupp du placeras i (1 500–2 250 kr/säsong). Klubben bekräftar belopp efter provträningen.',
+      'Träningsavgiften beror på vilken grupp du placeras i (1 500–2 250 kr/säsong, t.ex. Grupp E 1 500 kr, Grupp C/D 1 700 kr). Klubben bekräftar belopp efter provträningen.',
   },
 };
 
