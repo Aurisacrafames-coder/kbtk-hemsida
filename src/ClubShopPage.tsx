@@ -7,6 +7,10 @@ import {
 } from './lib/club-shop';
 import { FORM_SLUG_TYPES, submitSiteForm } from './lib/forms';
 
+function sortJerseyNumber(a: string, b: string) {
+  return Number.parseInt(a, 10) - Number.parseInt(b, 10);
+}
+
 function JerseyNumberForm() {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
@@ -80,13 +84,73 @@ function JerseyNumberForm() {
         </select>
       </label>
       <p className="form-hint">
-        Kontrollera tabellen nedan innan du skickar in. Klubben bekräftar om numret kan reserveras.
+        Kontrollera nummerlistan nedan innan du skickar in. Klubben bekräftar om numret kan
+        reserveras.
       </p>
       {error ? <p className="form-error">{error}</p> : null}
       <button className="button primary" type="submit" disabled={pending}>
         {pending ? 'Skickar…' : 'Skicka ansökan'}
       </button>
     </form>
+  );
+}
+
+function JerseyNumberRegistry() {
+  const [query, setQuery] = useState('');
+  const freeCount = useMemo(() => availableJerseyNumbers().length, []);
+
+  const assignments = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+    const sorted = [...JERSEY_NUMBER_ASSIGNMENTS].sort((a, b) =>
+      sortJerseyNumber(a.number, b.number),
+    );
+
+    if (!normalizedQuery) {
+      return sorted;
+    }
+
+    return sorted.filter(
+      (row) =>
+        row.number.includes(normalizedQuery) || row.owner.toLowerCase().includes(normalizedQuery),
+    );
+  }, [query]);
+
+  return (
+    <section className="panel club-shop-numbers-panel">
+      <div className="club-shop-numbers-header">
+        <div>
+          <h2>Vem har vilket nummer?</h2>
+          <p className="club-shop-intro">
+            {JERSEY_NUMBER_ASSIGNMENTS.length} upptagna · {freeCount} lediga (00–99)
+          </p>
+        </div>
+        <label className="club-shop-search">
+          <span className="sr-only">Sök nummer eller namn</span>
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Sök nummer eller namn…"
+            autoComplete="off"
+          />
+        </label>
+      </div>
+
+      {assignments.length === 0 ? (
+        <p className="club-shop-empty">Inga nummer matchar sökningen.</p>
+      ) : (
+        <ul className="jersey-number-grid">
+          {assignments.map((row) => (
+            <li key={row.number}>
+              <article className="jersey-number-card">
+                <span className="jersey-number-badge">{row.number}</span>
+                <span className="jersey-number-owner">{row.owner}</span>
+              </article>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 
@@ -121,57 +185,57 @@ export default function ClubShopPage() {
             antal. Alla plagg finns i herr, dam och junior.
           </li>
           <li>Skicka även kontaktuppgifter: namn, adress, telefon och e-post.</li>
-          <li>
-            <a href="/klubbkop/matchprotokoll.pdf" target="_blank" rel="noreferrer">
-              Matchprotokoll (14 matcher, PDF)
-            </a>
-          </li>
         </ul>
       </section>
 
-      <section className="split club-shop-split">
-        <div className="panel">
-          <h2>Ansök om nummer på matchtröja</h2>
-          <p className="club-shop-intro">
-            Välj ett ledigt nummer mellan 00 och 99. Ansökan skickas till klubben via
-            kontaktformuläret.
-          </p>
-          <JerseyNumberForm />
-        </div>
-
-        <div className="panel">
-          <h2>Upptagna nummer</h2>
-          <p className="club-shop-intro">Lista över nummer som redan är reserverade i klubben.</p>
-          <div className="club-info-table-wrap club-shop-table-wrap">
-            <table className="club-info-table club-shop-table">
-              <thead>
-                <tr>
-                  <th scope="col">Nummer</th>
-                  <th scope="col">Ägare</th>
-                </tr>
-              </thead>
-              <tbody>
-                {JERSEY_NUMBER_ASSIGNMENTS.map((row) => (
-                  <tr key={row.number}>
-                    <th scope="row">{row.number}</th>
-                    <td>{row.owner}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <section className="panel club-shop-panel">
+        <h2>Ansök om nummer på matchtröja</h2>
+        <p className="club-shop-intro">
+          Välj ett ledigt nummer mellan 00 och 99. Ansökan skickas till klubben via
+          kontaktformuläret.
+        </p>
+        <JerseyNumberForm />
       </section>
+
+      <JerseyNumberRegistry />
 
       <section className="panel club-shop-panel">
         <h2>Köp utrustning</h2>
-        <ul className="equipment-link-list">
+        <p className="club-shop-intro">
+          Partnerbutiker med klubbrabatter och bra sortiment för bordtennis.
+        </p>
+        <ul className="equipment-grid">
           {EQUIPMENT_LINKS.map((link) => (
             <li key={link.href}>
-              <a href={link.href} target="_blank" rel="noreferrer">
-                {link.name}
-              </a>
-              {'note' in link && link.note ? <p>{link.note}</p> : null}
+              <article
+                className={`equipment-card${'note' in link && link.note?.includes('rabatt') ? ' featured' : ''}`}
+              >
+                <h3>{link.name}</h3>
+                {'note' in link && link.note ? (
+                  <p className="equipment-note">
+                    {link.note.includes('rabatt') ? (
+                      <>
+                        Klubbrabatt 30% — kod{' '}
+                        <strong className="equipment-code">
+                          {link.note.replace(/^30% rabattkod:\s*/i, '')}
+                        </strong>
+                      </>
+                    ) : (
+                      link.note
+                    )}
+                  </p>
+                ) : (
+                  <p className="equipment-note">Bordtennisutrustning online.</p>
+                )}
+                <a
+                  className="button secondary equipment-link"
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Besök butik
+                </a>
+              </article>
             </li>
           ))}
         </ul>

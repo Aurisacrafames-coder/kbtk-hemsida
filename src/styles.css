@@ -604,38 +604,158 @@ a {
   color: var(--muted);
 }
 
-.club-shop-split {
+.club-shop-numbers-panel {
   margin-top: 24px;
 }
 
-.club-shop-table-wrap {
-  max-height: 420px;
-  overflow: auto;
+.club-shop-numbers-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin-bottom: 20px;
 }
 
-.club-shop-table th[scope='row'] {
-  width: 88px;
-  font-weight: 600;
+.club-shop-numbers-header h2 {
+  margin: 0;
+}
+
+.club-shop-search {
+  flex: 1 1 240px;
+  max-width: 320px;
+  margin: 0;
+}
+
+.club-shop-search input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px;
+  font: inherit;
   color: var(--navy);
+  background: #ffffff;
+  border: 1px solid rgba(18, 32, 51, 0.14);
+  border-radius: 12px;
 }
 
-.equipment-link-list {
+.club-shop-search input:focus {
+  outline: 2px solid rgba(242, 140, 34, 0.45);
+  outline-offset: 1px;
+}
+
+.club-shop-empty {
+  margin: 0;
+  color: var(--muted);
+}
+
+.jersey-number-grid {
   list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: 10px;
   margin: 0;
   padding: 0;
+}
+
+.jersey-number-card {
   display: grid;
-  gap: 14px;
+  gap: 6px;
+  min-height: 88px;
+  padding: 12px 10px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid rgba(18, 32, 51, 0.08);
+  border-radius: 14px;
 }
 
-.equipment-link-list a {
+.jersey-number-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto;
+  color: var(--navy);
+  font-weight: 900;
+  font-size: 1.05rem;
+  background: var(--orange);
+  border-radius: 999px;
+}
+
+.jersey-number-owner {
+  color: var(--navy);
+  font-size: 0.88rem;
   font-weight: 600;
-  color: var(--navy-soft);
+  line-height: 1.25;
+  word-break: break-word;
 }
 
-.equipment-link-list p {
-  margin: 4px 0 0;
+.equipment-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.equipment-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 180px;
+  padding: 22px;
+  background: #ffffff;
+  border: 1px solid rgba(18, 32, 51, 0.08);
+  border-radius: 18px;
+}
+
+.equipment-card h3 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.15rem;
+}
+
+.equipment-note {
+  flex: 1;
+  margin: 10px 0 0;
   color: var(--muted);
   font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.equipment-code {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 4px 8px;
+  color: var(--navy);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+  background: rgba(242, 140, 34, 0.18);
+  border-radius: 8px;
+}
+
+.equipment-card.featured {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--navy), var(--navy-soft));
+  border-top: 5px solid var(--orange);
+}
+
+.equipment-card.featured h3,
+.equipment-card.featured .equipment-note {
+  color: #ffffff;
+}
+
+.equipment-card.featured .equipment-code {
+  color: var(--navy);
+  background: #ffffff;
+}
+
+.equipment-link {
+  align-self: flex-start;
+  margin-top: 18px;
+  min-height: 42px;
+  padding-inline: 16px;
+  font-size: 0.92rem;
 }
 
 .club-shop-form-success {
