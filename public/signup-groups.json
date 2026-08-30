@@ -1,0 +1,34 @@
+{
+  "groups": [
+    {
+      "name": "Nybörjare 7-10 år",
+      "description": "Pingisskola för yngre barn. Lek, grundteknik och en rolig introduktion till bordtennis.",
+      "info": ""
+    },
+    {
+      "name": "Nybörjare 11-14 år",
+      "description": "För dig som är ny eller nästan ny i tonåren. Fokus på grundteknik och spel i lagom gruppstorlek.",
+      "info": ""
+    },
+    {
+      "name": "Parasport 360",
+      "description": "Träning för dig med funktionsvariation. Klubben hjälper dig till rätt grupp och upplägg efter provträning.",
+      "info": ""
+    },
+    {
+      "name": "Motionärer",
+      "description": "Vuxna, motionärer och pensionärer som vill spela regelbundet.",
+      "info": ""
+    },
+    {
+      "name": "Föräldramedlemskap",
+      "description": "Tilläggsmedlemskap för föräldrar till barn i klubben — 350 kr/säsong utöver barnets avgift, utan egen träningstid.",
+      "info": ""
+    },
+    {
+      "name": "Övriga spelare",
+      "description": "Om du redan spelat mer eller ska placeras i seriegrupp (t.ex. C–A). Klubben hjälper dig efter provträning.",
+      "info": ""
+    }
+  ]
+}

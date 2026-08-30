@@ -82,38 +82,26 @@ export async function submitSiteForm(payload: Record<string, unknown>) {
 export const SIGNUP_GROUP_CATEGORIES = [
   {
     name: 'Nybörjare 7-10 år',
-    description:
-      'Pingisskola för yngre barn. Lek, grundteknik och en rolig introduktion till bordtennis.',
     forTrialSignup: true,
   },
   {
     name: 'Nybörjare 11-14 år',
-    description:
-      'För dig som är ny eller nästan ny i tonåren. Fokus på grundteknik och spel i lagom gruppstorlek.',
     forTrialSignup: true,
   },
   {
     name: 'Parasport 360',
-    description:
-      'Träning för dig med funktionsvariation. Klubben hjälper dig till rätt grupp och upplägg efter provträning.',
     forTrialSignup: true,
   },
   {
     name: 'Motionärer',
-    description:
-      'Vuxna, motionärer och pensionärer som vill spela regelbundet.',
     forTrialSignup: true,
   },
   {
     name: 'Föräldramedlemskap',
-    description:
-      'Tilläggsmedlemskap för föräldrar till barn i klubben — 350 kr/säsong utöver barnets avgift, utan egen träningstid.',
     forTrialSignup: false,
   },
   {
     name: 'Övriga spelare',
-    description:
-      'Om du redan spelat mer eller ska placeras i seriegrupp (t.ex. C–A). Klubben hjälper dig efter provträning.',
     forTrialSignup: true,
   },
 ] as const;
@@ -129,10 +117,6 @@ export const TRIAL_GROUP_OPTIONS = SIGNUP_GROUP_CATEGORIES.filter(
   'Motionärer',
   'Övriga spelare',
 ];
-
-export function getSignupGroupDescription(name: string): string | undefined {
-  return SIGNUP_GROUP_CATEGORIES.find((category) => category.name === name)?.description;
-}
 
 export const MEMBERSHIP_FEE_SEK = 350;
 

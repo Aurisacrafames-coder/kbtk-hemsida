@@ -6,7 +6,8 @@ import {
   type PublicCompetitionSummary,
 } from './lib/competitions';
 import { FAQ_ENTRIES } from './lib/faq-knowledge';
-import { SIGNUP_GROUP_CATEGORIES } from './lib/forms';
+import { fetchPublicSignupGroups, type PublicSignupGroup } from './lib/signup-groups';
+import { SignupGroupInfoPanel } from './SignupGroupInfoPanel';
 
 type AktuelltItem = {
   title: string;
@@ -233,6 +234,11 @@ function HomePage() {
   const [competitionsError, setCompetitionsError] = useState('');
   const [checkinStats, setCheckinStats] = useState<PublicCheckinCounts | null>(null);
   const [checkinStatsError, setCheckinStatsError] = useState('');
+  const [signupGroups, setSignupGroups] = useState<PublicSignupGroup[]>([]);
+
+  useEffect(() => {
+    void fetchPublicSignupGroups().then(setSignupGroups);
+  }, []);
 
   useEffect(() => {
     async function loadAktuellt() {
@@ -372,10 +378,15 @@ function HomePage() {
           <div className="panel">
             <h3>Gruppkategorier</h3>
             <ul className="check-list">
-              {SIGNUP_GROUP_CATEGORIES.map((category) => (
+              {signupGroups.map((category) => (
                 <li key={category.name}>
                   <strong>{category.name}</strong>
-                  <p className="check-list-desc">{category.description}</p>
+                  {category.description ? (
+                    <p className="check-list-desc">{category.description}</p>
+                  ) : null}
+                  {category.info ? (
+                    <p className="check-list-info">{category.info}</p>
+                  ) : null}
                 </li>
               ))}
             </ul>

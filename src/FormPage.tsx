@@ -1,9 +1,8 @@
-import { useState, type FormEvent, type ReactNode } from 'react';
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import {
   FORM_SLUG_LABELS,
   FORM_SLUG_TYPES,
   HALL_BOOKING_SLOTS,
-  getSignupGroupDescription,
   LICENSE_OPTIONS,
   MEMBERSHIP_FEE_SEK,
   TRIAL_GROUP_FEE_INFO,
@@ -12,8 +11,14 @@ import {
   submitSiteForm,
   type FormSlug,
 } from './lib/forms';
+import {
+  fetchPublicSignupGroups,
+  getSignupGroupByName,
+  type PublicSignupGroup,
+} from './lib/signup-groups';
 import { validateSwedishPersonalId } from './lib/personal-id';
 import { buildSwishMessage } from './lib/swish';
+import { SignupGroupInfoPanel } from './SignupGroupInfoPanel';
 import { SwishPaymentPanel } from './SwishPaymentPanel';
 
 type FormPageProps = {
@@ -77,7 +82,13 @@ function TrialSignupForm() {
   const [parentMembership, setParentMembership] = useState(false);
   const [name, setName] = useState('');
   const [group, setGroup] = useState('');
+  const [signupGroups, setSignupGroups] = useState<PublicSignupGroup[]>([]);
 
+  useEffect(() => {
+    void fetchPublicSignupGroups().then(setSignupGroups);
+  }, []);
+
+  const selectedGroup = getSignupGroupByName(signupGroups, group);
   const groupFeeInfo =
     TRIAL_GROUP_FEE_INFO[group as (typeof TRIAL_GROUP_OPTIONS)[number]] ?? null;
   const membershipTotal = group ? getTrialMembershipTotal(group) : null;
@@ -156,9 +167,7 @@ function TrialSignupForm() {
             ))}
           </select>
         </label>
-        {group ? (
-          <p className="form-hint">{getSignupGroupDescription(group)}</p>
-        ) : null}
+        <SignupGroupInfoPanel group={selectedGroup} />
 
         <label>
           Namn
