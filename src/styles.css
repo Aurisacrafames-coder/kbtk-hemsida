@@ -40,16 +40,47 @@ a {
   top: 0;
   z-index: 10;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 14px;
-  padding: 14px clamp(20px, 5vw, 72px);
+  gap: 12px;
+  padding: 12px clamp(16px, 4vw, 72px);
   background: rgba(255, 250, 241, 0.92);
   border-bottom: 1px solid rgba(18, 32, 51, 0.08);
   backdrop-filter: blur(12px);
 }
 
+.site-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  color: var(--navy);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 800;
+  background: #ffffff;
+  border: 1px solid rgba(18, 32, 51, 0.12);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.nav-toggle:hover {
+  background: var(--orange-soft);
+}
+
 .brand {
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .hall-today-bar {
@@ -162,7 +193,8 @@ a {
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 8px;
-  flex-shrink: 0;
+  flex: 1 1 auto;
+  min-width: 0;
   margin-left: auto;
 }
 
@@ -599,6 +631,21 @@ a {
   margin-top: 24px;
 }
 
+.club-shop-page .club-shop-numbers-panel + .club-shop-panel {
+  margin-top: 28px;
+}
+
+.club-shop-page .panel {
+  padding: clamp(28px, 4vw, 40px);
+}
+
+.club-shop-page .panel h2 {
+  margin: 0 0 14px;
+  font-size: clamp(1.55rem, 3vw, 2rem);
+  line-height: 1.15;
+  color: var(--navy);
+}
+
 .club-shop-intro {
   margin: 0 0 16px;
   color: var(--muted);
@@ -606,6 +653,7 @@ a {
 
 .club-shop-numbers-panel {
   margin-top: 24px;
+  padding-bottom: clamp(32px, 4vw, 44px);
 }
 
 .club-shop-numbers-header {
@@ -1268,24 +1316,56 @@ a {
   background: var(--navy);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .site-header {
-    flex-wrap: wrap;
     align-items: stretch;
   }
 
-  .brand {
-    flex: 1 1 auto;
+  .site-header-top {
+    flex: 1 1 100%;
   }
 
-  .main-nav {
-    margin-left: 0;
-    justify-content: flex-start;
+  .nav-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .brand strong {
+    font-size: 0.95rem;
+  }
+
+  .brand-logo {
+    width: 50px;
+    height: 50px;
   }
 
   .hall-today-bar {
-    order: 3;
     flex: 1 1 100%;
+  }
+
+  .main-nav {
+    display: none;
+    flex: 1 1 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    margin-left: 0;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid rgba(18, 32, 51, 0.08);
+    border-radius: 18px;
+    box-shadow: 0 12px 28px rgba(7, 31, 58, 0.08);
+  }
+
+  .main-nav.is-open {
+    display: flex;
+  }
+
+  .main-nav a {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    border-radius: 12px;
   }
 
   .hero,
@@ -1307,16 +1387,100 @@ a {
   .split.reverse .panel {
     order: 2;
   }
+
+  .club-shop-numbers-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .club-shop-search {
+    max-width: none;
+  }
+}
+
+@media (min-width: 1025px) {
+  .site-header {
+    flex-wrap: nowrap;
+  }
+
+  .site-header-top {
+    flex: 0 1 auto;
+    width: auto;
+  }
+
+  .hall-today-bar {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .main-nav {
+    display: flex !important;
+    flex: 0 0 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-left: auto;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .main-nav a {
+    width: auto;
+    padding: 10px 12px;
+    font-size: 0.92rem;
+    border-radius: 999px;
+  }
 }
 
 @media (max-width: 620px) {
   .site-header {
-    position: static;
+    position: sticky;
+    top: 0;
+    padding: 10px 14px;
+    gap: 10px;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .brand-logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .hall-today-session,
+  .hall-today-empty,
+  .hall-today-loading {
+    min-width: 104px;
+    padding: 7px 9px;
   }
 
   .section {
     width: min(100% - 28px, 1120px);
     padding: 52px 0;
+  }
+
+  .form-page {
+    width: min(100% - 28px, 760px);
+    padding-top: 28px;
+    padding-bottom: 48px;
+  }
+
+  .club-shop-page .panel {
+    padding: 22px 18px;
+  }
+
+  .jersey-number-grid {
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: 8px;
+  }
+
+  .equipment-grid {
+    grid-template-columns: 1fr;
   }
 
   .hero {

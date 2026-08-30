@@ -19,9 +19,13 @@ function getStaticPage(pathname: string): 'klubbkop' | null {
 
 export default function App() {
   const [pathname, setPathname] = useState(readPathname);
+  const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => {
-    const onNavigate = () => setPathname(readPathname());
+    const onNavigate = () => {
+      setPathname(readPathname());
+      setNavOpen(false);
+    };
     window.addEventListener('popstate', onNavigate);
     return () => window.removeEventListener('popstate', onNavigate);
   }, []);
@@ -30,27 +34,61 @@ export default function App() {
   const staticPage = getStaticPage(pathname);
   const showMainNav = !formRoute && !staticPage;
 
+  function closeNav() {
+    setNavOpen(false);
+  }
+
   return (
     <>
-      <header className="site-header">
-        <a className="brand" href="/" aria-label="Till startsidan">
-          <img className="brand-logo" src="/kbtk-logo.png" alt="Kungälvs Bordtennisklubb" />
-          <span>
-            <strong>Kungälvs BTK</strong>
-            <small>Vi älskar pingis</small>
-          </span>
-        </a>
+      <header className={`site-header${navOpen ? ' site-header-nav-open' : ''}`}>
+        <div className="site-header-top">
+          <a className="brand" href="/" aria-label="Till startsidan">
+            <img className="brand-logo" src="/kbtk-logo.png" alt="Kungälvs Bordtennisklubb" />
+            <span>
+              <strong>Kungälvs BTK</strong>
+              <small>Vi älskar pingis</small>
+            </span>
+          </a>
+
+          {showMainNav ? (
+            <button
+              type="button"
+              className="nav-toggle"
+              aria-expanded={navOpen}
+              aria-controls="main-nav"
+              onClick={() => setNavOpen((open) => !open)}
+            >
+              {navOpen ? 'Stäng' : 'Meny'}
+            </button>
+          ) : null}
+        </div>
 
         {showMainNav ? <HallTodayBar /> : null}
 
         {showMainNav ? (
-          <nav className="main-nav" aria-label="Huvudmeny">
-            <a href="/">Hem</a>
-            <a href="/#borja-spela">Börja spela</a>
-            <a href="/#para">ParaPingis 360</a>
-            <a href="/#traning">Träningstider</a>
-            <a href="/klubbkop">Klubbköp</a>
-            <a href="/form/kontakt">Kontakt</a>
+          <nav
+            id="main-nav"
+            className={`main-nav${navOpen ? ' is-open' : ''}`}
+            aria-label="Huvudmeny"
+          >
+            <a href="/" onClick={closeNav}>
+              Hem
+            </a>
+            <a href="/#borja-spela" onClick={closeNav}>
+              Börja spela
+            </a>
+            <a href="/#para" onClick={closeNav}>
+              ParaPingis 360
+            </a>
+            <a href="/#traning" onClick={closeNav}>
+              Träningstider
+            </a>
+            <a href="/klubbkop" onClick={closeNav}>
+              Klubbköp
+            </a>
+            <a href="/form/kontakt" onClick={closeNav}>
+              Kontakt
+            </a>
           </nav>
         ) : null}
       </header>
