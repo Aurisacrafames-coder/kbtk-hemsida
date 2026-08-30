@@ -228,7 +228,7 @@ export default function ClubShopPage() {
                   <p className="equipment-note">Bordtennisutrustning online.</p>
                 )}
                 <a
-                  className="button secondary equipment-link"
+                  className={`button equipment-link${'note' in link && link.note?.includes('rabatt') ? ' secondary' : ' primary'}`}
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
