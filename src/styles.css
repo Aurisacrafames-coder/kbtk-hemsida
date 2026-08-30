@@ -595,6 +595,54 @@ a {
   justify-content: flex-start;
 }
 
+.club-shop-page .club-shop-panel + .club-shop-panel {
+  margin-top: 24px;
+}
+
+.club-shop-intro {
+  margin: 0 0 16px;
+  color: var(--muted);
+}
+
+.club-shop-split {
+  margin-top: 24px;
+}
+
+.club-shop-table-wrap {
+  max-height: 420px;
+  overflow: auto;
+}
+
+.club-shop-table th[scope='row'] {
+  width: 88px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.equipment-link-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.equipment-link-list a {
+  font-weight: 600;
+  color: var(--navy-soft);
+}
+
+.equipment-link-list p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.club-shop-form-success {
+  display: grid;
+  gap: 16px;
+}
+
 .fee-season-label {
   margin: 0 0 14px;
   color: var(--navy);

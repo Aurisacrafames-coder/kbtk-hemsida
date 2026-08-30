@@ -169,8 +169,8 @@ const clubInfoRows = [
   { label: 'Organisationsnummer', value: '802421-9860' },
   {
     label: 'Stadgar',
-    value: 'Stadgar 2024',
-    href: 'https://kungalvsbtk.se/wp-content/uploads/2026/01/KBTK-stadgar-2024.pdf',
+    value: 'Stadgar 2024 (PDF)',
+    href: '/stadgar/KBTK-stadgar-2024.pdf',
   },
 ];
 
@@ -628,6 +628,10 @@ function HomePage() {
                 Öppna hallen i Google Maps
               </a>
               <div className="quick-links">
+                <a href="/stadgar/KBTK-stadgar-2024.pdf" target="_blank" rel="noreferrer">
+                  Stadgar 2024
+                </a>
+                <a href="/klubbkop">Klubbköp</a>
                 <a href="#sponsorer">Våra sponsorer</a>
                 <a href="#para">ParaPingis 360</a>
                 <a href="#incheckning">Check-in i hallen</a>

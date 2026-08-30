@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import HomePage from './HomePage';
+import ClubShopPage from './ClubShopPage';
 import { FormPage } from './FormPage';
 import { CompetitionListPage, CompetitionSignupPage } from './CompetitionForms';
 import { FaqBot } from './FaqBot';
@@ -8,6 +9,12 @@ import { getFormRouteFromPath } from './lib/forms';
 
 function readPathname() {
   return window.location.pathname;
+}
+
+function getStaticPage(pathname: string): 'klubbkop' | null {
+  const path = pathname.replace(/\/$/, '') || '/';
+  if (path === '/klubbkop') return 'klubbkop';
+  return null;
 }
 
 export default function App() {
@@ -20,7 +27,8 @@ export default function App() {
   }, []);
 
   const formRoute = getFormRouteFromPath(pathname);
-  const showMainNav = !formRoute;
+  const staticPage = getStaticPage(pathname);
+  const showMainNav = !formRoute && !staticPage;
 
   return (
     <>
@@ -41,6 +49,7 @@ export default function App() {
             <a href="/#borja-spela">Börja spela</a>
             <a href="/#para">ParaPingis 360</a>
             <a href="/#traning">Träningstider</a>
+            <a href="/klubbkop">Klubbköp</a>
             <a href="/form/kontakt">Kontakt</a>
           </nav>
         ) : null}
@@ -50,7 +59,8 @@ export default function App() {
         <CompetitionSignupPage slug={formRoute.slug} />
       ) : null}
       {formRoute?.kind === 'form' ? <FormPage slug={formRoute.slug} /> : null}
-      {!formRoute ? <HomePage /> : null}
+      {staticPage === 'klubbkop' ? <ClubShopPage /> : null}
+      {!formRoute && !staticPage ? <HomePage /> : null}
       <footer className="site-footer">
         <span>Kungälvs Bordtennisklubb</span>
         <span>Vi älskar pingis</span>
