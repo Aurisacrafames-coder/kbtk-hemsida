@@ -133,7 +133,14 @@ const sponsors = [
   },
 ];
 
-const seasonFees = [
+const seasonFees: Array<{
+  group: string;
+  training: number;
+  membership: number | '—';
+  license: string;
+  total: number;
+  addon?: boolean;
+}> = [
   { group: 'Pingisskola/Nybörjare', training: 1300, membership: 350, license: 'Vid behov', total: 1650 },
   { group: 'Motionsgrupp', training: 1500, membership: 350, license: 'Vid behov', total: 1850 },
   { group: 'Grupp E', training: 1500, membership: 350, license: 'Vid behov', total: 1850 },
@@ -141,6 +148,14 @@ const seasonFees = [
   { group: 'Grupp C', training: 1700, membership: 350, license: 'Vid behov', total: 2050 },
   { group: 'Grupp B', training: 2000, membership: 350, license: 'Vid behov', total: 2350 },
   { group: 'Grupp A', training: 2250, membership: 350, license: 'A-licens ingår', total: 3200 },
+  {
+    group: 'Utvecklingsgrupp',
+    training: 500,
+    membership: '—',
+    license: '—',
+    total: 500,
+    addon: true,
+  },
 ];
 
 const clubInfoRows = [
@@ -669,12 +684,19 @@ function HomePage() {
               </thead>
               <tbody>
                 {seasonFees.map((row) => (
-                  <tr key={row.group}>
+                  <tr key={row.group} className={row.addon ? 'fee-table-addon' : undefined}>
                     <th scope="row">{row.group}</th>
                     <td>{row.training.toLocaleString('sv-SE')} kr</td>
-                    <td>{row.membership.toLocaleString('sv-SE')} kr</td>
+                    <td>
+                      {typeof row.membership === 'number'
+                        ? `${row.membership.toLocaleString('sv-SE')} kr`
+                        : row.membership}
+                    </td>
                     <td>{row.license}</td>
-                    <td>{row.total.toLocaleString('sv-SE')} kr</td>
+                    <td>
+                      {row.total.toLocaleString('sv-SE')} kr
+                      {row.addon ? ' (tillägg)' : ''}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -683,10 +705,20 @@ function HomePage() {
 
           <p className="fee-footnote">
             Börjar man på vårsäsongen kan träningsavgiften halveras i pingisskolan. Grupper
-            startar i regel på hösten.
+            startar i regel på hösten. Utvecklingsgrupp är ett tillägg utöver den ordinarie grupp
+            du tillhör — medlemsavgift betalas som vanligt via huvudgruppen.
           </p>
 
           <div className="fee-grid">
+            <article className="fee-card">
+              <h3>Utvecklingsgrupp</h3>
+              <p>
+                Extra träningsgrupp utöver din ordinarie grupp:{' '}
+                <strong>500 kr/säsong</strong> (sept–maj). Tillkommer utöver avgiften för den grupp
+                du redan tillhör.
+              </p>
+            </article>
+
             <article className="fee-card">
               <h3>Föräldramedlemskap</h3>
               <p>

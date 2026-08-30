@@ -794,6 +794,11 @@ a {
   border-bottom: 0;
 }
 
+.fee-table-addon th,
+.fee-table-addon td {
+  border-top: 2px solid rgba(242, 140, 34, 0.35);
+}
+
 .fee-footnote {
   max-width: 760px;
   margin: 0 0 28px;
