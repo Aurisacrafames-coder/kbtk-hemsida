@@ -668,8 +668,7 @@ function HomePage() {
 
           <p className="fee-footnote">
             Börjar man på vårsäsongen kan träningsavgiften halveras i pingisskolan. Grupper
-            startar i regel på hösten. Träningsavgift faktureras i första eller andra veckan
-            av oktober — saknar du faktura, hör av dig till kassor@kungalvsbtk.se.
+            startar i regel på hösten.
           </p>
 
           <div className="fee-grid">
