@@ -39,7 +39,7 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     id: 'fees',
     question: 'Vad kostar det och hur betalar jag?',
     answer:
-      'Medlemsavgiften är 350 kr per säsong. Träningsavgiften varierar per grupp (1 000–1 800 kr för höst/vår). Betala via Swish 123 260 3272. När avgiften är betald registrerar klubben dig och du får en inchecknings-tagg i hallen.',
+      'Medlemsavgiften är 350 kr per säsong. Träningsavgiften varierar per grupp (1 300–2 250 kr för höst/vår). Betala via Swish 123 260 3272. När avgiften är betald registrerar klubben dig och du får en inchecknings-tagg i hallen.',
     keywords: ['avgift', 'kostnad', 'pris', 'swish', 'betala', 'pengar', 'medlemsavgift', 'tagg', 'inchecknings-tagg'],
     link: { label: 'Se alla avgifter', href: '#avgifter' },
   },

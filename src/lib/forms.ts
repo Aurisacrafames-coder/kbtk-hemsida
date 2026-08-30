@@ -144,20 +144,20 @@ export type TrialGroupFeeInfo = {
 
 /** Avgifter per provträningsgrupp (höst/vår, sept–maj). */
 export const TRIAL_GROUP_FEE_INFO: Record<(typeof TRIAL_GROUP_OPTIONS)[number], TrialGroupFeeInfo> = {
-  'Nybörjare 7-10 år': { trainingFeeSek: 1000, trainingLabel: 'Nybörjare' },
-  'Nybörjare 11-14 år': { trainingFeeSek: 1000, trainingLabel: 'Nybörjare' },
+  'Nybörjare 7-10 år': { trainingFeeSek: 1300, trainingLabel: 'Nybörjare' },
+  'Nybörjare 11-14 år': { trainingFeeSek: 1300, trainingLabel: 'Nybörjare' },
   'Parasport 360': {
     trainingFeeSek: null,
     trainingLabel: 'Parasport 360',
     trainingNote:
       'Träningsavgiften bekräftas av klubben efter provträningen.',
   },
-  Motionärer: { trainingFeeSek: 1150, trainingLabel: 'Motionsgrupp' },
+  Motionärer: { trainingFeeSek: 1500, trainingLabel: 'Motionsgrupp' },
   'Övriga spelare': {
     trainingFeeSek: null,
     trainingLabel: 'Enligt grupp',
     trainingNote:
-      'Träningsavgiften beror på vilken grupp du placeras i (1 000–1 800 kr/säsong). Klubben bekräftar belopp efter provträningen.',
+      'Träningsavgiften beror på vilken grupp du placeras i (1 500–2 250 kr/säsong). Klubben bekräftar belopp efter provträningen.',
   },
 };
 

@@ -133,12 +133,12 @@ const sponsors = [
 ];
 
 const seasonFees = [
-  { group: 'Nybörjare', training: 1000, membership: 350, license: 'Vid behov', total: 1350 },
-  { group: 'Motionärer', training: 1150, membership: 350, license: 'Vid behov', total: 1500 },
-  { group: 'Grupp D', training: 1000, membership: 350, license: 'Vid behov', total: 1350 },
-  { group: 'Grupp C', training: 1250, membership: 350, license: 'Vid behov', total: 1600 },
-  { group: 'Grupp B', training: 1650, membership: 350, license: 'Vid behov', total: 2000 },
-  { group: 'Grupp A', training: 1800, membership: 350, license: 'A-licens ingår', total: 2800 },
+  { group: 'Nybörjare', training: 1300, membership: 350, license: 'Vid behov', total: 1650 },
+  { group: 'Motionsgrupp', training: 1500, membership: 350, license: 'Vid behov', total: 1850 },
+  { group: 'Grupp D', training: 1500, membership: 350, license: 'Vid behov', total: 1850 },
+  { group: 'Grupp C', training: 1550, membership: 350, license: 'Vid behov', total: 1900 },
+  { group: 'Grupp B', training: 2000, membership: 350, license: 'Vid behov', total: 2350 },
+  { group: 'Grupp A', training: 2250, membership: 350, license: 'A-licens ingår', total: 3200 },
 ];
 
 const clubInfoRows = [
@@ -638,7 +638,7 @@ function HomePage() {
             </p>
           </div>
 
-          <p className="fee-season-label">Säsong 2025–2026</p>
+          <p className="fee-season-label">Säsong 2026–2027</p>
 
           <div className="fee-table-wrap">
             <table className="fee-table">
@@ -667,8 +667,8 @@ function HomePage() {
 
           <p className="fee-footnote">
             Börjar man på vårsäsongen kan träningsavgiften halveras i pingisskolan. Grupper
-            startar i regel på hösten. Nya avgifter för kommande säsong publiceras innan
-            höststart.
+            startar i regel på hösten. Träningsavgift faktureras i första eller andra veckan
+            av oktober — saknar du faktura, hör av dig till kassor@kungalvsbtk.se.
           </p>
 
           <div className="fee-grid">
@@ -707,7 +707,7 @@ function HomePage() {
               <p>
                 <strong>Medlemsavgift:</strong> 350 kr/säsong
                 <br />
-                <strong>Träningsavgift:</strong> 1 000–1 800 kr/säsong beroende på grupp (se tabellen
+                <strong>Träningsavgift:</strong> 1 300–2 250 kr/säsong beroende på grupp (se tabellen
                 ovan)
               </p>
               <p>
