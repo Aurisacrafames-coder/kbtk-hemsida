@@ -734,22 +734,6 @@ a {
   border-radius: 8px;
 }
 
-.equipment-card.featured {
-  color: #ffffff;
-  background: linear-gradient(135deg, var(--navy), var(--navy-soft));
-  border-top: 5px solid var(--orange);
-}
-
-.equipment-card.featured h3,
-.equipment-card.featured .equipment-note {
-  color: #ffffff;
-}
-
-.equipment-card.featured .equipment-code {
-  color: var(--navy);
-  background: #ffffff;
-}
-
 .equipment-link {
   align-self: flex-start;
   margin-top: 18px;

@@ -207,9 +207,7 @@ export default function ClubShopPage() {
         <ul className="equipment-grid">
           {EQUIPMENT_LINKS.map((link) => (
             <li key={link.href}>
-              <article
-                className={`equipment-card${'note' in link && link.note?.includes('rabatt') ? ' featured' : ''}`}
-              >
+              <article className="equipment-card">
                 <h3>{link.name}</h3>
                 {'note' in link && link.note ? (
                   <p className="equipment-note">
@@ -228,7 +226,7 @@ export default function ClubShopPage() {
                   <p className="equipment-note">Bordtennisutrustning online.</p>
                 )}
                 <a
-                  className={`button equipment-link${'note' in link && link.note?.includes('rabatt') ? ' secondary' : ' primary'}`}
+                  className="button primary equipment-link"
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
