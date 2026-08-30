@@ -37,19 +37,10 @@ export function HallTodayBar() {
     return null;
   }
 
-  const checkinsToday = hallToday?.checkins_today ?? null;
   const sessions = hallToday?.sessions ?? [];
 
   return (
     <aside className="hall-today-bar" aria-label="Hallen idag">
-      <a className="hall-today-checkins" href="/#incheckning">
-        <span className="hall-today-checkins-label">Incheckade idag</span>
-        <span className="hall-today-checkins-value">
-          <span className="hall-today-live-dot" aria-hidden="true" />
-          <strong>{checkinsToday ?? '…'}</strong>
-        </span>
-      </a>
-
       <div className="hall-today-schedule" aria-label="Dagens träningspass">
         {hallToday && sessions.length === 0 ? (
           <a className="hall-today-empty" href="/#traning">
