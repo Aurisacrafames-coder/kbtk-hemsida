@@ -63,9 +63,9 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     id: 'competition',
     question: 'Hur anmäler jag mig till tävling?',
     answer:
-      'Under Tävling finns länkar för licensanmälan, tävlingsanmälan och seriestatus. Där hittar du rätt väg vidare.',
-    keywords: ['tävling', 'licens', 'serie', 'anmälan', 'profixio'],
-    link: { label: 'Till tävling', href: '#serier' },
+      'Under Tävling finns tävlingskalender, länkar för licensanmälan, tävlingsanmälan och seriestatus. Kalendern visar kommande tävlingar; anmäl dig via tävlingsanmälan när klubben öppnar anmälan.',
+    keywords: ['tävling', 'licens', 'serie', 'anmälan', 'profixio', 'kalender'],
+    link: { label: 'Till tävlingskalendern', href: '#tavlingskalender' },
   },
   {
     id: 'contact',
