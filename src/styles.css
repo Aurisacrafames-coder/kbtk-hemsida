@@ -631,6 +631,39 @@ a {
   margin-top: 24px;
 }
 
+.ranking-page .ranking-panel {
+  margin-top: 24px;
+  padding: clamp(28px, 4vw, 40px);
+}
+
+.ranking-page .ranking-panel h2 {
+  margin: 0 0 14px;
+  font-size: clamp(1.25rem, 2.5vw, 1.55rem);
+}
+
+.ranking-page .ranking-panel p {
+  margin: 0 0 14px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.ranking-page .ranking-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.ranking-steps {
+  margin: 0 0 18px;
+  padding-left: 1.25em;
+  display: grid;
+  gap: 10px;
+  color: var(--navy);
+  line-height: 1.5;
+}
+
+.ranking-page .button {
+  margin-top: 4px;
+}
+
 .club-shop-page .club-shop-numbers-panel + .club-shop-panel {
   margin-top: 28px;
 }
