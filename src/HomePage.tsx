@@ -7,7 +7,6 @@ import {
 } from './lib/competitions';
 import { FAQ_ENTRIES } from './lib/faq-knowledge';
 import { fetchPublicSignupGroups, type PublicSignupGroup } from './lib/signup-groups';
-import { CompetitionCalendar } from './CompetitionCalendar';
 import { SignupGroupInfoPanel } from './SignupGroupInfoPanel';
 import {
   formatYouthCompetitionDate,
@@ -616,7 +615,7 @@ function HomePage() {
               och anmäl licens eller tävling via formulären.
             </p>
             <div className="quick-links">
-              <a href="#tavlingskalender">Tävlingskalender</a>
+              <a href="/form/tavling#tavlingskalender">Tävlingskalender</a>
               {quickLinks.map((item) => (
                 <a key={item.label} href={item.href}>
                   {item.label}
@@ -625,8 +624,6 @@ function HomePage() {
             </div>
           </div>
         </section>
-
-        <CompetitionCalendar />
 
         <section className="section club-info-section" id="klubbinfo">
           <div className="section-heading">
