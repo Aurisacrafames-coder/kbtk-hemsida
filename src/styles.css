@@ -2245,6 +2245,97 @@ a {
   background: var(--orange-soft);
 }
 
+.youth-open-section {
+  width: min(1180px, calc(100% - 40px));
+}
+
+.youth-open-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.youth-open-card {
+  display: grid;
+  gap: 12px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid rgba(7, 31, 58, 0.1);
+  border-left: 4px solid var(--orange);
+  border-radius: 18px;
+  box-shadow: 0 12px 32px rgba(7, 31, 58, 0.06);
+}
+
+.youth-open-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.youth-open-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--orange-soft);
+  color: var(--navy);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.youth-open-card-top time {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.youth-open-card h3 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1.35rem;
+}
+
+.youth-open-audience {
+  margin: 0;
+  color: var(--navy);
+  font-weight: 800;
+}
+
+.youth-open-meta,
+.youth-open-highlights {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--muted);
+}
+
+.youth-open-meta li,
+.youth-open-highlights li {
+  margin: 0.35rem 0;
+}
+
+.youth-open-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+@media (max-width: 640px) {
+  .youth-open-card {
+    padding: 18px;
+  }
+
+  .youth-open-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
 @media (max-width: 640px) {
   .faq-bot-panel {
     width: calc(100vw - 32px);

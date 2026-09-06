@@ -9,6 +9,7 @@ import { FAQ_ENTRIES } from './lib/faq-knowledge';
 import { fetchPublicSignupGroups, type PublicSignupGroup } from './lib/signup-groups';
 import { CompetitionCalendar } from './CompetitionCalendar';
 import { SignupGroupInfoPanel } from './SignupGroupInfoPanel';
+import { YouthOpenCompetitions } from './YouthOpenCompetitions';
 
 type AktuelltItem = {
   title: string;
@@ -599,6 +600,7 @@ function HomePage() {
               och anmäl licens eller tävling via formulären.
             </p>
             <div className="quick-links">
+              <a href="#ungdomstavlingar">Ungdomstävlingar</a>
               <a href="#tavlingskalender">Tävlingskalender</a>
               {quickLinks.map((item) => (
                 <a key={item.label} href={item.href}>
@@ -608,6 +610,8 @@ function HomePage() {
             </div>
           </div>
         </section>
+
+        <YouthOpenCompetitions />
 
         <CompetitionCalendar />
 
