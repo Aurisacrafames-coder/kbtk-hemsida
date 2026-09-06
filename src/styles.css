@@ -1559,15 +1559,31 @@ a {
 }
 
 .form-panel {
+  display: grid;
+  gap: 28px;
   padding: 28px;
   background: #ffffff;
   border: 1px solid rgba(18, 32, 51, 0.08);
   border-radius: 22px;
 }
 
+/* Tydligare luft mellan delarna i tävlingsanmälan */
+.form-panel:has(> .competition-list-block) {
+  gap: 32px;
+}
+
+.form-panel:has(.competition-registrations),
+.form-panel:has(.competition-class-picker) {
+  gap: 32px;
+}
+
 .site-form {
   display: grid;
   gap: 18px;
+}
+
+.site-form:has(.competition-class-picker) {
+  gap: 24px;
 }
 
 .site-form label {
@@ -1676,7 +1692,7 @@ a {
 
 .competition-list {
   display: grid;
-  gap: 14px;
+  gap: 16px;
 }
 
 .competition-card {
@@ -1716,11 +1732,13 @@ a {
 
 .competition-list-block {
   display: grid;
-  gap: 14px;
+  gap: 16px;
 }
 
 .competition-list-block + .competition-list-block {
-  margin-top: 28px;
+  margin-top: 0;
+  padding-top: 28px;
+  border-top: 1px solid rgba(7, 31, 58, 0.1);
 }
 
 .section .competition-list-heading,
@@ -1791,7 +1809,7 @@ a {
 
 .competition-class-picker {
   margin: 0;
-  padding: 16px;
+  padding: 20px;
   border: 1px solid rgba(18, 32, 51, 0.1);
   border-radius: 14px;
 }
@@ -1826,9 +1844,9 @@ a {
 
 .competition-registrations {
   display: grid;
-  gap: 12px;
-  margin-bottom: 24px;
-  padding: 18px;
+  gap: 14px;
+  margin-bottom: 0;
+  padding: 20px;
   background: rgba(18, 32, 51, 0.03);
   border: 1px solid rgba(18, 32, 51, 0.08);
   border-radius: 16px;
@@ -1900,7 +1918,8 @@ a {
 .swish-flow {
   display: grid;
   gap: 14px;
-  padding: 18px;
+  margin-top: 4px;
+  padding: 22px;
   background: var(--orange-soft);
   border: 1px solid rgba(242, 140, 34, 0.35);
   border-radius: 18px;
@@ -2199,9 +2218,12 @@ a {
 }
 
 .calendar-embedded {
-  margin-top: 8px;
+  margin-top: 0;
+}
+
+/* Extra luft när kalendern ligger efter tävlingslistorna */
+.competition-list-block + .calendar-embedded {
   padding-top: 28px;
-  border-top: 1px solid rgba(7, 31, 58, 0.1);
 }
 
 .calendar-embedded .calendar-toolbar {
