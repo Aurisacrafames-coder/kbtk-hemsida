@@ -1586,6 +1586,27 @@ a {
   font-size: 0.92rem;
 }
 
+.form-intro-rich {
+  display: grid;
+  gap: 12px;
+}
+
+.form-intro-rich p {
+  margin: 0;
+}
+
+.license-guide {
+  margin: 0;
+  padding-left: 1.2em;
+  display: grid;
+  gap: 8px;
+  color: var(--navy);
+}
+
+.license-guide li {
+  line-height: 1.45;
+}
+
 .form-next-steps {
   margin: 16px 0 0;
   padding-left: 1.2em;

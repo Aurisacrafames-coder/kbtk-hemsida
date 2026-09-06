@@ -153,12 +153,20 @@ export function getTrialMembershipTotal(group: string) {
   return MEMBERSHIP_FEE_SEK + info.trainingFeeSek;
 }
 
+/**
+ * SBTF-licenser säsongen 2026–2027.
+ * Källa: sbtf.se – Licensinformation / åldersbestämmelser 2026–2027.
+ * Ålder räknas per säsong: barn 0–11, ungdom 12–20, vuxen 21–64, pensionär 65+.
+ */
 export const LICENSE_OPTIONS = [
-  { value: 'd', label: 'D-licens', fee: 190 },
-  { value: 'a_barn', label: 'A-licens barn', fee: 350 },
-  { value: 'a_ungdom', label: 'A-licens ungdom', fee: 450 },
-  { value: 'a_senior', label: 'A-licens senior', fee: 550 },
-  { value: 'pensionar', label: 'A-licens pensionär', fee: 350 },
+  { value: 'b_barn', label: 'B-licens barn (född 2015 eller senare)', fee: 150 },
+  { value: 'b_ungdom', label: 'B-licens ungdom (född 2006–2014)', fee: 150 },
+  { value: 'b_vuxen', label: 'B-licens vuxen (född 1963–2005)', fee: 200 },
+  { value: 'b_pensionar', label: 'B-licens pensionär (född 1962 eller tidigare)', fee: 200 },
+  { value: 'a_barn', label: 'A-licens barn (född 2015 eller senare)', fee: 250 },
+  { value: 'a_ungdom', label: 'A-licens ungdom (född 2006–2014)', fee: 450 },
+  { value: 'a_vuxen', label: 'A-licens vuxen (född 1963–2005)', fee: 750 },
+  { value: 'a_pensionar', label: 'A-licens pensionär (född 1962 eller tidigare)', fee: 500 },
 ] as const;
 
 export const HALL_BOOKING_SLOTS = [

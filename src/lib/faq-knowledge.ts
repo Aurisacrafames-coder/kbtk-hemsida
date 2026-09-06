@@ -60,10 +60,31 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     link: { label: 'Ansök om dörraccess', href: '/form/doraccess' },
   },
   {
+    id: 'license',
+    question: 'Vilken licens behöver jag för tävling och serie?',
+    answer:
+      'Från säsongen 2026–2027 finns A-licens och B-licens (D-licensen är borttagen). A-licens krävs för nationella tävlingar, Sweden Tour, SM, nationellt seriespel och distriktsserier i seriepyramiden. B-licens räcker till distriktstävlingar och lokala tourer (även utanför eget distrikt), ungdoms-/veteran-/pensionärsserier på distriktsnivå och vissa riktade klasser. Med B-licens får man prova en nationell tävling en gång och högst en seriehelg per säsong. Ålder: barn född 2015 eller senare, ungdom 2006–2014, vuxen 1963–2005, pensionär född 1962 eller tidigare. Anmäl licens via formuläret.',
+    keywords: [
+      'licens',
+      'a-licens',
+      'b-licens',
+      'd-licens',
+      'tävlingslicens',
+      'serie',
+      'sweden tour',
+      'sm',
+      'avgift',
+      'barn',
+      'ungdom',
+      'pensionär',
+    ],
+    link: { label: 'Till licensanmälan', href: '/form/licens' },
+  },
+  {
     id: 'competition',
     question: 'Hur anmäler jag mig till tävling?',
     answer:
-      'Under Tävling finns länkar för licensanmälan, tävlingsanmälan och seriestatus. Under Tävlingsanmälan finns även tävlingskalendern med kommande tävlingar. Anmäl dig via tävlingsanmälan när klubben öppnar anmälan. Vissa ungdomstävlingar (till exempel Lilla GBG-Smashen) har egen extern anmälan och ligger under Tävlingsanmälan.',
+      'Under Tävling finns länkar för licensanmälan, tävlingsanmälan och seriestatus. Under Tävlingsanmälan finns även tävlingskalendern med kommande tävlingar. Anmäl dig via tävlingsanmälan när klubben öppnar anmälan. Vissa ungdomstävlingar (till exempel Lilla GBG-Smashen) har egen extern anmälan och ligger under Tävlingsanmälan. Kom ihåg att du behöver rätt licens (A eller B) beroende på tävlingstyp.',
     keywords: ['tävling', 'licens', 'serie', 'anmälan', 'profixio', 'kalender', 'ungdom', 'smashen'],
     link: { label: 'Till tävlingsanmälan', href: '/form/tavling' },
   },

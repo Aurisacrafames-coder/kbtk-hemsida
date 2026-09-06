@@ -332,9 +332,31 @@ function LicenseForm() {
     <FormShell
       title="Licensanmälan"
       intro={
-        <p>
-          Fyll i uppgifterna, swisha licensavgiften till klubben och skicka sedan in formuläret.
-        </p>
+        <div className="form-intro-rich">
+          <p>
+            Alla som tävlar eller spelar seriespel för klubben behöver en giltig SBTF-licens för
+            säsongen. Välj rätt typ och ålderskategori, swisha avgiften till klubben och skicka in
+            formuläret. Klubben registrerar licensen i Profixio.
+          </p>
+          <ul className="license-guide">
+            <li>
+              <strong>A-licens</strong> behövs för nationella tävlingar (Sweden Tour, SM m.m.),
+              nationellt seriespel och distriktsserier i den vanliga seriepyramiden (t.ex. division
+              4–5 och uppåt).
+            </li>
+            <li>
+              <strong>B-licens</strong> räcker till distriktstävlingar och lokala tourer (även i
+              andra distrikt), ungdoms-/veteran-/pensionärsserier på distriktsnivå samt vissa
+              riktade klasser (t.ex. para, parkinson, tjejer). Med B-licens får man prova en
+              nationell tävling en gång och delta högst en seriehelg per säsong.
+            </li>
+            <li>
+              Ålder för säsongen 2026–2027: <strong>barn</strong> född 2015 eller senare,{' '}
+              <strong>ungdom</strong> 2006–2014, <strong>vuxen</strong> 1963–2005,{' '}
+              <strong>pensionär</strong> född 1962 eller tidigare.
+            </li>
+          </ul>
+        </div>
       }
     >
       <form

@@ -616,8 +616,9 @@ function HomePage() {
             <p className="eyebrow">Tävling</p>
             <h2>Serier, licens och tävlingsanmälan</h2>
             <p>
-              Följ serieläget för klubbens lag, se kommande tävlingar i kalendern
-              och anmäl licens eller tävling via formulären.
+              Följ serieläget för klubbens lag, se kommande tävlingar i kalendern och anmäl licens
+              eller tävling via formulären. Från säsongen 2026–2027 gäller A-licens för nationell
+              tävling/serie och B-licens för distriktsnivå (D-licensen är borttagen).
             </p>
             <div className="quick-links">
               <a href="/form/tavling#tavlingskalender">Tävlingskalender</a>
