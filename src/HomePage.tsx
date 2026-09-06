@@ -376,10 +376,11 @@ function HomePage() {
             <p className="eyebrow">Börja spela</p>
             <h2>Prova på eller bli medlem.</h2>
             <p>
-              Ny i klubben? Börja med en provträning så hjälper vi dig till rätt
-              grupp. Efter provträningen betalar du medlems- och träningsavgift om du vill
-              fortsätta — då registreras du som medlem och får en inchecknings-tagg i hallen.
-              Se <a href="#avgifter">Avgifter</a> och <a href="#incheckning">check-in</a>.
+              Ny i klubben? Välj gruppkategori, kom till en träning och se tiderna under{" "}
+              <a href="#traning">Träningstider</a>. Vill du fortsätta swishar du medlems- och
+              träningsavgiften — då registreras du som medlem och får en inchecknings-tagg i
+              hallen. All information finns på hemsidan, se{" "}
+              <a href="#avgifter">Avgifter</a> och <a href="#incheckning">check-in</a>.
             </p>
             <p>
               Vi är en förening för alla. Läs mer om vårt arbete som pilotförening för{' '}

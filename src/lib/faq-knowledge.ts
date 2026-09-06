@@ -23,7 +23,7 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     id: 'group-fit',
     question: 'Vilken grupp passar mitt barn?',
     answer:
-      'Klubben försöker matcha spelare efter ålder, nivå, gruppstorlek och kompisar. Börja med en provträning så hjälper vi er rätt.',
+      'Välj den gruppkategori som passar ålder och nivå under Börja spela, och kom till en träning. Tiderna finns under Träningstider.',
     keywords: ['barn', 'ungdom', 'nybörjare', 'nivå', 'ålder'],
     link: { label: 'Anmäl intresse', href: '/form/borja-spela' },
   },

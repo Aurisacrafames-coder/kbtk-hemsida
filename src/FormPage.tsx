@@ -103,10 +103,25 @@ function TrialSignupForm() {
       <FormShell
         title="Tack för din anmälan"
         intro={
-          <p>
-            Vi har tagit emot ditt intresse och skickat en bekräftelse till din e-post. Vi
-            återkommer så snart vi kan.
-          </p>
+          <>
+            <p>
+              {group
+                ? `Din anmälan till ${group} är mottagen. Du behöver inte vänta på svar från oss.`
+                : "Din anmälan är mottagen. Du behöver inte vänta på svar från oss."}{" "}
+              All information finns här och i bekräftelsen till din e-post.
+            </p>
+            <ol className="form-next-steps">
+              <li>
+                Kom till en träning i din gruppkategori. Tiderna finns under{" "}
+                <a href="/#traning">Träningstider</a>.
+              </li>
+              <li>
+                Vill du fortsätta? Swisha medlems- och träningsavgiften inom en vecka. Belopp och
+                Swish-nummer finns under <a href="/#avgifter">Avgifter</a>.
+              </li>
+              <li>När betalningen är registrerad får du en inchecknings-tagg i hallen.</li>
+            </ol>
+          </>
         }
       >
         <a className="button primary" href="/">
@@ -121,9 +136,10 @@ function TrialSignupForm() {
       title="Börja spela"
       intro={
         <p>
-          Anmäl intresse till provträning. Om du vill fortsätta efteråt swishar du medlems- och
-          träningsavgiften till klubben senast inom en vecka. Därefter registrerar klubben dig och
-          du får en inchecknings-tagg i hallen.
+          Anmäl dig till en gruppkategori och kom till en träning. Tiderna finns under
+          Träningstider. Vill du fortsätta swishar du medlems- och träningsavgiften senast inom en
+          vecka — då registreras du och får en inchecknings-tagg i hallen. Allt du behöver veta
+          finns på hemsidan.
         </p>
       }
     >
