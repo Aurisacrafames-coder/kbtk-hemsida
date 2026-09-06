@@ -621,6 +621,7 @@ function HomePage() {
               tävling/serie och B-licens för distriktsnivå (D-licensen är borttagen).
             </p>
             <div className="quick-links">
+              <a href="/ranking">Ranking</a>
               <a href="/form/tavling#tavlingskalender">Tävlingskalender</a>
               {quickLinks.map((item) => (
                 <a key={item.label} href={item.href}>

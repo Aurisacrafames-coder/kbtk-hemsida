@@ -81,6 +81,26 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     link: { label: 'Till licensanmälan', href: '/form/licens' },
   },
   {
+    id: 'ranking',
+    question: 'Vilken ranking har jag?',
+    answer:
+      'Rankinglistan finns i Profixio och uppdateras normalt första måndagen varje månad. Barn under 12 år har ofta ingen ranking — titta då på klubbens spelklarlista och läs av max. Välj alltid rätt säsong. Saknar du licens syns du oftast inte i aktuell lista; kolla då föregående säsong. Har du aldrig tävlat brukar man kunna spela i klasser kring rankingtal 400 (kontrollera alltid inbjudan).',
+    keywords: [
+      'ranking',
+      'rank',
+      'profixio',
+      'spelklarlista',
+      'spelklar',
+      'max',
+      'barn',
+      'under 12',
+      'säsong',
+      '400',
+      'klass',
+    ],
+    link: { label: 'Läs mer om ranking', href: '/ranking' },
+  },
+  {
     id: 'competition',
     question: 'Hur anmäler jag mig till tävling?',
     answer:
