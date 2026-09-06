@@ -389,9 +389,8 @@ function HomePage() {
             <p>
               Ny i klubben? Välj gruppkategori, kom till en träning och se tiderna under{" "}
               <a href="#traning">Träningstider</a>. Vill du fortsätta swishar du medlems- och
-              träningsavgiften — då registreras du som medlem och får en inchecknings-tagg i
-              hallen. All information finns på hemsidan, se{" "}
-              <a href="#avgifter">Avgifter</a> och <a href="#incheckning">check-in</a>.
+              träningsavgiften — då registreras du som medlem. All information finns på hemsidan,
+              se <a href="#avgifter">Avgifter</a> och <a href="#incheckning">check-in</a>.
             </p>
             <p>
               Vi är en förening för alla. Läs mer om vårt arbete som pilotförening för{' '}
@@ -790,8 +789,8 @@ function HomePage() {
               </p>
               <p>
                 Efter provträning: swisha medlems- och träningsavgiften senast inom en vecka om du
-                vill fortsätta. När betalningen är registrerad får du en inchecknings-tagg i hallen.
-                Vill du inte fortsätta, hör av dig till klubben inom en vecka.
+                vill fortsätta — då registreras du som medlem. Vill du inte fortsätta, hör av dig till
+                klubben inom en vecka.
               </p>
               <a className="text-link" href="#incheckning">
                 Läs om check-in i hallen

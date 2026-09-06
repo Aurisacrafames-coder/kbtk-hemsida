@@ -119,7 +119,6 @@ function TrialSignupForm() {
                 Vill du fortsätta? Swisha medlems- och träningsavgiften inom en vecka. Belopp och
                 Swish-nummer finns under <a href="/#avgifter">Avgifter</a>.
               </li>
-              <li>När betalningen är registrerad får du en inchecknings-tagg i hallen.</li>
             </ol>
           </>
         }
@@ -138,8 +137,7 @@ function TrialSignupForm() {
         <p>
           Anmäl dig till en gruppkategori och kom till en träning. Tiderna finns under
           Träningstider. Vill du fortsätta swishar du medlems- och träningsavgiften senast inom en
-          vecka — då registreras du och får en inchecknings-tagg i hallen. Allt du behöver veta
-          finns på hemsidan.
+          vecka — då registreras du som medlem. Allt du behöver veta finns på hemsidan.
         </p>
       }
     >
