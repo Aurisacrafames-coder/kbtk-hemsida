@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { fetchPublicCheckinStats, type PublicCheckinCounts } from './lib/checkin-stats';
 import {
   fetchPublishedCompetitions,
   formatCompetitionDate,
@@ -252,8 +251,6 @@ function HomePage() {
   );
   const [competitions, setCompetitions] = useState<PublicCompetitionSummary[]>([]);
   const [competitionsError, setCompetitionsError] = useState('');
-  const [checkinStats, setCheckinStats] = useState<PublicCheckinCounts | null>(null);
-  const [checkinStatsError, setCheckinStatsError] = useState('');
   const [signupGroups, setSignupGroups] = useState<PublicSignupGroup[]>([]);
   const [youthCompetitions, setYouthCompetitions] = useState<YouthOpenCompetition[]>([]);
   const hasOpenCompetitions = competitions.length > 0 || youthCompetitions.length > 0;
@@ -302,14 +299,6 @@ function HomePage() {
       .then(setCompetitions)
       .catch((err) =>
         setCompetitionsError(err instanceof Error ? err.message : 'Kunde inte ladda tävlingar.'),
-      );
-  }, []);
-
-  useEffect(() => {
-    void fetchPublicCheckinStats()
-      .then(setCheckinStats)
-      .catch((err) =>
-        setCheckinStatsError(err instanceof Error ? err.message : 'Kunde inte ladda statistik.'),
       );
   }, []);
 
@@ -504,35 +493,6 @@ function HomePage() {
               närvarorapportering mot Riksidrottförbundet (LOK). Träningsschemat ovan
               hämtas från samma system.
             </p>
-
-            {checkinStats ? (
-              <section className="checkin-stats" aria-label="Incheckningar klubben totalt">
-                <header className="checkin-stats-header">
-                  <h3>Incheckningar</h3>
-                  <p>Klubben totalt</p>
-                </header>
-                <div className="checkin-stats-grid">
-                  <div className="checkin-stat-cell">
-                    <span>Idag</span>
-                    <strong>{checkinStats.today}</strong>
-                  </div>
-                  <div className="checkin-stat-cell">
-                    <span>7 dagar</span>
-                    <strong>{checkinStats.last7Days}</strong>
-                  </div>
-                  <div className="checkin-stat-cell">
-                    <span>30 dagar</span>
-                    <strong>{checkinStats.last30Days}</strong>
-                  </div>
-                  <div className="checkin-stat-cell">
-                    <span>6 mån</span>
-                    <strong>{checkinStats.last6Months}</strong>
-                  </div>
-                </div>
-              </section>
-            ) : checkinStatsError ? (
-              <p className="form-hint">{checkinStatsError}</p>
-            ) : null}
 
             <p>
               Föräldrar som själva behöver kunna öppna dörren utanför barnets träning
