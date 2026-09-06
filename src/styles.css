@@ -1567,9 +1567,14 @@ a {
   border-radius: 22px;
 }
 
-/* Tydligare luft mellan delarna i tävlingsanmälan */
+/* Tävlingsanmälan: varje del blir en egen ruta */
 .form-panel:has(> .competition-list-block) {
-  gap: 32px;
+  gap: 24px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .form-panel:has(.competition-registrations),
@@ -1701,13 +1706,14 @@ a {
   padding: 18px 20px;
   color: inherit;
   text-decoration: none;
-  background: #ffffff;
+  background: #faf8f4;
   border: 1px solid rgba(18, 32, 51, 0.1);
   border-radius: 16px;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 .competition-card:hover {
+  background: #ffffff;
   border-color: rgba(242, 140, 34, 0.45);
   box-shadow: 0 8px 24px rgba(18, 32, 51, 0.06);
 }
@@ -1733,12 +1739,11 @@ a {
 .competition-list-block {
   display: grid;
   gap: 16px;
-}
-
-.competition-list-block + .competition-list-block {
-  margin-top: 0;
-  padding-top: 28px;
-  border-top: 1px solid rgba(7, 31, 58, 0.1);
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid rgba(18, 32, 51, 0.14);
+  border-radius: 20px;
+  box-shadow: 0 10px 28px rgba(18, 32, 51, 0.06);
 }
 
 .section .competition-list-heading,
@@ -2219,11 +2224,6 @@ a {
 
 .calendar-embedded {
   margin-top: 0;
-}
-
-/* Extra luft när kalendern ligger efter tävlingslistorna */
-.competition-list-block + .calendar-embedded {
-  padding-top: 28px;
 }
 
 .calendar-embedded .calendar-toolbar {
