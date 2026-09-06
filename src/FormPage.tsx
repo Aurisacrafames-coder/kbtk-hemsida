@@ -102,7 +102,12 @@ function TrialSignupForm() {
     return (
       <FormShell
         title="Tack för din anmälan"
-        intro={<p>Vi har tagit emot ditt intresse och återkommer så snart vi kan.</p>}
+        intro={
+          <p>
+            Vi har tagit emot ditt intresse och skickat en bekräftelse till din e-post. Vi
+            återkommer så snart vi kan.
+          </p>
+        }
       >
         <a className="button primary" href="/">
           Till startsidan
