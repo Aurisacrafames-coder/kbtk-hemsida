@@ -14,7 +14,8 @@ import {
 import { FORM_SLUG_TYPES, submitSiteForm } from './lib/forms';
 import {
   formatYouthCompetitionDate,
-  getUpcomingYouthOpenCompetitions,
+  fetchYouthOpenCompetitions,
+  type YouthOpenCompetition,
 } from './lib/youth-open-competitions';
 import { buildSwishMessage } from './lib/swish';
 import { SwishPaymentPanel } from './SwishPaymentPanel';
@@ -46,13 +47,15 @@ function FormShell({
 
 export function CompetitionListPage() {
   const [competitions, setCompetitions] = useState<PublicCompetitionSummary[]>([]);
+  const [youthCompetitions, setYouthCompetitions] = useState<YouthOpenCompetition[]>([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-  const youthCompetitions = getUpcomingYouthOpenCompetitions();
 
   useEffect(() => {
-    void fetchPublishedCompetitions()
-      .then(setCompetitions)
+    void Promise.all([
+      fetchPublishedCompetitions().then(setCompetitions),
+      fetchYouthOpenCompetitions().then(setYouthCompetitions),
+    ])
       .catch((err) => setError(err instanceof Error ? err.message : 'Kunde inte ladda tävlingar.'))
       .finally(() => setLoading(false));
   }, []);
@@ -114,14 +117,16 @@ export function CompetitionListPage() {
                   >
                     Anmäl dig här
                   </a>
-                  <a
-                    className="text-link"
-                    href={item.invitationPdf}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    Läs inbjudan (PDF)
-                  </a>
+                  {item.invitationPdf ? (
+                    <a
+                      className="text-link"
+                      href={item.invitationPdf}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      Läs inbjudan (PDF)
+                    </a>
+                  ) : null}
                 </div>
               </article>
             ))}

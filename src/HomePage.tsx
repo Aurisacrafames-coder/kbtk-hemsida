@@ -9,8 +9,9 @@ import { FAQ_ENTRIES } from './lib/faq-knowledge';
 import { fetchPublicSignupGroups, type PublicSignupGroup } from './lib/signup-groups';
 import { SignupGroupInfoPanel } from './SignupGroupInfoPanel';
 import {
+  fetchYouthOpenCompetitions,
   formatYouthCompetitionDate,
-  getUpcomingYouthOpenCompetitions,
+  type YouthOpenCompetition,
 } from './lib/youth-open-competitions';
 
 type AktuelltItem = {
@@ -254,11 +255,15 @@ function HomePage() {
   const [checkinStats, setCheckinStats] = useState<PublicCheckinCounts | null>(null);
   const [checkinStatsError, setCheckinStatsError] = useState('');
   const [signupGroups, setSignupGroups] = useState<PublicSignupGroup[]>([]);
-  const youthCompetitions = getUpcomingYouthOpenCompetitions();
+  const [youthCompetitions, setYouthCompetitions] = useState<YouthOpenCompetition[]>([]);
   const hasOpenCompetitions = competitions.length > 0 || youthCompetitions.length > 0;
 
   useEffect(() => {
     void fetchPublicSignupGroups().then(setSignupGroups);
+  }, []);
+
+  useEffect(() => {
+    void fetchYouthOpenCompetitions().then(setYouthCompetitions);
   }, []);
 
   useEffect(() => {

@@ -1,3 +1,6 @@
+const checkinBaseUrl =
+  import.meta.env.VITE_CHECKIN_URL ?? 'https://kbtk-checkin.vercel.app';
+
 export type YouthOpenCompetition = {
   id: string;
   title: string;
@@ -12,8 +15,8 @@ export type YouthOpenCompetition = {
   highlights: string[];
 };
 
-/** Tävlingar där ungdomar anmäler sig själva (inte via klubbens tävlingsanmälan). */
-export const YOUTH_OPEN_COMPETITIONS: YouthOpenCompetition[] = [
+/** Lokal fallback om check-in API:t inte svarar (t.ex. före migration). */
+export const YOUTH_OPEN_COMPETITIONS_FALLBACK: YouthOpenCompetition[] = [
   {
     id: 'lilla-gbg-smashen-2026-09-20',
     title: 'Lilla GBG-Smashen',
@@ -43,10 +46,13 @@ function todayLocalIso() {
   return `${year}-${month}-${day}`;
 }
 
-export function getUpcomingYouthOpenCompetitions(today = todayLocalIso()) {
-  return YOUTH_OPEN_COMPETITIONS.filter((item) => item.date >= today).sort((a, b) =>
-    a.date.localeCompare(b.date),
-  );
+export function getUpcomingYouthOpenCompetitions(
+  items: YouthOpenCompetition[] = YOUTH_OPEN_COMPETITIONS_FALLBACK,
+  today = todayLocalIso(),
+) {
+  return items
+    .filter((item) => item.date >= today)
+    .sort((a, b) => a.date.localeCompare(b.date));
 }
 
 export function formatYouthCompetitionDate(value: string) {
@@ -62,4 +68,53 @@ export function formatYouthCompetitionDate(value: string) {
     month: 'long',
     year: 'numeric',
   });
+}
+
+function mapApiCompetition(raw: Record<string, unknown>): YouthOpenCompetition | null {
+  const id = String(raw.id ?? '').trim();
+  const title = String(raw.title ?? '').trim();
+  const date = String(raw.date ?? '').trim();
+  const signupUrl = String(raw.signupUrl ?? '').trim();
+  if (!id || !title || !date || !signupUrl) {
+    return null;
+  }
+
+  return {
+    id,
+    title,
+    date,
+    place: String(raw.place ?? ''),
+    audience: String(raw.audience ?? ''),
+    summary: String(raw.summary ?? ''),
+    signupUrl,
+    invitationPdf: String(raw.invitationPdf ?? ''),
+    feeNote: String(raw.feeNote ?? ''),
+    deadlineNote: String(raw.deadlineNote ?? ''),
+    highlights: Array.isArray(raw.highlights)
+      ? raw.highlights.map((item) => String(item)).filter(Boolean)
+      : [],
+  };
+}
+
+export async function fetchYouthOpenCompetitions(): Promise<YouthOpenCompetition[]> {
+  try {
+    const response = await fetch(`${checkinBaseUrl}/api/public/youth-competitions`);
+    if (!response.ok) {
+      throw new Error('Kunde inte ladda ungdomstävlingar');
+    }
+    const data = (await response.json()) as { competitions?: unknown };
+    if (!Array.isArray(data.competitions)) {
+      throw new Error('Ogiltigt svar');
+    }
+    const mapped = data.competitions
+      .map((item) =>
+        item && typeof item === 'object'
+          ? mapApiCompetition(item as Record<string, unknown>)
+          : null,
+      )
+      .filter((item): item is YouthOpenCompetition => item != null);
+    return getUpcomingYouthOpenCompetitions(mapped);
+  } catch {
+    return getUpcomingYouthOpenCompetitions(YOUTH_OPEN_COMPETITIONS_FALLBACK);
+  }
 }
