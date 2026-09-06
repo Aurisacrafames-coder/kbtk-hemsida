@@ -96,7 +96,9 @@ export function CompetitionListPage() {
                 <p>
                   {item.place} · {item.feeNote}
                 </p>
-                <p>{item.deadlineNote}</p>
+                <p>
+                  <strong>{item.deadlineNote}</strong>
+                </p>
                 <ul className="competition-card-highlights">
                   {item.highlights.map((line) => (
                     <li key={line}>{line}</li>
@@ -140,9 +142,14 @@ export function CompetitionListPage() {
                   {formatCompetitionDate(item.event_date)
                     ? `Datum: ${formatCompetitionDate(item.event_date)}`
                     : 'Datum meddelas'}
-                  {item.registration_deadline
-                    ? ` · Sista anmälan ${formatCompetitionDate(item.registration_deadline)}`
-                    : ''}
+                  {item.registration_deadline ? (
+                    <>
+                      {' · '}
+                      <strong>
+                        Sista anmälan {formatCompetitionDate(item.registration_deadline)}
+                      </strong>
+                    </>
+                  ) : null}
                 </p>
                 <span>{item.class_count} klasser att välja mellan</span>
               </a>
