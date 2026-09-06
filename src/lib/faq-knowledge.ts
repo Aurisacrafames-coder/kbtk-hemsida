@@ -63,9 +63,9 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     id: 'competition',
     question: 'Hur anmäler jag mig till tävling?',
     answer:
-      'Under Tävling finns tävlingskalender, länkar för licensanmälan, tävlingsanmälan och seriestatus. Kalendern visar kommande tävlingar; anmäl dig via tävlingsanmälan när klubben öppnar anmälan.',
-    keywords: ['tävling', 'licens', 'serie', 'anmälan', 'profixio', 'kalender'],
-    link: { label: 'Till tävlingskalendern', href: '#tavlingskalender' },
+      'Under Tävling finns tävlingskalender, länkar för licensanmälan, tävlingsanmälan och seriestatus. Kalendern visar kommande tävlingar; anmäl dig via tävlingsanmälan när klubben öppnar anmälan. Vissa ungdomstävlingar (till exempel Lilla GBG-Smashen) har egen anmälan och visas separat under Ungdomstävlingar.',
+    keywords: ['tävling', 'licens', 'serie', 'anmälan', 'profixio', 'kalender', 'ungdom', 'smashen'],
+    link: { label: 'Till ungdomstävlingar', href: '#ungdomstavlingar' },
   },
   {
     id: 'contact',
