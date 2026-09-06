@@ -9,7 +9,10 @@ import { FAQ_ENTRIES } from './lib/faq-knowledge';
 import { fetchPublicSignupGroups, type PublicSignupGroup } from './lib/signup-groups';
 import { CompetitionCalendar } from './CompetitionCalendar';
 import { SignupGroupInfoPanel } from './SignupGroupInfoPanel';
-import { YouthOpenCompetitions } from './YouthOpenCompetitions';
+import {
+  formatYouthCompetitionDate,
+  getUpcomingYouthOpenCompetitions,
+} from './lib/youth-open-competitions';
 
 type AktuelltItem = {
   title: string;
@@ -252,6 +255,8 @@ function HomePage() {
   const [checkinStats, setCheckinStats] = useState<PublicCheckinCounts | null>(null);
   const [checkinStatsError, setCheckinStatsError] = useState('');
   const [signupGroups, setSignupGroups] = useState<PublicSignupGroup[]>([]);
+  const youthCompetitions = getUpcomingYouthOpenCompetitions();
+  const hasOpenCompetitions = competitions.length > 0 || youthCompetitions.length > 0;
 
   useEffect(() => {
     void fetchPublicSignupGroups().then(setSignupGroups);
@@ -566,8 +571,19 @@ function HomePage() {
 
             <div className="panel dark-panel">
               <h3>Aktuella tävlingar</h3>
-              {competitions.length > 0 ? (
+              {hasOpenCompetitions ? (
                 <div className="link-grid competition-status-grid">
+                  {youthCompetitions.map((item) => (
+                    <a key={item.id} href="/form/tavling#ungdomstavlingar">
+                      <span className="competition-status-title">{item.title}</span>
+                      <span className="competition-status-meta">
+                        Egen anmälan
+                        {formatYouthCompetitionDate(item.date)
+                          ? ` · ${formatYouthCompetitionDate(item.date)}`
+                          : ''}
+                      </span>
+                    </a>
+                  ))}
                   {competitions.map((item) => (
                     <a key={item.slug} href={`/form/tavling/${item.slug}`}>
                       <span className="competition-status-title">{item.title}</span>
@@ -600,7 +616,6 @@ function HomePage() {
               och anmäl licens eller tävling via formulären.
             </p>
             <div className="quick-links">
-              <a href="#ungdomstavlingar">Ungdomstävlingar</a>
               <a href="#tavlingskalender">Tävlingskalender</a>
               {quickLinks.map((item) => (
                 <a key={item.label} href={item.href}>
@@ -610,8 +625,6 @@ function HomePage() {
             </div>
           </div>
         </section>
-
-        <YouthOpenCompetitions />
 
         <CompetitionCalendar />
 

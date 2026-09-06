@@ -21,7 +21,7 @@ export const YOUTH_OPEN_COMPETITIONS: YouthOpenCompetition[] = [
     place: 'Exercishuset, Parkgatan 35, Göteborg',
     audience: 'Ungdomar födda 2015–2019',
     summary:
-      'Barntävling arrangerad av Göteborgs Bordtennisförbund. Anmäl dig själv via länken — avgiften betalas med Swish på plats. Visas separat från klubbens vanliga tävlingsanmälan.',
+      'Barntävling arrangerad av Göteborgs Bordtennisförbund. Anmäl dig själv via länken — avgiften betalas med Swish på plats.',
     signupUrl: 'https://forms.gle/LXiVV7jXvWY7NpgU8',
     invitationPdf: '/tavlingar/Inbjudan-Gbg-Smashen-20-sept-2026.pdf',
     feeNote: '175 kr, betalas med Swish på tävlingsdagen',
