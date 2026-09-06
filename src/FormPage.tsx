@@ -463,6 +463,7 @@ function CompetitionForm() {
             class_info: formData.get('class_info'),
             team_interest: formData.get('team_interest'),
             swish_amount: formData.get('swish_amount'),
+            license_confirmed: formData.get('license_confirmed') === 'on',
             swish_confirmed: formData.get('swish_confirmed') === 'on',
           }))
         }
@@ -505,6 +506,12 @@ function CompetitionForm() {
             rows={3}
             placeholder="Valfria kompletterande uppgifter till anmälan."
           />
+        </label>
+        <label className="checkbox-row">
+          <input type="checkbox" name="license_confirmed" required />
+          <span>
+            Jag bekräftar att jag har rätt licens för de klasser jag anmäler mig till.
+          </span>
         </label>
         {name.trim() ? (
           <SwishPaymentPanel

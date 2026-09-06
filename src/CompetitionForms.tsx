@@ -313,6 +313,7 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
         phone: formData.get('phone'),
         selected_class_ids: selectedClassIds,
         team_interest: formData.get('team_interest'),
+        license_confirmed: formData.get('license_confirmed') === 'on',
         swish_confirmed: formData.get('swish_confirmed') === 'on',
       });
       setSuccess(true);
@@ -446,6 +447,13 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
             rows={3}
             placeholder="Valfria kompletterande uppgifter till anmälan."
           />
+        </label>
+
+        <label className="checkbox-row">
+          <input type="checkbox" name="license_confirmed" required />
+          <span>
+            Jag bekräftar att jag har rätt licens för de klasser jag anmäler mig till.
+          </span>
         </label>
 
         {selectedClasses.length > 0 && totalAmount > 0 && name.trim() && swishMessage ? (
