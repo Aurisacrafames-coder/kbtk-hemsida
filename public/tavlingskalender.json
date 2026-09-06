@@ -1,0 +1,1537 @@
+{
+  "seasonLabel": "2026/2027",
+  "updated": "2026-09-06",
+  "sourceUrl": "https://docs.google.com/spreadsheets/d/1H_moTmmQl5o4uVBkiJLgao13aKbOCGg_/edit?usp=sharing",
+  "events": [
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Enigspelen",
+      "start": "2026-07-02",
+      "end": "2026-07-05",
+      "place": "",
+      "organizer": "BTK Enig"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "B-Paraklasser",
+      "category": "Nationell Tävling",
+      "title": "Motala Summer Open",
+      "start": "2026-07-04",
+      "end": "2026-07-05",
+      "place": "Motala",
+      "organizer": "Västers BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Östersjömästerskapen 2026",
+      "start": "2026-07-24",
+      "end": "2026-07-26",
+      "place": "Visby",
+      "organizer": "Gotlands Bordtennisförbund"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "B-Parkinsontävling",
+      "category": "Nationell Tävling",
+      "title": "Spårvägens Parkinsontävling",
+      "start": "2026-08-08",
+      "end": "2026-08-08",
+      "place": "Stockholm",
+      "organizer": "Spårvägens BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Roslagsduellen augusti 2026",
+      "start": "2026-08-15",
+      "end": "2026-08-16",
+      "place": "Åkersberga",
+      "organizer": "IFK Österåkers BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Spårvägens sommarpool",
+      "start": "2026-08-21",
+      "end": "2026-08-23",
+      "place": "Hägersten",
+      "organizer": "Spårvägens BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "B-Parkinsonklass",
+      "category": "Nationell Tävling",
+      "title": "Askims Sommarcup 2026",
+      "start": "2026-08-22",
+      "end": "2026-08-23",
+      "place": "Hovås",
+      "organizer": "Askims Bordtennisklubb"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Jämjö Sommarpool, inställd pga ändrade planer",
+      "start": "2026-08-22",
+      "end": "2026-08-23",
+      "place": "Jämjö",
+      "organizer": "Jämjö BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Trivselträffen 2027",
+      "start": "2026-08-22",
+      "end": "2026-08-22",
+      "place": "Överlida",
+      "organizer": "Överlida IK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Skurup Sparbanksloopen",
+      "start": "2026-08-22",
+      "end": "2026-08-23",
+      "place": "Skurup",
+      "organizer": "Skurups BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Vikingapoolen 2026",
+      "start": "2026-08-28",
+      "end": "2026-08-30",
+      "place": "Uppsala",
+      "organizer": "Sunnersta AIF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour Pro",
+      "title": "Halmstad Masters",
+      "start": "2026-08-28",
+      "end": "2026-08-30",
+      "place": "Halmstad",
+      "organizer": "Halmstad BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Kristinehamn Open 2026",
+      "start": "2026-09-05",
+      "end": "2026-09-05",
+      "place": "",
+      "organizer": "Kristinehamns BTF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Mariedal Open",
+      "start": "2026-09-05",
+      "end": "2026-09-06",
+      "place": "Borås",
+      "organizer": "Mariedals IK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Visby Höstpool",
+      "start": "2026-09-05",
+      "end": "2026-09-06",
+      "place": "Visby",
+      "organizer": "Visby BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Kristianstad Open",
+      "start": "2026-09-05",
+      "end": "2026-09-06",
+      "place": "Kristianstad",
+      "organizer": "KFUM Kristianstad BTF"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Stockholmsspelen",
+      "start": "2026-09-11",
+      "end": "2026-09-13",
+      "place": "Farsta",
+      "organizer": "Spårvägens BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour Star",
+      "title": "Hvaler Invest Masters",
+      "start": "2026-09-11",
+      "end": "2026-09-13",
+      "place": "Oslo",
+      "organizer": ""
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Craft Arena Open",
+      "start": "2026-09-12",
+      "end": "2026-09-13",
+      "place": "Kosta",
+      "organizer": ""
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Serie",
+      "title": "NATIONELL SERIEHELG 1",
+      "start": "2026-09-19",
+      "end": "2026-09-20",
+      "place": "",
+      "organizer": ""
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour Pro",
+      "title": "Rekordspelen",
+      "start": "2026-09-25",
+      "end": "2026-09-27",
+      "place": "Helsingborg",
+      "organizer": "BTK Rekord"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Lekstorps Höstpool 2026",
+      "start": "2026-09-26",
+      "end": "2026-09-27",
+      "place": "Gråbo",
+      "organizer": "Lekstorps IF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "LOopen",
+      "start": "2026-09-26",
+      "end": "2026-09-27",
+      "place": "Uppsala",
+      "organizer": "Uppsala Life IF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Swerock Cup",
+      "start": "2026-10-03",
+      "end": "2026-10-04",
+      "place": "Åstorp",
+      "organizer": "Åstorps BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Umeå Masters",
+      "start": "2026-10-03",
+      "end": "2026-10-04",
+      "place": "Umeå",
+      "organizer": "Umeå BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Österåkerskeppet 2026",
+      "start": "2026-10-03",
+      "end": "2026-10-04",
+      "place": "Åkersberga",
+      "organizer": "IFK Österåkers BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "ÖSTK Open",
+      "start": "2026-10-03",
+      "end": "2026-10-03",
+      "place": "Borås",
+      "organizer": "ÖSTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Mölndals Grand Prix",
+      "start": "2026-10-03",
+      "end": "2026-10-03",
+      "place": "Mölndal",
+      "organizer": "Mölndals BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Sirius Open 2026",
+      "start": "2026-10-03",
+      "end": "2026-10-04",
+      "place": "Uppsala",
+      "organizer": "IK Sirius BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Bogeslaget 2026",
+      "start": "2026-10-10",
+      "end": "2026-10-10",
+      "place": "Ulricehamn",
+      "organizer": "Ulricehamns IF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Målarn Open 2026",
+      "start": "2026-10-10",
+      "end": "2026-10-11",
+      "place": "Skellefteå",
+      "organizer": "Skellefteå AIK BTF"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "B-Paraklass",
+      "category": "Nationell Tävling",
+      "title": "Stångåspelen",
+      "start": "2026-10-10",
+      "end": "2026-10-11",
+      "place": "Linköping",
+      "organizer": "Linköpings PK, ÖBTF"
+    },
+    {
+      "status": "Komplettering krävs",
+      "bLicense": "",
+      "category": "Regional tävling",
+      "title": "Kågeröd Open 2026",
+      "start": "2026-10-10",
+      "end": "2026-10-10",
+      "place": "Kågeröd",
+      "organizer": "Kågeröds BTK"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Rikstävlingar",
+      "title": "REGION TOP-12, Götaland",
+      "start": "2026-10-10",
+      "end": "2026-10-11",
+      "place": "Göteborg",
+      "organizer": "BTK Linné"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Rikstävlingar",
+      "title": "REGION TOP-12, Svealand & Norrland",
+      "start": "2026-10-10",
+      "end": "2026-10-11",
+      "place": "Söderhamn",
+      "organizer": "Söderhamns UIF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Stratos Höstpool",
+      "start": "2026-10-11",
+      "end": "2026-10-11",
+      "place": "Enköping",
+      "organizer": "Stratos Enköping BTK"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Serie",
+      "title": "NATIONELL SERIEHELG 2",
+      "start": "2026-10-17",
+      "end": "2026-10-18",
+      "place": "",
+      "organizer": ""
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Kungsbackaskruven 2026",
+      "start": "2026-10-24",
+      "end": "2026-10-25",
+      "place": "Kungsbacka",
+      "organizer": "Kungsbacka BTK, HBTF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Regional tävling",
+      "title": "Kansliet AB Cup",
+      "start": "2026-10-24",
+      "end": "2026-10-25",
+      "place": "Stockholm",
+      "organizer": "Norrtulls SK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Sweden GP Sundsvall Open 2026",
+      "start": "2026-10-24",
+      "end": "2026-10-25",
+      "place": "Sundsvall",
+      "organizer": "Ortvikens PK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour Pro",
+      "title": "Ängby Internationella TTEX Games",
+      "start": "2026-10-29",
+      "end": "2026-11-01",
+      "place": "Stockholm",
+      "organizer": ""
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "IFK Lunds Hösttävling 2026",
+      "start": "2026-10-30",
+      "end": "2026-11-01",
+      "place": "Lund",
+      "organizer": "IFK Lund Bordtennis"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Ifo Veteran Open",
+      "start": "2026-10-30",
+      "end": "2026-11-01",
+      "place": "Göteborg",
+      "organizer": "IF Ifo"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "B-Paratävling",
+      "category": "Nationell Tävling",
+      "title": "Stockholm Paragames",
+      "start": "2026-10-30",
+      "end": "2026-11-01",
+      "place": "Solna",
+      "organizer": "IFAH Parasportförening"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Alftasmashen",
+      "start": "2026-10-31",
+      "end": "2026-10-31",
+      "place": "Alfta",
+      "organizer": "Alfta Bordtennisklubb"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Sweden Tour Askims GP",
+      "start": "2026-10-31",
+      "end": "2026-11-01",
+      "place": "Hovås",
+      "organizer": "Askims Bordtennisklubb"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "DM Dalarna",
+      "start": "2026-11-07",
+      "end": "2026-11-07",
+      "place": "",
+      "organizer": "Falu BTK och Dalarnas BTF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "DM Gotland",
+      "start": "2026-11-07",
+      "end": "2026-11-08",
+      "place": "Visby",
+      "organizer": "Gotlands Bordtennisförbund"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "DM Halland",
+      "start": "2026-11-07",
+      "end": "2026-11-08",
+      "place": "Våxtorp",
+      "organizer": "Våxtorps BoIS/Hallands BTF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "DM Nordvästra Götaland 2026",
+      "start": "2026-11-07",
+      "end": "2026-11-08",
+      "place": "Trollhättan",
+      "organizer": "Trollhättans BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "DM Nordöstra Svealand",
+      "start": "2026-11-07",
+      "end": "2026-11-08",
+      "place": "Uppsala",
+      "organizer": "IK Sirius BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "DM Skåne / Skånska Mästerskapen",
+      "start": "2026-11-07",
+      "end": "2026-11-08",
+      "place": "Åstorp",
+      "organizer": "Skånes BTF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "DM Stockholm Distriktsmästerskapen 2026",
+      "start": "2026-11-07",
+      "end": "2026-11-08",
+      "place": "Stockholm",
+      "organizer": "Stockholms Bordtennisförbund"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "DM Sörmland",
+      "start": "2026-11-07",
+      "end": "2026-11-08",
+      "place": "Flen",
+      "organizer": "Sörmlands Bordtennisförbund"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "DM Västmanland 2026",
+      "start": "2026-11-07",
+      "end": "2026-11-08",
+      "place": "Hallstahammar",
+      "organizer": "Hallstahammars BTK, Västmanlands BTF"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "DM Örebro, Distriktsmästerskap 2026",
+      "start": "2026-11-07",
+      "end": "2026-11-08",
+      "place": "Örebro",
+      "organizer": "BTK Safir och ÖLBTF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "DM Östergötland 2026",
+      "start": "2026-11-07",
+      "end": "2026-11-08",
+      "place": "Linköping",
+      "organizer": "Östergötlands BTF/Linköpings PK"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Serie",
+      "title": "NATIONELL SERIEHELG 3",
+      "start": "2026-11-14",
+      "end": "2026-11-15",
+      "place": "",
+      "organizer": ""
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Stonecastle Open",
+      "start": "2026-11-21",
+      "end": "2026-11-22",
+      "place": "Borgstena",
+      "organizer": "Borgstena IF"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "SBTF-tävling",
+      "title": "RIKS TOP-12 2026",
+      "start": "2026-11-21",
+      "end": "2026-11-22",
+      "place": "Kosta",
+      "organizer": ""
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour Star",
+      "title": "Flymanpokalen",
+      "start": "2026-11-27",
+      "end": "2026-11-29",
+      "place": "Karlskrona",
+      "organizer": ""
+    },
+    {
+      "status": "Komplettering krävs",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Adventsspelen 2026",
+      "start": "2026-11-28",
+      "end": "2026-11-29",
+      "place": "Horred",
+      "organizer": "Horreds BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Bajen Cup",
+      "start": "2026-11-28",
+      "end": "2026-11-29",
+      "place": "Stockholm",
+      "organizer": "Hammarby IF BTF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Broditpoolen",
+      "start": "2026-11-28",
+      "end": "2026-11-28",
+      "place": "Karlsborg",
+      "organizer": "Karlsborgs BTK"
+    },
+    {
+      "status": "Komplettering krävs",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Jönköping Open",
+      "start": "2026-11-28",
+      "end": "2026-11-28",
+      "place": "Jönköping",
+      "organizer": "KFUM Jönköping IA"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Sollefteå cupen 50 års jubileum",
+      "start": "2026-11-28",
+      "end": "2026-11-29",
+      "place": "Sollefteå",
+      "organizer": "Sollefteå BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Tuna Entreprenad  Poolen",
+      "start": "2026-11-28",
+      "end": "2026-11-29",
+      "place": "Eskilstuna",
+      "organizer": "Eskilstuna BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Sweden GP Hälsingebocken",
+      "start": "2026-11-28",
+      "end": "2026-11-29",
+      "place": "Söderhamn",
+      "organizer": "Söderhamns UIF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour Star",
+      "title": "Trondheim Masters",
+      "start": "2026-11-28",
+      "end": "2026-11-29",
+      "place": "Trondheim",
+      "organizer": ""
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "RM-Norrlandsmästerskapen 2026",
+      "start": "2026-12-04",
+      "end": "2026-12-06",
+      "place": "Ås",
+      "organizer": "NBTF och Ås IF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "B-Paraklass",
+      "category": "Mästerskap",
+      "title": "RM Götalandsmästerskapen 2026",
+      "start": "2026-12-05",
+      "end": "2026-12-06",
+      "place": "Kungsbacka",
+      "organizer": "Kungsbacka BTK / Hallands BTF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "RM Svealandsmästerskpaen 2026",
+      "start": "2026-12-05",
+      "end": "2026-12-06",
+      "place": "Södertälje",
+      "organizer": "Södertälje BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Skinkspelen 2026",
+      "start": "2026-12-05",
+      "end": "2026-12-05",
+      "place": "Visby",
+      "organizer": "VIF Gute BTK"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "SBTF-tävling",
+      "title": "RIKSTIAN 2026",
+      "start": "2026-12-04",
+      "end": "2026-12-05",
+      "place": "Stockholm",
+      "organizer": "Boo Racketklubb"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Serie",
+      "title": "NATIONELL SERIEHELG 4",
+      "start": "2026-12-12",
+      "end": "2026-12-13",
+      "place": "",
+      "organizer": ""
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "LAG-SM 2027 KVALSPEL",
+      "start": "2026-12-19",
+      "end": "2026-12-20",
+      "place": "",
+      "organizer": ""
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Haparanda Open",
+      "start": "2026-12-19",
+      "end": "2026-12-20",
+      "place": "Haparanda",
+      "organizer": "Haparanda SKT Bordtennis"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Bajens Julskoj",
+      "start": "2026-12-26",
+      "end": "2026-12-26",
+      "place": "Hägersten",
+      "organizer": "Hammarby Bordtennis"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Katrineholms Julpool",
+      "start": "2026-12-26",
+      "end": "2026-12-27",
+      "place": "Katrineholm",
+      "organizer": "Katrineholms BTK"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Nyårspoolen 2027",
+      "start": "2027-01-02",
+      "end": "2027-01-03",
+      "place": "Uppsala",
+      "organizer": "Sunnersta AIF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Vedumsträffen",
+      "start": "2027-01-02",
+      "end": "2027-01-02",
+      "place": "Vedum",
+      "organizer": "Vedums AIS"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "SBTF-tävling",
+      "title": "PINGISIADEN FLICKOR RIKS 2027",
+      "start": "2027-01-02",
+      "end": "2027-01-03",
+      "place": "Stockholm",
+      "organizer": "Ängby SK"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "SBTF-tävling",
+      "title": "PINGISIADEN POJKAR RIKS 2027",
+      "start": "2027-01-02",
+      "end": "2027-01-03",
+      "place": "Stockholm",
+      "organizer": "Spårvägens BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Särö Vinterdrive-in 2026",
+      "start": "2027-01-08",
+      "end": "2027-01-08",
+      "place": "Särö",
+      "organizer": "Särö Kullavik IF, HBTF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour Pro",
+      "title": "Eslövs Internationella",
+      "start": "2027-01-08",
+      "end": "2027-01-10",
+      "place": "Eslöv",
+      "organizer": ""
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Lulemästerskapen 2027",
+      "start": "2027-01-09",
+      "end": "2027-01-10",
+      "place": "Luleå",
+      "organizer": "Luleå Pingisförening, NBTF"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Särösmashen 2026",
+      "start": "2027-01-09",
+      "end": "2027-01-09",
+      "place": "Särö",
+      "organizer": "Särö Kullavik IF, HBTF"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Serie",
+      "title": "NATIONELL SERIEHELG 5",
+      "start": "2027-01-16",
+      "end": "2027-01-17",
+      "place": "",
+      "organizer": ""
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "MBTK-trofen 2027",
+      "start": "2027-01-23",
+      "end": "2027-01-23",
+      "place": "MÖLNDAL",
+      "organizer": "Mölndals BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Östgötaspelen",
+      "start": "2027-01-23",
+      "end": "2027-01-24",
+      "place": "Ljungsbro",
+      "organizer": "Ljungsbro BTK"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Sweden GP Stratospoolen 2027",
+      "start": "2027-01-23",
+      "end": "2027-01-24",
+      "place": "Enköping",
+      "organizer": "Stratos Enköping BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Växjöspelen",
+      "start": "2027-01-23",
+      "end": "2027-01-24",
+      "place": "Växjö",
+      "organizer": "Dänningelanda BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour Star",
+      "title": "Söderspelen",
+      "start": "2027-01-29",
+      "end": "2027-01-31",
+      "place": "Borås",
+      "organizer": "Mariedals IK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "NJ Ellinstallation Poolen",
+      "start": "2027-01-30",
+      "end": "2027-01-31",
+      "place": "Eskilstuna",
+      "organizer": "Eskilstuna BTK"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "Mixed Lag-SM 2027 (SM-veckan, prel datum)",
+      "start": "2027-02-03",
+      "end": "2027-02-07",
+      "place": "Skövde",
+      "organizer": "SBTF/Skövde PK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "B-Paraklass",
+      "category": "Nationell Tävling",
+      "title": "Gutepoolen 2027",
+      "start": "2027-02-06",
+      "end": "2027-02-06",
+      "place": "Visby",
+      "organizer": "VIF Gute BTK"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "B-Parkinsonklass",
+      "category": "Nationell Tävling",
+      "title": "Norcospelen 2027",
+      "start": "2027-02-06",
+      "end": "2027-02-07",
+      "place": "Norrköping",
+      "organizer": "IF Norcopensarna"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Skyttorpspoolen",
+      "start": "2027-02-06",
+      "end": "2027-02-07",
+      "place": "Vattholma",
+      "organizer": "skyttorps IF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Astors Trollungen 2027",
+      "start": "2027-02-06",
+      "end": "2027-02-07",
+      "place": "Trollhättan",
+      "organizer": "Trollhättans BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Hammarby Open Sweden GP",
+      "start": "2027-02-06",
+      "end": "2027-02-07",
+      "place": "Farsta",
+      "organizer": "Hammarby Bordtennis"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Umeå Nationella",
+      "start": "2027-02-06",
+      "end": "2027-02-07",
+      "place": "Umeå",
+      "organizer": "Umeå BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "B-Paratävling",
+      "category": "Nationell Tävling",
+      "title": "Malmö open",
+      "start": "2027-02-12",
+      "end": "2027-02-14",
+      "place": "Malmö",
+      "organizer": "FIFH Malmö Parasportförening"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Regional tävling",
+      "title": "Scania Classic",
+      "start": "2027-02-13",
+      "end": "2027-02-14",
+      "place": "Landskrona",
+      "organizer": "BTK Scania"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Serie",
+      "title": "NATIONELL SERIEHELG 6",
+      "start": "2027-02-13",
+      "end": "2027-02-14",
+      "place": "",
+      "organizer": ""
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "Mini-SM 2027",
+      "start": "2027-02-19",
+      "end": "2027-02-21",
+      "place": "Trelleborg",
+      "organizer": "Trelleborgs BTK"
+    },
+    {
+      "status": "Komplettering krävs",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "SKELLEFTELOOPEN 2027",
+      "start": "2027-02-20",
+      "end": "2027-02-21",
+      "place": "Skellefteå",
+      "organizer": "Skellefteå AIK BTF"
+    },
+    {
+      "status": "Komplettering krävs",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Solkustspelen",
+      "start": "2027-02-20",
+      "end": "2027-02-21",
+      "place": "Oskarshamn",
+      "organizer": "Oskarshamns BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour Pro",
+      "title": "Sweden Tour Pro Safir International",
+      "start": "2027-02-26",
+      "end": "2027-02-28",
+      "place": "Örebro",
+      "organizer": "BTK Safir"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "B-Paraklass",
+      "category": "Nationell Tävling",
+      "title": "NUS-nordiska ungdomsspelen",
+      "start": "2027-02-27",
+      "end": "2027-02-28",
+      "place": "Östersund",
+      "organizer": "Ås IF"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Sunnerstasmashen 2027",
+      "start": "2027-02-27",
+      "end": "2027-02-27",
+      "place": "Uppsala",
+      "organizer": "Sunnersta AIF"
+    },
+    {
+      "status": "Komplettering krävs",
+      "bLicense": "",
+      "category": "Regional tävling",
+      "title": "KBTK´s sportlovstävling",
+      "start": "2027-02-27",
+      "end": "2027-02-28",
+      "place": "Kågeröd",
+      "organizer": "Kågeröds BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Kungsbackaspelen 2027",
+      "start": "2027-02-27",
+      "end": "2027-02-28",
+      "place": "Kungsbacka",
+      "organizer": "Kungsbacka BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Linköping Open",
+      "start": "2027-02-27",
+      "end": "2027-02-28",
+      "place": "Linköping",
+      "organizer": "Linköpings PK"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "52;a JÄMJÖSPELEN",
+      "start": "2027-03-06",
+      "end": "2027-03-07",
+      "place": "JÄMJÖ",
+      "organizer": "JÄMJÖ BTK"
+    },
+    {
+      "status": "Komplettering krävs",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Cejn - Open",
+      "start": "2027-03-06",
+      "end": "2027-03-06",
+      "place": "",
+      "organizer": "Skövde pingisklubb"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Lekstorps Vårpool 2027",
+      "start": "2027-03-06",
+      "end": "2027-03-07",
+      "place": "Gråbo",
+      "organizer": "Lekstorps IF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Norrtäljespelen 2027",
+      "start": "2027-03-06",
+      "end": "2027-03-07",
+      "place": "Norrtälje",
+      "organizer": "Norrtälje BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Svenska Fönster poolen",
+      "start": "2027-03-06",
+      "end": "2027-03-07",
+      "place": "Alfta",
+      "organizer": "Alfta Bordtennisklubb"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Serie",
+      "title": "NATIONELL SERIEHELG 7",
+      "start": "2027-03-13",
+      "end": "2027-03-14",
+      "place": "",
+      "organizer": ""
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "Bordtennis-SM 2027",
+      "start": "2027-03-18",
+      "end": "2027-03-21",
+      "place": "Halmstad",
+      "organizer": "Halmstad BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "JOOLA Ungdomspoolen",
+      "start": "2027-03-20",
+      "end": "2027-03-21",
+      "place": "Karlstad",
+      "organizer": "Carlstads BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Lundaspelen 2027",
+      "start": "2027-03-20",
+      "end": "2027-03-21",
+      "place": "Lund",
+      "organizer": "IFK Lund Bordtennis"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Rudalen Cup - 27",
+      "start": "2027-03-20",
+      "end": "2027-03-21",
+      "place": "Västra Frölunda",
+      "organizer": "Rudalens IF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Stonecastle Battle",
+      "start": "2027-03-20",
+      "end": "2027-03-21",
+      "place": "Borgstena",
+      "organizer": "Borgstena IF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Påskaspelen",
+      "start": "2027-03-26",
+      "end": "2027-03-28",
+      "place": "Landskrona",
+      "organizer": "BTK Scania"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour Star",
+      "title": "Spårvägsspelen",
+      "start": "2027-04-02",
+      "end": "2027-04-04",
+      "place": "Stockholm",
+      "organizer": "Spårvägens BTK"
+    },
+    {
+      "status": "Komplettering krävs",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Stenungsunds Smashen",
+      "start": "2027-04-03",
+      "end": "2027-04-04",
+      "place": "Stenungsund",
+      "organizer": "Stenungsunds BTF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Vårspelen",
+      "start": "2027-04-03",
+      "end": "2027-04-04",
+      "place": "Åstorp",
+      "organizer": "Åstorps BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Sweden Tour GP",
+      "title": "Påsksmällen 2027",
+      "start": "2027-04-03",
+      "end": "2027-04-04",
+      "place": "Åkersberga",
+      "organizer": "IFK Österåkers BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Oden Cup",
+      "start": "2027-04-10",
+      "end": "2027-04-11",
+      "place": "Falköping",
+      "organizer": "IFK Falköping BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "B-Parkinsonklass",
+      "category": "Nationell Tävling",
+      "title": "SCA Open 2027",
+      "start": "2027-04-10",
+      "end": "2027-04-11",
+      "place": "Sundsvall",
+      "organizer": "Ortvikens PK"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Serie",
+      "title": "NATIONELL KVALSERIEHELG / Helg 8",
+      "start": "2027-04-10",
+      "end": "2027-04-11",
+      "place": "",
+      "organizer": ""
+    },
+    {
+      "status": "Komplettering krävs",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Horredsspelen",
+      "start": "2027-04-17",
+      "end": "2027-04-17",
+      "place": "Horred",
+      "organizer": "Horreds BTK"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Urnanträffen 2027",
+      "start": "2027-04-17",
+      "end": "2027-04-18",
+      "place": "",
+      "organizer": "Gefle Pingisklubb"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Vårpoolen i Kristianstad 2027",
+      "start": "2027-04-17",
+      "end": "2027-04-18",
+      "place": "Kristianstad",
+      "organizer": "KFUM Kristianstad BTF"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "Lag-SM 2027",
+      "start": "2027-04-23",
+      "end": "2027-04-25",
+      "place": "Kosta",
+      "organizer": ""
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "B-Paraklass",
+      "category": "Nationell Tävling",
+      "title": "Fästningsspelen",
+      "start": "2027-04-24",
+      "end": "2027-04-25",
+      "place": "Kungälv",
+      "organizer": "Kungälvs BTK"
+    },
+    {
+      "status": "Komplettering krävs",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Jönköpingsspelen 2027",
+      "start": "2027-04-24",
+      "end": "2027-04-25",
+      "place": "Jönköping",
+      "organizer": "KFUM Jönköping IA"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Sparbanken Skånes Tomelillaspelen",
+      "start": "2027-04-24",
+      "end": "2027-04-25",
+      "place": "Tomelilla",
+      "organizer": "Tomelilla AIS"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Ås masters",
+      "start": "2027-04-24",
+      "end": "2027-04-25",
+      "place": "Ås",
+      "organizer": "Ås IF"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "Parkinson-SM 2027",
+      "start": "2027-05-01",
+      "end": "2027-05-02",
+      "place": "Sundsvall",
+      "organizer": ""
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "Ungdoms-SM & Para-JSM 2027",
+      "start": "2027-05-06",
+      "end": "2027-05-09",
+      "place": "Karlskrona",
+      "organizer": ""
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Actionochtrend Table Tennis Cup 2027",
+      "start": "2027-05-08",
+      "end": "2027-05-09",
+      "place": "Skurup",
+      "organizer": "Skurups BTK"
+    },
+    {
+      "status": "Tillstånd med villkor",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Haparanda Open",
+      "start": "2027-05-08",
+      "end": "2027-05-08",
+      "place": "Haparanda",
+      "organizer": "Haparanda Open"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "Veteran-SM 2027",
+      "start": "2027-05-13",
+      "end": "2027-05-16",
+      "place": "Borås",
+      "organizer": ""
+    },
+    {
+      "status": "Komplettering krävs",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Tyresö Stiga loopen",
+      "start": "2027-05-15",
+      "end": "2027-05-16",
+      "place": "Tyresö",
+      "organizer": "Tyresö BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "B-Parkinsonklass",
+      "category": "Nationell Tävling",
+      "title": "Askims Vårcup 2027",
+      "start": "2027-05-22",
+      "end": "2027-05-23",
+      "place": "Hovås",
+      "organizer": "Askims Bordtennisklubb"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Volvo Poolen",
+      "start": "2027-05-22",
+      "end": "2027-05-23",
+      "place": "Eskilstuna",
+      "organizer": "Eskilstuna BTK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Regional tävling",
+      "title": "Stockholm Open",
+      "start": "2027-05-22",
+      "end": "2027-05-23",
+      "place": "Stockholm",
+      "organizer": "Norrtulls SK"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Bajens Sommaryra",
+      "start": "2027-05-29",
+      "end": "2027-05-30",
+      "place": "Hägersten",
+      "organizer": "Hammarby Bordtennis"
+    },
+    {
+      "status": "",
+      "bLicense": "",
+      "category": "SBTF-tävling",
+      "title": "SWEDEN TOUR TROPHY 2027",
+      "start": "2027-06-04",
+      "end": "2027-06-06",
+      "place": "Söderhamn",
+      "organizer": "Söderhamns UIF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Nationell Tävling",
+      "title": "Lekstorps Sommarpool 2027",
+      "start": "2027-06-18",
+      "end": "2027-06-20",
+      "place": "Gråbo",
+      "organizer": "Lekstorps IF"
+    },
+    {
+      "status": "Ansökan godkänd",
+      "bLicense": "",
+      "category": "Mästerskap",
+      "title": "Para-SM 2027  (SM-veckan, prel datum)",
+      "start": "2027-06-29",
+      "end": "2027-07-04",
+      "place": "Växjö",
+      "organizer": ""
+    }
+  ]
+}
