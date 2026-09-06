@@ -447,8 +447,12 @@ function CompetitionForm() {
       title="Tävlingsanmälan"
       intro={
         <p>
-          Fyll i tävlingsuppgifterna, swisha avgiften till klubben och skicka sedan in anmälan.
-          Klubben behandlar anmälan när betalningen syns på Swish.
+          Det går inte att anmäla dig utan giltig licens. Saknar du licens, gör{' '}
+          <a className="text-link" href="/form/licens">
+            licensanmälan
+          </a>{' '}
+          först. Fyll sedan i tävlingsuppgifterna, swisha avgiften till klubben och skicka in
+          anmälan. Klubben behandlar anmälan när betalningen syns på Swish.
         </p>
       }
     >
@@ -510,7 +514,8 @@ function CompetitionForm() {
         <label className="checkbox-row">
           <input type="checkbox" name="license_confirmed" required />
           <span>
-            Jag bekräftar att jag har rätt licens för de klasser jag anmäler mig till.
+            Jag bekräftar att jag har giltig licens för de klasser jag anmäler mig till. Utan
+            giltig licens får anmälan inte skickas in.
           </span>
         </label>
         {name.trim() ? (

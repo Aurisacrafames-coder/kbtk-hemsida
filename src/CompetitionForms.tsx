@@ -69,8 +69,13 @@ export function CompetitionListPage() {
       title="Tävlingsanmälan"
       intro={
         <p>
-          Välj en tävling att anmäla dig till. Klubbens tävlingar betalas via Swish här. Vissa
-          ungdomstävlingar har egen extern anmälan och avgift enligt inbjudan.
+          Välj en tävling att anmäla dig till. Du måste ha giltig licens för att anmäla dig —
+          saknar du licens, ordna den först via{' '}
+          <a className="text-link" href="/form/licens">
+            licensanmälan
+          </a>
+          . Klubbens tävlingar betalas via Swish här. Vissa ungdomstävlingar har egen extern anmälan
+          och avgift enligt inbjudan.
         </p>
       }
     >
@@ -371,8 +376,13 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
             </p>
           ) : null}
           <p>
-            Välj klasser, swisha totalbeloppet och skicka in anmälan. Klubben behandlar anmälan
-            när betalningen syns på Swish.
+            Det går inte att anmäla dig utan giltig licens för de klasser du väljer. Saknar du
+            licens, gör{' '}
+            <a className="text-link" href="/form/licens">
+              licensanmälan
+            </a>{' '}
+            först. Välj klasser, swisha totalbeloppet och skicka in anmälan. Klubben behandlar
+            anmälan när betalningen syns på Swish.
           </p>
         </div>
       }
@@ -452,7 +462,8 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
         <label className="checkbox-row">
           <input type="checkbox" name="license_confirmed" required />
           <span>
-            Jag bekräftar att jag har rätt licens för de klasser jag anmäler mig till.
+            Jag bekräftar att jag har giltig licens för de klasser jag anmäler mig till. Utan
+            giltig licens får anmälan inte skickas in.
           </span>
         </label>
 
