@@ -12,8 +12,14 @@ import {
   type PublicCompetitionSummary,
 } from './lib/competitions';
 import { FORM_SLUG_TYPES, submitSiteForm } from './lib/forms';
+import {
+  formatYouthCompetitionDate,
+  fetchYouthOpenCompetitions,
+  type YouthOpenCompetition,
+} from './lib/youth-open-competitions';
 import { buildSwishMessage } from './lib/swish';
 import { SwishPaymentPanel } from './SwishPaymentPanel';
+import { CompetitionCalendar } from './CompetitionCalendar';
 
 function FormShell({
   title,
@@ -41,48 +47,124 @@ function FormShell({
 
 export function CompetitionListPage() {
   const [competitions, setCompetitions] = useState<PublicCompetitionSummary[]>([]);
+  const [youthCompetitions, setYouthCompetitions] = useState<YouthOpenCompetition[]>([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    void fetchPublishedCompetitions()
-      .then(setCompetitions)
+    void Promise.all([
+      fetchPublishedCompetitions().then(setCompetitions),
+      fetchYouthOpenCompetitions().then(setYouthCompetitions),
+    ])
       .catch((err) => setError(err instanceof Error ? err.message : 'Kunde inte ladda tävlingar.'))
       .finally(() => setLoading(false));
   }, []);
+
+  const hasClubCompetitions = competitions.length > 0;
+  const hasYouthCompetitions = youthCompetitions.length > 0;
+  const showEmpty = !loading && !error && !hasClubCompetitions && !hasYouthCompetitions;
 
   return (
     <FormShell
       title="Tävlingsanmälan"
       intro={
         <p>
-          Välj en publicerad tävling för att anmäla dig och betala via Swish. Varje tävling har
-          egna klasser och avgifter.
+          Välj en tävling att anmäla dig till. Klubbens tävlingar betalas via Swish här. Vissa
+          ungdomstävlingar har egen extern anmälan och avgift enligt inbjudan.
         </p>
       }
     >
       {loading ? <p className="form-hint">Laddar tävlingar…</p> : null}
       {error ? <p className="form-error">{error}</p> : null}
-      {!loading && !error && competitions.length === 0 ? (
+      {showEmpty ? (
         <p className="form-hint">Det finns inga öppna tävlingar att anmäla sig till just nu.</p>
       ) : null}
-      <div className="competition-list">
-        {competitions.map((item) => (
-          <a key={item.slug} className="competition-card" href={`/form/tavling/${item.slug}`}>
-            <h2>{item.title}</h2>
-            {item.organizer ? <p>{item.organizer}</p> : null}
-            <p>
-              {formatCompetitionDate(item.event_date)
-                ? `Datum: ${formatCompetitionDate(item.event_date)}`
-                : 'Datum meddelas'}
-              {item.registration_deadline
-                ? ` · Sista anmälan ${formatCompetitionDate(item.registration_deadline)}`
-                : ''}
-            </p>
-            <span>{item.class_count} klasser att välja mellan</span>
-          </a>
-        ))}
-      </div>
+
+      {hasYouthCompetitions ? (
+        <div className="competition-list-block" id="ungdomstavlingar">
+          <h2 className="competition-list-heading">Ungdomstävlingar med egen anmälan</h2>
+          <p className="form-hint">
+            Anmäl dig själv via länken. Avgift betalas på plats enligt inbjudan — inte via klubbens
+            Swish-formulär.
+          </p>
+          <div className="competition-list">
+            {youthCompetitions.map((item) => (
+              <article key={item.id} className="competition-card competition-card-open">
+                <div className="competition-card-top">
+                  <span className="competition-card-badge">Egen anmälan</span>
+                  <time dateTime={item.date}>{formatYouthCompetitionDate(item.date)}</time>
+                </div>
+                <h2>{item.title}</h2>
+                <p className="competition-card-audience">{item.audience}</p>
+                <p>{item.summary}</p>
+                <p>
+                  {item.place} · {item.feeNote}
+                </p>
+                <p>
+                  <strong>{item.deadlineNote}</strong>
+                </p>
+                <ul className="competition-card-highlights">
+                  {item.highlights.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+                <div className="competition-card-actions">
+                  <a
+                    className="button primary"
+                    href={item.signupUrl}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    Anmäl dig här
+                  </a>
+                  {item.invitationPdf ? (
+                    <a
+                      className="text-link"
+                      href={item.invitationPdf}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      Läs inbjudan (PDF)
+                    </a>
+                  ) : null}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      {hasClubCompetitions || loading || error ? (
+        <div className="competition-list-block">
+          {hasYouthCompetitions ? (
+            <h2 className="competition-list-heading">Klubbens tävlingsanmälan</h2>
+          ) : null}
+          <div className="competition-list">
+            {competitions.map((item) => (
+              <a key={item.slug} className="competition-card" href={`/form/tavling/${item.slug}`}>
+                <h2>{item.title}</h2>
+                {item.organizer ? <p>{item.organizer}</p> : null}
+                <p>
+                  {formatCompetitionDate(item.event_date)
+                    ? `Datum: ${formatCompetitionDate(item.event_date)}`
+                    : 'Datum meddelas'}
+                  {item.registration_deadline ? (
+                    <>
+                      {' · '}
+                      <strong>
+                        Sista anmälan {formatCompetitionDate(item.registration_deadline)}
+                      </strong>
+                    </>
+                  ) : null}
+                </p>
+                <span>{item.class_count} klasser att välja mellan</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      <CompetitionCalendar embedded />
     </FormShell>
   );
 }

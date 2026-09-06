@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import HomePage from './HomePage';
 import ClubShopPage from './ClubShopPage';
+import RankingPage from './RankingPage';
 import { FormPage } from './FormPage';
 import { CompetitionListPage, CompetitionSignupPage } from './CompetitionForms';
 import { FaqBot } from './FaqBot';
@@ -11,9 +12,10 @@ function readPathname() {
   return window.location.pathname;
 }
 
-function getStaticPage(pathname: string): 'klubbkop' | null {
+function getStaticPage(pathname: string): 'klubbkop' | 'ranking' | null {
   const path = pathname.replace(/\/$/, '') || '/';
   if (path === '/klubbkop') return 'klubbkop';
+  if (path === '/ranking') return 'ranking';
   return null;
 }
 
@@ -98,6 +100,7 @@ export default function App() {
       ) : null}
       {formRoute?.kind === 'form' ? <FormPage slug={formRoute.slug} /> : null}
       {staticPage === 'klubbkop' ? <ClubShopPage /> : null}
+      {staticPage === 'ranking' ? <RankingPage /> : null}
       {!formRoute && !staticPage ? <HomePage /> : null}
       <footer className="site-footer">
         <span>Kungälvs Bordtennisklubb</span>
