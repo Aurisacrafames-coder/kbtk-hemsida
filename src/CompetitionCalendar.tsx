@@ -35,7 +35,7 @@ function CalendarEventRow({ event }: { event: CalendarEvent }) {
   );
 }
 
-export function CompetitionCalendar() {
+export function CompetitionCalendar({ embedded = false }: { embedded?: boolean }) {
   const [calendar, setCalendar] = useState<CompetitionCalendarFile | null>(null);
   const [error, setError] = useState('');
   const [category, setCategory] = useState('Alla');
@@ -79,16 +79,28 @@ export function CompetitionCalendar() {
   const monthGroups = useMemo(() => groupEventsByMonth(visible), [visible]);
   const hiddenCount = filtered.length - visible.length;
 
-  return (
-    <section className="section calendar-section" id="tavlingskalender" aria-labelledby="calendar-heading">
-      <div className="section-heading">
-        <p className="eyebrow">Tävlingskalender</p>
-        <h2 id="calendar-heading">Kommande tävlingar {calendar?.seasonLabel ?? ''}</h2>
-        <p>
-          En översikt av nationella och regionala tävlingar under säsongen. Anmäl dig via
-          tävlingsanmälan när klubben öppnar anmälan till en specifik tävling.
-        </p>
-      </div>
+  const content = (
+    <>
+      {embedded ? (
+        <>
+          <h2 className="competition-list-heading" id="calendar-heading">
+            Tävlingskalender{calendar?.seasonLabel ? ` · ${calendar.seasonLabel}` : ''}
+          </h2>
+          <p className="form-hint">
+            Översikt av nationella och regionala tävlingar. Anmäl dig via listan ovan när klubben
+            öppnar anmälan till en specifik tävling.
+          </p>
+        </>
+      ) : (
+        <div className="section-heading">
+          <p className="eyebrow">Tävlingskalender</p>
+          <h2 id="calendar-heading">Kommande tävlingar {calendar?.seasonLabel ?? ''}</h2>
+          <p>
+            En översikt av nationella och regionala tävlingar under säsongen. Anmäl dig via
+            tävlingsanmälan när klubben öppnar anmälan till en specifik tävling.
+          </p>
+        </div>
+      )}
 
       {error ? <p className="calendar-status">{error}</p> : null}
       {!error && !calendar ? <p className="calendar-status">Laddar kalender…</p> : null}
@@ -158,20 +170,35 @@ export function CompetitionCalendar() {
                 Visa färre
               </button>
             ) : null}
-            <a
-              className="text-link"
-              href={calendar.sourceUrl}
-              rel="noreferrer"
-              target="_blank"
-            >
+            <a className="text-link" href={calendar.sourceUrl} rel="noreferrer" target="_blank">
               Öppna hela kalendern i Google Sheets
             </a>
-            <a className="text-link" href="/form/tavling">
-              Till tävlingsanmälan
-            </a>
+            {embedded ? null : (
+              <a className="text-link" href="/form/tavling">
+                Till tävlingsanmälan
+              </a>
+            )}
           </div>
         </>
       ) : null}
+    </>
+  );
+
+  if (embedded) {
+    return (
+      <div className="competition-list-block calendar-embedded" id="tavlingskalender">
+        {content}
+      </div>
+    );
+  }
+
+  return (
+    <section
+      className="section calendar-section"
+      id="tavlingskalender"
+      aria-labelledby="calendar-heading"
+    >
+      {content}
     </section>
   );
 }

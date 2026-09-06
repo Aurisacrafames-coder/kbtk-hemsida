@@ -18,6 +18,7 @@ import {
 } from './lib/youth-open-competitions';
 import { buildSwishMessage } from './lib/swish';
 import { SwishPaymentPanel } from './SwishPaymentPanel';
+import { CompetitionCalendar } from './CompetitionCalendar';
 
 function FormShell({
   title,
@@ -157,6 +158,8 @@ export function CompetitionListPage() {
           </div>
         </div>
       ) : null}
+
+      <CompetitionCalendar embedded />
     </FormShell>
   );
 }
