@@ -715,7 +715,7 @@ function HomePage() {
             <article className="fee-card">
               <h3>Sommarträning</h3>
               <p>
-                Gäller juni–augusti: <strong>350 kr</strong> för alla medlemmar.
+                Gäller juni–augusti: <strong>500 kr</strong> för alla medlemmar.
               </p>
             </article>
 
