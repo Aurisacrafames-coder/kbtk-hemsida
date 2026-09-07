@@ -151,7 +151,7 @@ const seasonFees: Array<{
   { group: 'Grupp D', training: 1700, membership: 350, license: 'Vid behov', total: 2050 },
   { group: 'Grupp C', training: 1700, membership: 350, license: 'Vid behov', total: 2050 },
   { group: 'Grupp B', training: 2000, membership: 350, license: 'Vid behov', total: 2350 },
-  { group: 'Grupp A', training: 2250, membership: 350, license: 'A-licens ingår', total: 3200 },
+  { group: 'Grupp A', training: 2250, membership: 350, license: 'A-licens ingår', total: 3350 },
   {
     group: 'Utvecklingsgrupp',
     training: 500,
