@@ -715,7 +715,8 @@ function HomePage() {
             <article className="fee-card">
               <h3>Sommarträning</h3>
               <p>
-                Gäller juni–augusti: <strong>500 kr</strong> för alla medlemmar.
+                Gäller 15 maj–15 augusti: träning 2 gånger per vecka,{' '}
+                <strong>500 kr</strong> för alla medlemmar.
               </p>
             </article>
 
