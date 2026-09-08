@@ -672,7 +672,7 @@ function HallBookingForm() {
           <p>
             Hallen kan bokas per timme när ingen träning eller match är inplanerad. Välj bland lediga
             tider tre månader framåt: fredagar 17:00–21:00, lördagar 13:00–21:00 och söndagar
-            11:00–15:00. Upptagna timmar syns inte i listan.
+            11:00–15:00. Seriespelsdatum och upptagna timmar syns inte i listan.
           </p>
           <p>
             Det här är en <strong>förfrågan</strong>, inte en bekräftad bokning. Klubben återkommer
