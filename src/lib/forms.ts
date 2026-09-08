@@ -168,8 +168,3 @@ export const LICENSE_OPTIONS = [
   { value: 'a_vuxen', label: 'A-licens vuxen (född 1963–2005)', fee: 750 },
   { value: 'a_pensionar', label: 'A-licens pensionär (född 1962 eller tidigare)', fee: 500 },
 ] as const;
-
-export const HALL_BOOKING_SLOTS = [
-  { value: 'fre_16_20', label: 'Fredag 16:00–20:00' },
-  { value: 'lor_16_20', label: 'Lördag 16:00–20:00' },
-] as const;

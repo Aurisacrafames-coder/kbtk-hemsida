@@ -2,7 +2,6 @@ import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import {
   FORM_SLUG_LABELS,
   FORM_SLUG_TYPES,
-  HALL_BOOKING_SLOTS,
   LICENSE_OPTIONS,
   MEMBERSHIP_FEE_SEK,
   TRIAL_GROUP_FEE_INFO,
@@ -11,6 +10,11 @@ import {
   submitSiteForm,
   type FormSlug,
 } from './lib/forms';
+import {
+  fetchHallBookingAvailability,
+  formatHallBookingOptionLabel,
+  type HallBookingAvailableDate,
+} from './lib/hall-booking';
 import {
   fetchPublicSignupGroups,
   getSignupGroupByName,
@@ -620,6 +624,21 @@ function DoorAccessForm() {
 function HallBookingForm() {
   const { pending, error, success, handleSubmit } = useSiteForm(FORM_SLUG_TYPES['boka-hall']);
   const [isMember, setIsMember] = useState(true);
+  const [dates, setDates] = useState<HallBookingAvailableDate[]>([]);
+  const [loadError, setLoadError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [selectedKey, setSelectedKey] = useState('');
+
+  useEffect(() => {
+    void fetchHallBookingAvailability()
+      .then((data) => setDates(data.dates))
+      .catch((err) =>
+        setLoadError(err instanceof Error ? err.message : 'Kunde inte ladda bokningsschema.'),
+      )
+      .finally(() => setLoading(false));
+  }, []);
+
+  const selected = dates.find((item) => `${item.date}|${item.time_slot}` === selectedKey) ?? null;
 
   if (success) {
     return (
@@ -636,89 +655,101 @@ function HallBookingForm() {
       title="Boka KBTK-hallen"
       intro={
         <p>
-          Hallen kan bokas för pingisfest när ingen träning eller match är inplanerad. Tider:
-          fre/lör 16:00–20:00. Swisha enligt prislista på klubbens sida efter bekräftelse.
+          Hallen kan bokas för pingisfest när ingen träning eller match är inplanerad. Välj bland
+          öppna tillfällen: fredagar 17:00–21:00, öppna lördagar 13:00–21:00 och öppna söndagar
+          11:00–15:00 (upp till tre månader framåt). Swisha enligt prislista efter bekräftelse.
         </p>
       }
     >
-      <form
-        className="site-form"
-        onSubmit={(event) =>
-          void handleSubmit(event, (formData) => ({
-            first_name: formData.get('first_name'),
-            last_name: formData.get('last_name'),
-            email: formData.get('email'),
-            phone: formData.get('phone'),
-            booking_date: formData.get('booking_date'),
-            time_slot: formData.get('time_slot'),
-            is_member: formData.get('is_member') === 'on',
-            guest_count: formData.get('guest_count'),
-            member_reference: formData.get('member_reference'),
-            details: formData.get('details'),
-          }))
-        }
-      >
-        <label>
-          Datum
-          <input name="booking_date" type="date" required />
-        </label>
-        <label>
-          Tid
-          <select name="time_slot" required defaultValue="">
-            <option value="" disabled>
-              Välj tid
-            </option>
-            {HALL_BOOKING_SLOTS.map((slot) => (
-              <option key={slot.value} value={slot.value}>
-                {slot.label}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Förnamn
-          <input name="first_name" required />
-        </label>
-        <label>
-          Efternamn
-          <input name="last_name" required />
-        </label>
-        <label>
-          Mejladress
-          <input name="email" type="email" required />
-        </label>
-        <label>
-          Telefonnummer
-          <input name="phone" type="tel" required />
-        </label>
-        <label>
-          Antal personer
-          <input name="guest_count" type="number" min={1} required />
-        </label>
-        <label className="checkbox-row">
-          <input
-            type="checkbox"
-            name="is_member"
-            checked={isMember}
-            onChange={(event) => setIsMember(event.target.checked)}
-          />
-          <span>Jag är medlem</span>
-        </label>
-        {!isMember ? (
+      {loading ? <p className="form-hint">Laddar lediga tider…</p> : null}
+      {loadError ? <p className="form-error">{loadError}</p> : null}
+      {!loading && !loadError && dates.length === 0 ? (
+        <p className="form-hint">Det finns inga öppna bokningstider just nu.</p>
+      ) : null}
+
+      {!loading && !loadError && dates.length > 0 ? (
+        <form
+          className="site-form"
+          onSubmit={(event) =>
+            void handleSubmit(event, (formData) => ({
+              first_name: formData.get('first_name'),
+              last_name: formData.get('last_name'),
+              email: formData.get('email'),
+              phone: formData.get('phone'),
+              booking_date: selected?.date ?? '',
+              time_slot: selected?.time_slot ?? '',
+              is_member: formData.get('is_member') === 'on',
+              guest_count: formData.get('guest_count'),
+              member_reference: formData.get('member_reference'),
+              details: formData.get('details'),
+            }))
+          }
+        >
           <label>
-            Medlemsreferens (minst en medlem ska vara närvarande)
-            <input name="member_reference" required />
+            Tillfälle
+            <select
+              required
+              value={selectedKey}
+              onChange={(event) => setSelectedKey(event.target.value)}
+            >
+              <option value="" disabled>
+                Välj datum och tid
+              </option>
+              {dates.map((item) => {
+                const key = `${item.date}|${item.time_slot}`;
+                return (
+                  <option key={key} value={key}>
+                    {formatHallBookingOptionLabel(item)}
+                  </option>
+                );
+              })}
+            </select>
           </label>
-        ) : null}
-        <label>
-          Övrig info
-          <textarea name="details" rows={4} />
-        </label>
-        {error ? <p className="form-error">{error}</p> : null}
-        <button className="button primary" type="submit" disabled={pending}>
-          {pending ? 'Skickar…' : 'Skicka förfrågan'}
-        </button>
-      </form>
+          <label>
+            Förnamn
+            <input name="first_name" required />
+          </label>
+          <label>
+            Efternamn
+            <input name="last_name" required />
+          </label>
+          <label>
+            Mejladress
+            <input name="email" type="email" required />
+          </label>
+          <label>
+            Telefonnummer
+            <input name="phone" type="tel" required />
+          </label>
+          <label>
+            Antal personer
+            <input name="guest_count" type="number" min={1} required />
+          </label>
+          <label className="checkbox-row">
+            <input
+              type="checkbox"
+              name="is_member"
+              checked={isMember}
+              onChange={(event) => setIsMember(event.target.checked)}
+            />
+            <span>Jag är medlem</span>
+          </label>
+          {!isMember ? (
+            <label>
+              Medlemsreferens (minst en medlem ska vara närvarande)
+              <input name="member_reference" required />
+            </label>
+          ) : null}
+          <label>
+            Övrig info
+            <textarea name="details" rows={4} />
+          </label>
+          {error ? <p className="form-error">{error}</p> : null}
+          <button className="button primary" type="submit" disabled={pending || !selected}>
+            {pending ? 'Skickar…' : 'Skicka förfrågan'}
+          </button>
+        </form>
+      ) : null}
     </FormShell>
   );
 }
