@@ -656,8 +656,8 @@ function HallBookingForm() {
       intro={
         <p>
           Hallen kan bokas för pingisfest när ingen träning eller match är inplanerad. Välj bland
-          öppna tillfällen: fredagar 17:00–21:00, öppna lördagar 13:00–21:00 och öppna söndagar
-          11:00–15:00 (upp till tre månader framåt). Swisha enligt prislista efter bekräftelse.
+          lediga tillfällen tre månader framåt: fredagar 17:00–21:00, lördagar 13:00–21:00 och
+          söndagar 11:00–15:00. Swisha enligt prislista efter bekräftelse.
         </p>
       }
     >
