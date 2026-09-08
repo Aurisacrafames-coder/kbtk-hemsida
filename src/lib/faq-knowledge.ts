@@ -120,7 +120,7 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     id: 'hall-booking',
     question: 'Kan jag boka hallen?',
     answer:
-      'Ja. Boka via formuläret på hemsidan: fredagar 17–21, lördagar 13–21 och söndagar 11–15 (upp till tre månader fram). Enstaka helger kan vara stängda vid seriespel.',
+      'Ja. Boka via formuläret på hemsidan: fredagar 17–21, lördagar 13–21 och söndagar 11–15 (upp till tre månader fram).',
     keywords: ['boka', 'bokning', 'hyra', 'hall', 'fredag', 'lördag', 'söndag'],
     link: { label: 'Boka hallen', href: '/form/boka-hall' },
   },
