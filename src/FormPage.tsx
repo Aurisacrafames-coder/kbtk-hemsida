@@ -12,7 +12,9 @@ import {
 } from './lib/forms';
 import {
   fetchHallBookingAvailability,
-  formatHallBookingOptionLabel,
+  formatHallBookingDateLabel,
+  startHourOptions,
+  endHourOptions,
   type HallBookingAvailableDate,
 } from './lib/hall-booking';
 import {
@@ -627,7 +629,9 @@ function HallBookingForm() {
   const [dates, setDates] = useState<HallBookingAvailableDate[]>([]);
   const [loadError, setLoadError] = useState('');
   const [loading, setLoading] = useState(true);
-  const [selectedKey, setSelectedKey] = useState('');
+  const [selectedDate, setSelectedDate] = useState('');
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
 
   useEffect(() => {
     void fetchHallBookingAvailability()
@@ -638,11 +642,21 @@ function HallBookingForm() {
       .finally(() => setLoading(false));
   }, []);
 
-  const selected = dates.find((item) => `${item.date}|${item.time_slot}` === selectedKey) ?? null;
+  const selected = dates.find((item) => item.date === selectedDate) ?? null;
+  const startOptions = selected ? startHourOptions(selected) : [];
+  const endOptions = selected && startTime ? endHourOptions(selected, startTime) : [];
+  const canSubmit = Boolean(selected && startTime && endTime);
 
   if (success) {
     return (
-      <FormShell title="Tack!" intro={<p>Bokningsförfrågan är mottagen. Vi återkommer så snart vi kan.</p>}>
+      <FormShell
+        title="Tack!"
+        intro={
+          <p>
+            Bokningsförfrågan är mottagen. Vi återkommer med beviljande eller avslag per e-post.
+          </p>
+        }
+      >
         <a className="button primary" href="/">
           Till startsidan
         </a>
@@ -654,11 +668,17 @@ function HallBookingForm() {
     <FormShell
       title="Boka KBTK-hallen"
       intro={
-        <p>
-          Hallen kan bokas för pingisfest när ingen träning eller match är inplanerad. Välj bland
-          lediga tillfällen tre månader framåt: fredagar 17:00–21:00, lördagar 13:00–21:00 och
-          söndagar 11:00–15:00. Swisha enligt prislista efter bekräftelse.
-        </p>
+        <>
+          <p>
+            Hallen kan bokas per timme när ingen träning eller match är inplanerad. Välj bland lediga
+            tider tre månader framåt: fredagar 17:00–21:00, lördagar 13:00–21:00 och söndagar
+            11:00–15:00. Upptagna timmar syns inte i listan.
+          </p>
+          <p>
+            Det här är en <strong>förfrågan</strong>, inte en bekräftad bokning. Klubben återkommer
+            med ja eller nej. Swisha enligt prislista först efter beviljande.
+          </p>
+        </>
       }
     >
       {loading ? <p className="form-hint">Laddar lediga tider…</p> : null}
@@ -676,8 +696,9 @@ function HallBookingForm() {
               last_name: formData.get('last_name'),
               email: formData.get('email'),
               phone: formData.get('phone'),
-              booking_date: selected?.date ?? '',
-              time_slot: selected?.time_slot ?? '',
+              booking_date: selectedDate,
+              start_time: startTime,
+              end_time: endTime,
               is_member: formData.get('is_member') === 'on',
               guest_count: formData.get('guest_count'),
               member_reference: formData.get('member_reference'),
@@ -686,23 +707,65 @@ function HallBookingForm() {
           }
         >
           <label>
-            Tillfälle
+            Datum
             <select
               required
-              value={selectedKey}
-              onChange={(event) => setSelectedKey(event.target.value)}
+              value={selectedDate}
+              onChange={(event) => {
+                setSelectedDate(event.target.value);
+                setStartTime('');
+                setEndTime('');
+              }}
             >
               <option value="" disabled>
-                Välj datum och tid
+                Välj datum
               </option>
-              {dates.map((item) => {
-                const key = `${item.date}|${item.time_slot}`;
-                return (
-                  <option key={key} value={key}>
-                    {formatHallBookingOptionLabel(item)}
-                  </option>
-                );
-              })}
+              {dates.map((item) => (
+                <option key={item.date} value={item.date}>
+                  {formatHallBookingDateLabel(item)}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Starttid
+            <select
+              required
+              value={startTime}
+              disabled={!selected}
+              onChange={(event) => {
+                const nextStart = event.target.value;
+                setStartTime(nextStart);
+                const nextEnds = selected ? endHourOptions(selected, nextStart) : [];
+                setEndTime(nextEnds.includes(endTime) ? endTime : '');
+              }}
+            >
+              <option value="" disabled>
+                {selected ? 'Välj starttid' : 'Välj datum först'}
+              </option>
+              {startOptions.map((hour) => (
+                <option key={hour} value={hour}>
+                  {hour}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Sluttid
+            <select
+              required
+              value={endTime}
+              disabled={!startTime}
+              onChange={(event) => setEndTime(event.target.value)}
+            >
+              <option value="" disabled>
+                {startTime ? 'Välj sluttid' : 'Välj starttid först'}
+              </option>
+              {endOptions.map((hour) => (
+                <option key={hour} value={hour}>
+                  {hour}
+                </option>
+              ))}
             </select>
           </label>
           <label>
@@ -745,7 +808,7 @@ function HallBookingForm() {
             <textarea name="details" rows={4} />
           </label>
           {error ? <p className="form-error">{error}</p> : null}
-          <button className="button primary" type="submit" disabled={pending || !selected}>
+          <button className="button primary" type="submit" disabled={pending || !canSubmit}>
             {pending ? 'Skickar…' : 'Skicka förfrågan'}
           </button>
         </form>
