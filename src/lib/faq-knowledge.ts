@@ -128,8 +128,20 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     id: 'hall-booking',
     question: 'Kan jag boka hallen?',
     answer:
-      'Ja. Skicka en förfrågan via formuläret på hemsidan, per timme: fredagar 17–21, lördagar 13–21 och söndagar 11–15 (upp till tre månader fram). Seriespelsdatum syns inte. Klubben återkommer med beviljande eller avslag.',
-    keywords: ['boka', 'bokning', 'hyra', 'hall', 'fredag', 'lördag', 'söndag'],
+      'Ja, för bordtennisfest när ingen träning eller match är inplanerad. Skicka en förfrågan via formuläret. Priser (fre/lör 16–20): medlemmar 500 kr för ungdomsfest eller färre än 5 vuxna, annars 100 kr/person; ej medlemmar 800 kr respektive 160 kr/person (minst en medlem måste vara närvarande). Swisha efter beviljande och lämna hallen i samma skick.',
+    keywords: [
+      'boka',
+      'bokning',
+      'hyra',
+      'hall',
+      'pingisfest',
+      'fest',
+      'pris',
+      'swish',
+      'fredag',
+      'lördag',
+      'söndag',
+    ],
     link: { label: 'Boka hallen', href: '/form/boka-hall' },
   },
   {

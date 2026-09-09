@@ -11,6 +11,10 @@ import {
   type FormSlug,
 } from './lib/forms';
 import {
+  HALL_BOOKING_CLEANUP_RULE,
+  HALL_BOOKING_NON_MEMBER_NOTE,
+  HALL_BOOKING_PRICE_WINDOW,
+  HALL_BOOKING_PRICES,
   fetchHallBookingAvailability,
   formatHallBookingDateLabel,
   startHourOptions,
@@ -623,6 +627,47 @@ function DoorAccessForm() {
   );
 }
 
+function HallBookingInfoPanel() {
+  return (
+    <section className="hall-booking-info" aria-labelledby="hall-booking-info-title">
+      <div className="hall-booking-info-intro">
+        <h2 id="hall-booking-info-title">Pingisfest i KBTK-hallen</h2>
+        <p>
+          Hallen är tillgänglig för medlemmar att ha en bordtennisfest när det inte är träning eller
+          matcher inplanerade. Betalning sker via <strong>Swish</strong> enligt priserna nedan.
+        </p>
+        <p className="hall-booking-info-window">
+          Priserna gäller <strong>{HALL_BOOKING_PRICE_WINDOW}</strong>.
+        </p>
+      </div>
+
+      <div className="hall-booking-price-grid">
+        {HALL_BOOKING_PRICES.map((group) => (
+          <div key={group.category} className="hall-booking-price-card">
+            <h3>{group.category}</h3>
+            <ul>
+              {group.rows.map((row) => (
+                <li key={row.label}>
+                  <span>
+                    {row.label}
+                    {'note' in row && row.note ? <sup>*</sup> : null}
+                  </span>
+                  <strong>{row.price}</strong>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <p className="hall-booking-info-note">
+        <sup>*</sup> {HALL_BOOKING_NON_MEMBER_NOTE}
+      </p>
+      <p className="hall-booking-info-rule">{HALL_BOOKING_CLEANUP_RULE}</p>
+    </section>
+  );
+}
+
 function HallBookingForm() {
   const { pending, error, success, handleSubmit } = useSiteForm(FORM_SLUG_TYPES['boka-hall']);
   const [isMember, setIsMember] = useState(true);
@@ -670,17 +715,19 @@ function HallBookingForm() {
       intro={
         <>
           <p>
-            Hallen kan bokas per timme när ingen träning eller match är inplanerad. Välj bland lediga
-            tider tre månader framåt: fredagar 17:00–21:00, lördagar 13:00–21:00 och söndagar
-            11:00–15:00. Seriespelsdatum och upptagna timmar syns inte i listan.
+            Hallen kan bokas för bordtennisfest när ingen träning eller match är inplanerad. Välj
+            bland lediga tider tre månader framåt. Seriespelsdatum och upptagna timmar syns inte i
+            listan.
           </p>
           <p>
             Det här är en <strong>förfrågan</strong>, inte en bekräftad bokning. Klubben återkommer
-            med ja eller nej. Swisha enligt prislista först efter beviljande.
+            med ja eller nej. Swisha enligt prislistan först efter beviljande.
           </p>
         </>
       }
     >
+      <HallBookingInfoPanel />
+
       {loading ? <p className="form-hint">Laddar lediga tider…</p> : null}
       {loadError ? <p className="form-error">{loadError}</p> : null}
       {!loading && !loadError && dates.length === 0 ? (
@@ -706,6 +753,7 @@ function HallBookingForm() {
             }))
           }
         >
+          <h2 className="hall-booking-form-heading">Skicka bokningsförfrågan</h2>
           <label>
             Datum
             <select
