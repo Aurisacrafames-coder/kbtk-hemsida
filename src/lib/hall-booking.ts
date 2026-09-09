@@ -25,6 +25,34 @@ export type HallBookingAvailability = {
   dates: HallBookingAvailableDate[];
 };
 
+/** Prislista för pingisfest / hallbokning (fre/lör 16:00–20:00). */
+export const HALL_BOOKING_PRICE_WINDOW = 'Fredag/lördag 16:00–20:00';
+
+export const HALL_BOOKING_PRICES = [
+  {
+    category: 'Medlemmar',
+    rows: [
+      { label: 'Pingisfest ungdomar', price: '500 kr' },
+      { label: 'Vuxna, färre än 5 personer', price: '500 kr' },
+      { label: 'Vuxna, 5 personer eller fler', price: '100 kr/person' },
+    ],
+  },
+  {
+    category: 'Ej medlemmar',
+    rows: [
+      { label: 'Pingisfest ungdomar', price: '800 kr', note: true },
+      { label: 'Vuxna, färre än 5 personer', price: '800 kr', note: true },
+      { label: 'Vuxna, 5 personer eller fler', price: '160 kr/person', note: true },
+    ],
+  },
+] as const;
+
+export const HALL_BOOKING_NON_MEMBER_NOTE =
+  'Minst en medlem måste vara närvarande i hallen.';
+
+export const HALL_BOOKING_CLEANUP_RULE =
+  'Man ska lämna hallen i samma skick som man mottog den.';
+
 function parseHour(value: string) {
   const match = /^(\d{1,2}):00$/.exec(value.trim());
   if (!match) return null;
