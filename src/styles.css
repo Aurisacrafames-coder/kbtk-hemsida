@@ -986,6 +986,10 @@ a {
   margin-bottom: 4px;
 }
 
+.hall-booking-availability-hint {
+  margin: 0;
+}
+
 @media (max-width: 720px) {
   .hall-booking-price-grid {
     grid-template-columns: 1fr;
