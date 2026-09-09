@@ -128,7 +128,7 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     id: 'hall-booking',
     question: 'Kan jag boka hallen?',
     answer:
-      'Ja, för bordtennisfest när ingen träning eller match är inplanerad. Skicka en förfrågan via formuläret. Priser (fre/lör 16–20): medlemmar 500 kr för ungdomsfest eller färre än 5 vuxna, annars 100 kr/person; ej medlemmar 800 kr respektive 160 kr/person (minst en medlem måste vara närvarande). Swisha efter beviljande och lämna hallen i samma skick.',
+      'Ja, för bordtennisfest när ingen träning eller match är inplanerad. Skicka en förfrågan via formuläret — endast tider som syns i listan är bokningsbara; upptagna tider går inte att boka. Priser (fre/lör 16–20): medlemmar 500 kr för ungdomsfest eller färre än 5 vuxna, annars 100 kr/person; ej medlemmar 800 kr respektive 160 kr/person (minst en medlem måste vara närvarande). Swisha efter beviljande och lämna hallen i samma skick.',
     keywords: [
       'boka',
       'bokning',
@@ -138,6 +138,8 @@ export const FAQ_ENTRIES: FaqEntry[] = [
       'fest',
       'pris',
       'swish',
+      'ledig',
+      'upptagen',
       'fredag',
       'lördag',
       'söndag',

@@ -716,8 +716,11 @@ function HallBookingForm() {
         <>
           <p>
             Hallen kan bokas för bordtennisfest när ingen träning eller match är inplanerad. Välj
-            bland lediga tider tre månader framåt. Seriespelsdatum och upptagna timmar syns inte i
-            listan.
+            bland lediga tider tre månader framåt.
+          </p>
+          <p>
+            <strong>Endast tider som syns i listan är bokningsbara</strong> — upptagna tider (träning,
+            match, seriespel m.m.) visas inte och går inte att boka.
           </p>
           <p>
             Det här är en <strong>förfrågan</strong>, inte en bekräftad bokning. Klubben återkommer
@@ -754,6 +757,9 @@ function HallBookingForm() {
           }
         >
           <h2 className="hall-booking-form-heading">Skicka bokningsförfrågan</h2>
+          <p className="form-hint hall-booking-availability-hint">
+            Listan visar bara lediga tider. Upptagna pass går inte att välja.
+          </p>
           <label>
             Datum
             <select
