@@ -121,6 +121,7 @@ De delar samma Vercel-konto men är **inte** samma projekt.
 - KBTK Check-in ska redan vara deployad
 - Migration `023_site_announcements.sql` ska vara körd i Supabase om styrelsen ska redigera **Aktuellt** under **Admin → Hemsida**
 - Gruppinformation för **Börja spela** hämtas från check-in (`/api/public/signup-groups`) när det stödet är deployat. Tills dess används `public/signup-groups.json` i hemsiderepot som fallback — fältet `info` är kompletterande text per grupp.
+- Färdig patch för check-in ligger i `check-in-patch/signup-groups/` (migration, API, admin-panel och `/signup-groups-admin`). Se README där för hur du kopierar in filerna i **kbtk-checkin** och kör migration `025_site_signup_groups.sql`.
 
 ---
 
