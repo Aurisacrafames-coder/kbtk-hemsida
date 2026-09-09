@@ -13,6 +13,14 @@ export type FaqEntry = {
 
 export const FAQ_ENTRIES: FaqEntry[] = [
   {
+    id: 'news',
+    question: 'Var hittar jag klubbens nyheter?',
+    answer:
+      'Aktuella nyheter syns på startsidan. Alla nyheter, även äldre, finns under Nyheter. Klicka på en rubrik för att läsa hela texten.',
+    keywords: ['nyhet', 'nyheter', 'aktuellt', 'info', 'information'],
+    link: { label: 'Alla nyheter', href: '/nyheter' },
+  },
+  {
     id: 'training-times',
     question: 'När tränar min grupp?',
     answer: 'Titta i schemat under Träningstider — där ser du när varje grupp tränar.',

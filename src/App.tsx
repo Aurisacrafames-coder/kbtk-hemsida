@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import HomePage from './HomePage';
 import ClubShopPage from './ClubShopPage';
 import RankingPage from './RankingPage';
+import NewsListPage from './NewsListPage';
+import NewsArticlePage from './NewsArticlePage';
 import { FormPage } from './FormPage';
 import { CompetitionListPage, CompetitionSignupPage } from './CompetitionForms';
 import { FaqBot } from './FaqBot';
@@ -10,6 +12,16 @@ import { getFormRouteFromPath } from './lib/forms';
 
 function readPathname() {
   return window.location.pathname;
+}
+
+function getNewsRoute(pathname: string): { kind: 'list' } | { kind: 'article'; slug: string } | null {
+  const path = pathname.replace(/\/$/, '') || '/';
+  if (path === '/nyheter') return { kind: 'list' };
+  const match = /^\/nyhet\/([^/]+)$/.exec(path);
+  if (match?.[1]) {
+    return { kind: 'article', slug: decodeURIComponent(match[1]) };
+  }
+  return null;
 }
 
 function getStaticPage(pathname: string): 'klubbkop' | 'ranking' | null {
@@ -34,7 +46,8 @@ export default function App() {
 
   const formRoute = getFormRouteFromPath(pathname);
   const staticPage = getStaticPage(pathname);
-  const showMainNav = !formRoute && !staticPage;
+  const newsRoute = getNewsRoute(pathname);
+  const showMainNav = !formRoute && !staticPage && !newsRoute;
 
   function closeNav() {
     setNavOpen(false);
@@ -76,6 +89,9 @@ export default function App() {
             <a href="/" onClick={closeNav}>
               Hem
             </a>
+            <a href="/nyheter" onClick={closeNav}>
+              Nyheter
+            </a>
             <a href="/#borja-spela" onClick={closeNav}>
               Börja spela
             </a>
@@ -101,7 +117,9 @@ export default function App() {
       {formRoute?.kind === 'form' ? <FormPage slug={formRoute.slug} /> : null}
       {staticPage === 'klubbkop' ? <ClubShopPage /> : null}
       {staticPage === 'ranking' ? <RankingPage /> : null}
-      {!formRoute && !staticPage ? <HomePage /> : null}
+      {newsRoute?.kind === 'list' ? <NewsListPage /> : null}
+      {newsRoute?.kind === 'article' ? <NewsArticlePage slug={newsRoute.slug} /> : null}
+      {!formRoute && !staticPage && !newsRoute ? <HomePage /> : null}
       <footer className="site-footer">
         <span>Kungälvs Bordtennisklubb</span>
         <span>Vi älskar pingis</span>

@@ -12,32 +12,18 @@ import {
   formatYouthCompetitionDate,
   type YouthOpenCompetition,
 } from './lib/youth-open-competitions';
-
-type AktuelltItem = {
-  title: string;
-  text: string;
-  link?: {
-    label: string;
-    href: string;
-  };
-  startDate?: string;
-  endDate?: string;
-};
-
-type AktuelltFile = {
-  items: AktuelltItem[];
-};
-
-function getActiveAktuellt(items: AktuelltItem[]) {
-  const today = getLocalDateString();
-  return items.filter((item) => isAktuelltActive(item, today));
-}
+import {
+  fetchAktuelltHomepage,
+  newsArticlePath,
+  type AktuelltItem,
+} from './lib/aktuellt';
 
 const checkinBaseUrl =
   import.meta.env.VITE_CHECKIN_URL ?? 'https://kbtk-checkin.vercel.app';
 
 const defaultAktuelltItems: AktuelltItem[] = [
   {
+    slug: 'provtraning-for-nya-spelare',
     title: 'Provträning för nya spelare',
     text: 'Klubben erbjuder en provträning för dig som vill testa pingis innan du bestämmer dig.',
     link: {
@@ -46,35 +32,6 @@ const defaultAktuelltItems: AktuelltItem[] = [
     },
   },
 ];
-
-function getLocalDateString(date = new Date()) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
-function isAktuelltActive(item: AktuelltItem, today: string) {
-  if (item.startDate && today < item.startDate) {
-    return false;
-  }
-  if (item.endDate && today > item.endDate) {
-    return false;
-  }
-  return true;
-}
-
-function parseAktuelltFile(data: AktuelltFile | AktuelltItem): AktuelltItem[] {
-  if ('items' in data && Array.isArray(data.items)) {
-    return data.items;
-  }
-
-  if ('title' in data) {
-    return [data];
-  }
-
-  return defaultAktuelltItems;
-}
 
 const series = [
   {
@@ -246,9 +203,7 @@ const faqs = FAQ_ENTRIES.map((entry) => ({
 const clubLogo = '/kbtk-logo.png';
 
 function HomePage() {
-  const [aktuelltItems, setAktuelltItems] = useState<AktuelltItem[]>(
-    getActiveAktuellt(defaultAktuelltItems),
-  );
+  const [aktuelltItems, setAktuelltItems] = useState<AktuelltItem[]>(defaultAktuelltItems);
   const [competitions, setCompetitions] = useState<PublicCompetitionSummary[]>([]);
   const [competitionsError, setCompetitionsError] = useState('');
   const [signupGroups, setSignupGroups] = useState<PublicSignupGroup[]>([]);
@@ -264,34 +219,13 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    async function loadAktuellt() {
-      try {
-        const response = await fetch(`${checkinBaseUrl}/api/public/aktuellt`);
-        if (!response.ok) {
-          throw new Error('Kunde inte ladda aktuellt från check-in');
-        }
-        const data = (await response.json()) as { items?: AktuelltItem[] };
-        if (Array.isArray(data.items)) {
-          setAktuelltItems(getActiveAktuellt(data.items));
-          return;
-        }
-      } catch {
-        // Fallback till lokal fil om check-in inte svarar.
-      }
-
-      try {
-        const response = await fetch('/aktuellt.json');
-        if (!response.ok) {
-          throw new Error('Kunde inte ladda aktuellt.json');
-        }
-        const data = (await response.json()) as AktuelltFile | AktuelltItem;
-        setAktuelltItems(getActiveAktuellt(parseAktuelltFile(data)));
-      } catch {
-        setAktuelltItems(getActiveAktuellt(defaultAktuelltItems));
-      }
-    }
-
-    void loadAktuellt();
+    void fetchAktuelltHomepage()
+      .then((items) => {
+        if (items.length > 0) setAktuelltItems(items);
+      })
+      .catch(() => {
+        // Keep default teaser if check-in is unavailable.
+      });
   }, []);
 
   useEffect(() => {
@@ -356,15 +290,23 @@ function HomePage() {
               </p>
             ) : (
               <div className="aktuellt-list">
-                {aktuelltItems.map((item) => (
-                  <article className="aktuellt-item" key={item.title}>
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
-                    {item.link ? (
-                      <a href={item.link.href}>{item.link.label}</a>
-                    ) : null}
-                  </article>
-                ))}
+                {aktuelltItems.map((item) => {
+                  const href = item.slug ? newsArticlePath(item.slug) : undefined;
+                  return (
+                    <article className="aktuellt-item" key={item.slug ?? item.title}>
+                      <h3>{href ? <a href={href}>{item.title}</a> : item.title}</h3>
+                      <p>{item.text}</p>
+                      {href ? (
+                        <a href={href}>Läs mer</a>
+                      ) : item.link ? (
+                        <a href={item.link.href}>{item.link.label}</a>
+                      ) : null}
+                    </article>
+                  );
+                })}
+                <a className="text-link" href="/nyheter">
+                  Alla nyheter
+                </a>
               </div>
             )}
             </div>
