@@ -121,7 +121,7 @@ De delar samma Vercel-konto men är **inte** samma projekt.
 - KBTK Check-in ska redan vara deployad
 - Migration `023_site_announcements.sql` ska vara körd i Supabase om styrelsen ska redigera **Aktuellt** under **Admin → Hemsida**
 - Gruppinformation för **Börja spela** hämtas från check-in (`/api/public/signup-groups`) när det stödet är deployat. Tills dess används `public/signup-groups.json` i hemsiderepot som fallback — fältet `info` är kompletterande text per grupp.
-- Lediga **matchtröjnummer** på Klubbköp hämtas live från check-in (`GET /api/public/jersey-numbers`: `available`, `min`, `max`). Om check-in-listan mest består av kända upptagna nummer tolkas den som upptagna och lediga beräknas som `min`–`max` minus listan. Lokal lista används som fallback om API:t inte svarar.
+- Lediga **matchtröjnummer** på Klubbköp: nummer **utan namn** i lokal tilldelningslista (00–100). Check-in-listan användes för att frige nummer som togs bort från tilldelningarna (00 och 103 behålls).
 
 ---
 
