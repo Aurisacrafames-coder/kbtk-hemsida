@@ -89,9 +89,6 @@ const checkinBaseUrl =
   import.meta.env.VITE_CHECKIN_URL ?? 'https://kbtk-checkin.vercel.app';
 
 const takenNumbers = new Set(JERSEY_NUMBER_ASSIGNMENTS.map((row) => row.number));
-const ownerByNumber = new Map(
-  JERSEY_NUMBER_ASSIGNMENTS.map((row) => [Number.parseInt(row.number, 10), row.owner]),
-);
 
 export type PublicJerseyNumbers = {
   available: number[];
@@ -161,38 +158,39 @@ export async function fetchPublicJerseyNumbers(): Promise<PublicJerseyNumbers> {
   };
 }
 
-/** Upptagna nummer i intervallet, med lokal ägare när vi har den. */
+/** Antal upptagna nummer enligt check-in (hela intervallet minus lediga). */
+export function countTakenJerseyNumbers(jerseyNumbers: PublicJerseyNumbers): number {
+  const rangeSize = Math.max(0, jerseyNumbers.max - jerseyNumbers.min + 1);
+  return Math.max(0, rangeSize - jerseyNumbers.available.length);
+}
+
+/**
+ * Namngivna upptagna nummer.
+ * Check-in ger bara lediga nummer — ägare kommer från lokal lista.
+ * Visa aldrig placeholder "Upptaget" för nummer utan känt namn.
+ */
 export function buildTakenJerseyAssignments(
   jerseyNumbers: PublicJerseyNumbers,
 ): JerseyNumberAssignment[] {
   const available = new Set(jerseyNumbers.available);
-  const rows: JerseyNumberAssignment[] = [];
 
-  for (let number = jerseyNumbers.min; number <= jerseyNumbers.max; number += 1) {
-    if (available.has(number)) {
-      continue;
-    }
-
-    rows.push({
-      number: formatJerseyNumber(number),
-      owner: ownerByNumber.get(number) ?? 'Upptaget',
-    });
-  }
-
-  for (const row of JERSEY_NUMBER_ASSIGNMENTS) {
+  return JERSEY_NUMBER_ASSIGNMENTS.filter((row) => {
     const numeric = Number.parseInt(row.number, 10);
-    if (
-      Number.isInteger(numeric) &&
-      (numeric < jerseyNumbers.min || numeric > jerseyNumbers.max) &&
-      !rows.some((existing) => existing.number === row.number)
-    ) {
-      rows.push(row);
+    if (!Number.isInteger(numeric)) {
+      return false;
     }
-  }
 
-  return rows.sort(
-    (a, b) => Number.parseInt(a.number, 10) - Number.parseInt(b.number, 10),
-  );
+    // Ledigt enligt check-in → visa inte som upptaget, även om lokal lista är gammal.
+    if (
+      numeric >= jerseyNumbers.min &&
+      numeric <= jerseyNumbers.max &&
+      available.has(numeric)
+    ) {
+      return false;
+    }
+
+    return true;
+  }).sort((a, b) => Number.parseInt(a.number, 10) - Number.parseInt(b.number, 10));
 }
 
 export const CLUB_CLOTHES_EMAIL = 'sten-inge@xlntreklam.se';
