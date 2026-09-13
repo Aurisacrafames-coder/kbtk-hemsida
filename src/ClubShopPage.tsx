@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import {
   buildTakenJerseyAssignments,
   CLUB_CLOTHES_EMAIL,
-  countTakenJerseyNumbers,
   EQUIPMENT_LINKS,
   fetchPublicJerseyNumbers,
   formatJerseyNumber,
@@ -154,10 +153,9 @@ function JerseyNumberRegistry({ jerseyNumbers }: { jerseyNumbers: PublicJerseyNu
     [jerseyNumbers],
   );
   const freeCount = jerseyNumbers?.available.length ?? 0;
-  const takenCount = jerseyNumbers ? countTakenJerseyNumbers(jerseyNumbers) : 0;
   const rangeLabel = jerseyNumbers
     ? `${formatJerseyNumber(jerseyNumbers.min)}–${formatJerseyNumber(jerseyNumbers.max)}`
-    : '1–100';
+    : '00–100';
 
   const assignments = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -180,7 +178,7 @@ function JerseyNumberRegistry({ jerseyNumbers }: { jerseyNumbers: PublicJerseyNu
           <h2>Vem har vilket nummer?</h2>
           <p className="club-shop-intro">
             {jerseyNumbers
-              ? `${takenCount} upptagna · ${freeCount} lediga (${rangeLabel}). Namn visas när vi har dem.`
+              ? `${namedAssignments.length} med namn · ${freeCount} lediga utan namn (${rangeLabel})`
               : 'Laddar nummerlista…'}
           </p>
         </div>

@@ -9,7 +9,6 @@ export const JERSEY_NUMBER_ASSIGNMENTS: JerseyNumberAssignment[] = [
   { number: '02', owner: 'PA' },
   { number: '03', owner: 'C Stadler' },
   { number: '04', owner: 'J Boquist' },
-  { number: '05', owner: 'Milton' },
   { number: '06', owner: 'Hansson' },
   { number: '07', owner: 'T Andersson' },
   { number: '08', owner: 'Poljak' },
@@ -17,8 +16,6 @@ export const JERSEY_NUMBER_ASSIGNMENTS: JerseyNumberAssignment[] = [
   { number: '10', owner: 'Amir' },
   { number: '11', owner: 'T Skyman' },
   { number: '12', owner: 'Mårdby' },
-  { number: '13', owner: 'J Emanuelsson' },
-  { number: '14', owner: 'J Ekerstedt' },
   { number: '15', owner: 'W Lundgren' },
   { number: '16', owner: 'L Bengtsson' },
   { number: '17', owner: 'Lundell' },
@@ -28,18 +25,12 @@ export const JERSEY_NUMBER_ASSIGNMENTS: JerseyNumberAssignment[] = [
   { number: '21', owner: 'Rolf P' },
   { number: '22', owner: 'S Rönnblom' },
   { number: '23', owner: 'Jonte' },
-  { number: '24', owner: 'P Sandberg' },
-  { number: '25', owner: 'N Ockell' },
   { number: '26', owner: 'S. Ali Mahamoud' },
-  { number: '27', owner: 'Hedlund' },
   { number: '28', owner: 'S Blanck' },
-  { number: '29', owner: 'A Tran' },
   { number: '30', owner: 'F Edvardsson' },
-  { number: '31', owner: 'C Elfström' },
   { number: '32', owner: 'H Ragnarsson' },
   { number: '33', owner: 'Henriksson' },
   { number: '34', owner: 'L Palm' },
-  { number: '35', owner: 'C Engman' },
   { number: '36', owner: 'O Palm' },
   { number: '37', owner: 'Ängbacken' },
   { number: '38', owner: 'F E Fuxin' },
@@ -51,9 +42,7 @@ export const JERSEY_NUMBER_ASSIGNMENTS: JerseyNumberAssignment[] = [
   { number: '44', owner: 'Gerdes' },
   { number: '45', owner: 'M Väljemark' },
   { number: '47', owner: 'O Stark' },
-  { number: '48', owner: 'Valter L' },
   { number: '50', owner: 'Movitz' },
-  { number: '55', owner: 'G Ragnarsson' },
   { number: '60', owner: 'Göthager' },
   { number: '61', owner: 'Malin H' },
   { number: '66', owner: 'Magnus' },
@@ -67,7 +56,6 @@ export const JERSEY_NUMBER_ASSIGNMENTS: JerseyNumberAssignment[] = [
   { number: '77', owner: 'A Gabriel' },
   { number: '78', owner: 'Tobbe L' },
   { number: '80', owner: 'Udd' },
-  { number: '81', owner: 'Alfred N' },
   { number: '82', owner: 'Mäntylä' },
   { number: '86', owner: 'L Gustafsson' },
   { number: '87', owner: 'Tobias G' },
@@ -77,18 +65,11 @@ export const JERSEY_NUMBER_ASSIGNMENTS: JerseyNumberAssignment[] = [
   { number: '93', owner: 'A Hendel' },
   { number: '94', owner: 'Rasmus' },
   { number: '95', owner: 'S Babic' },
-  { number: '96', owner: 'H Ekström' },
   { number: '97', owner: 'Hansson' },
   { number: '98', owner: 'L Lundell' },
   { number: '99', owner: 'M Nordfelt' },
-  { number: '100', owner: 'P Skallefell' },
   { number: '103', owner: 'Jägerbom' },
 ];
-
-const checkinBaseUrl =
-  import.meta.env.VITE_CHECKIN_URL ?? 'https://kbtk-checkin.vercel.app';
-
-const takenNumbers = new Set(JERSEY_NUMBER_ASSIGNMENTS.map((row) => row.number));
 
 export type PublicJerseyNumbers = {
   available: number[];
@@ -96,14 +77,30 @@ export type PublicJerseyNumbers = {
   max: number;
 };
 
-const DEFAULT_JERSEY_RANGE = { min: 1, max: 100 } as const;
+/** Intervall för valbara matchtröjnummer (00–100). 103 finns som namngivet utanför. */
+const DEFAULT_JERSEY_RANGE = { min: 0, max: 100 } as const;
 
-/** Fallback om check-in inte svarar: lediga nummer enligt lokal lista (0–99). */
-export function availableJerseyNumbersFallback(): number[] {
-  return Array.from({ length: 100 }, (_, index) => index).filter((number) => {
-    const padded = String(number).padStart(2, '0');
-    return !takenNumbers.has(padded) && !takenNumbers.has(String(number));
-  });
+function takenJerseyNumberSet(): Set<number> {
+  return new Set(
+    JERSEY_NUMBER_ASSIGNMENTS.map((row) => Number.parseInt(row.number, 10)).filter((number) =>
+      Number.isInteger(number),
+    ),
+  );
+}
+
+/** Lediga nummer = nummer i intervallet som saknar namn i tilldelningslistan. */
+export function availableJerseyNumbersFromNames(
+  min: number = DEFAULT_JERSEY_RANGE.min,
+  max: number = DEFAULT_JERSEY_RANGE.max,
+): number[] {
+  const taken = takenJerseyNumberSet();
+  const available: number[] = [];
+  for (let number = min; number <= max; number += 1) {
+    if (!taken.has(number)) {
+      available.push(number);
+    }
+  }
+  return available;
 }
 
 export function formatJerseyNumber(number: number): string {
@@ -114,113 +111,30 @@ export function formatJerseyNumber(number: number): string {
 }
 
 export function availableJerseyNumbers(): string[] {
-  return availableJerseyNumbersFallback().map(formatJerseyNumber);
-}
-
-function normalizeJerseyNumbersPayload(raw: Partial<PublicJerseyNumbers>): PublicJerseyNumbers | null {
-  if (!Array.isArray(raw.available)) {
-    return null;
-  }
-
-  const listed = raw.available
-    .map((value) => (typeof value === 'number' ? value : Number.parseInt(String(value), 10)))
-    .filter((value) => Number.isInteger(value) && value >= 0);
-
-  const min =
-    typeof raw.min === 'number' && Number.isInteger(raw.min) ? raw.min : DEFAULT_JERSEY_RANGE.min;
-  const max =
-    typeof raw.max === 'number' && Number.isInteger(raw.max) ? raw.max : DEFAULT_JERSEY_RANGE.max;
-
-  const inRange = listed.filter((number) => number >= min && number <= max);
-  const localTaken = new Set(
-    [...takenNumbers]
-      .map((value) => Number.parseInt(value, 10))
-      .filter((value) => Number.isInteger(value)),
-  );
-  const overlapTaken =
-    inRange.length === 0
-      ? 0
-      : inRange.filter((number) => localTaken.has(number)).length / inRange.length;
-
-  /**
-   * Check-in har returnerat upptagna nummer i `available` (nästan bara kända
-   * tilldelningar). Om listan mest överlappar lokalt upptagna nummer tolkar vi
-   * den som upptagna och beräknar lediga som min–max minus listan. Annars
-   * litar vi på att `available` redan är lediga.
-   */
-  const listedLooksTaken = inRange.length > 0 && overlapTaken >= 0.8;
-  const taken = new Set(listedLooksTaken ? inRange : []);
-  const available: number[] = [];
-
-  if (listedLooksTaken) {
-    for (let number = min; number <= max; number += 1) {
-      if (!taken.has(number)) {
-        available.push(number);
-      }
-    }
-  } else {
-    available.push(...[...new Set(inRange)].sort((a, b) => a - b));
-  }
-
-  return { available, min, max };
+  return availableJerseyNumbersFromNames().map(formatJerseyNumber);
 }
 
 export async function fetchPublicJerseyNumbers(): Promise<PublicJerseyNumbers> {
-  try {
-    const response = await fetch(`${checkinBaseUrl}/api/public/jersey-numbers`);
-    if (!response.ok) {
-      throw new Error('Kunde inte ladda lediga tröjnummer från check-in');
-    }
-
-    const data = (await response.json()) as Partial<PublicJerseyNumbers>;
-    const normalized = normalizeJerseyNumbersPayload(data);
-    if (normalized) {
-      return normalized;
-    }
-  } catch {
-    // Fallback till lokal lista om check-in inte svarar.
-  }
-
   return {
-    available: availableJerseyNumbersFallback(),
+    available: availableJerseyNumbersFromNames(),
     min: DEFAULT_JERSEY_RANGE.min,
     max: DEFAULT_JERSEY_RANGE.max,
   };
 }
 
-/** Antal upptagna nummer enligt check-in (hela intervallet minus lediga). */
+/** Antal upptagna nummer i intervallet (nummer som har namn). */
 export function countTakenJerseyNumbers(jerseyNumbers: PublicJerseyNumbers): number {
   const rangeSize = Math.max(0, jerseyNumbers.max - jerseyNumbers.min + 1);
   return Math.max(0, rangeSize - jerseyNumbers.available.length);
 }
 
-/**
- * Namngivna upptagna nummer.
- * Check-in ger bara lediga nummer — ägare kommer från lokal lista.
- * Visa aldrig placeholder "Upptaget" för nummer utan känt namn.
- */
+/** Alla namngivna tilldelningar (även utanför 00–100, t.ex. 103). */
 export function buildTakenJerseyAssignments(
-  jerseyNumbers: PublicJerseyNumbers,
+  _jerseyNumbers?: PublicJerseyNumbers,
 ): JerseyNumberAssignment[] {
-  const available = new Set(jerseyNumbers.available);
-
-  return JERSEY_NUMBER_ASSIGNMENTS.filter((row) => {
-    const numeric = Number.parseInt(row.number, 10);
-    if (!Number.isInteger(numeric)) {
-      return false;
-    }
-
-    // Ledigt enligt check-in → visa inte som upptaget, även om lokal lista är gammal.
-    if (
-      numeric >= jerseyNumbers.min &&
-      numeric <= jerseyNumbers.max &&
-      available.has(numeric)
-    ) {
-      return false;
-    }
-
-    return true;
-  }).sort((a, b) => Number.parseInt(a.number, 10) - Number.parseInt(b.number, 10));
+  return [...JERSEY_NUMBER_ASSIGNMENTS].sort(
+    (a, b) => Number.parseInt(a.number, 10) - Number.parseInt(b.number, 10),
+  );
 }
 
 export const CLUB_CLOTHES_EMAIL = 'sten-inge@xlntreklam.se';
