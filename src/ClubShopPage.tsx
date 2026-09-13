@@ -1,9 +1,11 @@
-import { useMemo, useState, type FormEvent } from 'react';
+import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import {
-  availableJerseyNumbers,
+  buildTakenJerseyAssignments,
   CLUB_CLOTHES_EMAIL,
   EQUIPMENT_LINKS,
-  JERSEY_NUMBER_ASSIGNMENTS,
+  fetchPublicJerseyNumbers,
+  formatJerseyNumber,
+  type PublicJerseyNumbers,
 } from './lib/club-shop';
 import { FORM_SLUG_TYPES, submitSiteForm } from './lib/forms';
 
@@ -11,11 +13,52 @@ function sortJerseyNumber(a: string, b: string) {
   return Number.parseInt(a, 10) - Number.parseInt(b, 10);
 }
 
-function JerseyNumberForm() {
+function useJerseyNumbers() {
+  const [jerseyNumbers, setJerseyNumbers] = useState<PublicJerseyNumbers | null>(null);
+  const [loadError, setLoadError] = useState('');
+
+  useEffect(() => {
+    let cancelled = false;
+
+    void fetchPublicJerseyNumbers()
+      .then((data) => {
+        if (!cancelled) {
+          setJerseyNumbers(data);
+        }
+      })
+      .catch((err) => {
+        if (!cancelled) {
+          setLoadError(err instanceof Error ? err.message : 'Kunde inte ladda tröjnummer.');
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return { jerseyNumbers, loadError };
+}
+
+function JerseyNumberForm({
+  jerseyNumbers,
+  loadError,
+}: {
+  jerseyNumbers: PublicJerseyNumbers | null;
+  loadError: string;
+}) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const freeNumbers = useMemo(() => availableJerseyNumbers(), []);
+
+  const freeNumbers = useMemo(
+    () => (jerseyNumbers ? [...jerseyNumbers.available].sort((a, b) => a - b) : []),
+    [jerseyNumbers],
+  );
+
+  const rangeLabel = jerseyNumbers
+    ? `${formatJerseyNumber(jerseyNumbers.min)}–${formatJerseyNumber(jerseyNumbers.max)}`
+    : '1–100';
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -72,38 +115,51 @@ function JerseyNumberForm() {
       </label>
       <label>
         Önskat nummer
-        <select name="number" required defaultValue="">
+        <select name="number" required defaultValue="" disabled={!jerseyNumbers}>
           <option value="" disabled>
-            Välj ledigt nummer (00–99)
+            {jerseyNumbers ? `Välj ledigt nummer (${rangeLabel})` : 'Laddar lediga nummer…'}
           </option>
-          {freeNumbers.map((number) => (
-            <option key={number} value={number}>
-              {number}
-            </option>
-          ))}
+          {freeNumbers.map((number) => {
+            const label = formatJerseyNumber(number);
+            return (
+              <option key={number} value={label}>
+                {label}
+              </option>
+            );
+          })}
         </select>
       </label>
       <p className="form-hint">
-        Kontrollera nummerlistan nedan innan du skickar in. Klubben bekräftar om numret kan
-        reserveras.
+        Lediga nummer hämtas från check-in. Klubben bekräftar om numret kan reserveras.
       </p>
+      {loadError ? <p className="form-error">{loadError}</p> : null}
       {error ? <p className="form-error">{error}</p> : null}
-      <button className="button primary" type="submit" disabled={pending}>
+      <button
+        className="button primary"
+        type="submit"
+        disabled={pending || !jerseyNumbers || freeNumbers.length === 0}
+      >
         {pending ? 'Skickar…' : 'Skicka ansökan'}
       </button>
     </form>
   );
 }
 
-function JerseyNumberRegistry() {
+function JerseyNumberRegistry({ jerseyNumbers }: { jerseyNumbers: PublicJerseyNumbers | null }) {
   const [query, setQuery] = useState('');
-  const freeCount = useMemo(() => availableJerseyNumbers().length, []);
+
+  const takenAssignments = useMemo(
+    () => (jerseyNumbers ? buildTakenJerseyAssignments(jerseyNumbers) : []),
+    [jerseyNumbers],
+  );
+  const freeCount = jerseyNumbers?.available.length ?? 0;
+  const rangeLabel = jerseyNumbers
+    ? `${formatJerseyNumber(jerseyNumbers.min)}–${formatJerseyNumber(jerseyNumbers.max)}`
+    : '1–100';
 
   const assignments = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    const sorted = [...JERSEY_NUMBER_ASSIGNMENTS].sort((a, b) =>
-      sortJerseyNumber(a.number, b.number),
-    );
+    const sorted = [...takenAssignments].sort((a, b) => sortJerseyNumber(a.number, b.number));
 
     if (!normalizedQuery) {
       return sorted;
@@ -113,7 +169,7 @@ function JerseyNumberRegistry() {
       (row) =>
         row.number.includes(normalizedQuery) || row.owner.toLowerCase().includes(normalizedQuery),
     );
-  }, [query]);
+  }, [takenAssignments, query]);
 
   return (
     <section className="panel club-shop-numbers-panel">
@@ -121,7 +177,9 @@ function JerseyNumberRegistry() {
         <div>
           <h2>Vem har vilket nummer?</h2>
           <p className="club-shop-intro">
-            {JERSEY_NUMBER_ASSIGNMENTS.length} upptagna · {freeCount} lediga (00–99)
+            {jerseyNumbers
+              ? `${takenAssignments.length} upptagna · ${freeCount} lediga (${rangeLabel})`
+              : 'Laddar nummerlista…'}
           </p>
         </div>
         <label className="club-shop-search">
@@ -132,11 +190,14 @@ function JerseyNumberRegistry() {
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Sök nummer eller namn…"
             autoComplete="off"
+            disabled={!jerseyNumbers}
           />
         </label>
       </div>
 
-      {assignments.length === 0 ? (
+      {!jerseyNumbers ? (
+        <p className="club-shop-empty">Hämtar nummer från check-in…</p>
+      ) : assignments.length === 0 ? (
         <p className="club-shop-empty">Inga nummer matchar sökningen.</p>
       ) : (
         <ul className="jersey-number-grid">
@@ -155,6 +216,11 @@ function JerseyNumberRegistry() {
 }
 
 export default function ClubShopPage() {
+  const { jerseyNumbers, loadError } = useJerseyNumbers();
+  const rangeLabel = jerseyNumbers
+    ? `${formatJerseyNumber(jerseyNumbers.min)}–${formatJerseyNumber(jerseyNumbers.max)}`
+    : '1–100';
+
   return (
     <main className="section form-page club-shop-page">
       <a className="text-link form-back" href="/">
@@ -191,13 +257,13 @@ export default function ClubShopPage() {
       <section className="panel club-shop-panel">
         <h2>Ansök om nummer på matchtröja</h2>
         <p className="club-shop-intro">
-          Välj ett ledigt nummer mellan 00 och 99. Ansökan skickas till klubben via
-          kontaktformuläret.
+          Välj ett ledigt nummer mellan {rangeLabel}. Lediga nummer synkas från check-in. Ansökan
+          skickas till klubben via kontaktformuläret.
         </p>
-        <JerseyNumberForm />
+        <JerseyNumberForm jerseyNumbers={jerseyNumbers} loadError={loadError} />
       </section>
 
-      <JerseyNumberRegistry />
+      <JerseyNumberRegistry jerseyNumbers={jerseyNumbers} />
 
       <section className="panel club-shop-panel">
         <h2>Köp utrustning</h2>
