@@ -24,6 +24,7 @@ import {
 import {
   fetchPublicSignupGroups,
   getSignupGroupByName,
+  getTrialSignupGroups,
   type PublicSignupGroup,
 } from './lib/signup-groups';
 import { validateSwedishPersonalId } from './lib/personal-id';
@@ -98,6 +99,16 @@ function TrialSignupForm() {
     void fetchPublicSignupGroups().then(setSignupGroups);
   }, []);
 
+  const trialGroups =
+    signupGroups.length > 0
+      ? getTrialSignupGroups(signupGroups)
+      : TRIAL_GROUP_OPTIONS.map((name) => ({
+          name,
+          description: '',
+          info: '',
+          forTrialSignup: true,
+          sortOrder: 0,
+        }));
   const selectedGroup = getSignupGroupByName(signupGroups, group);
   const groupFeeInfo =
     TRIAL_GROUP_FEE_INFO[group as (typeof TRIAL_GROUP_OPTIONS)[number]] ?? null;
@@ -189,9 +200,9 @@ function TrialSignupForm() {
             <option value="" disabled>
               Välj gruppkategori
             </option>
-            {TRIAL_GROUP_OPTIONS.map((group) => (
-              <option key={group} value={group}>
-                {group}
+            {trialGroups.map((trialGroup) => (
+              <option key={trialGroup.name} value={trialGroup.name}>
+                {trialGroup.name}
               </option>
             ))}
           </select>

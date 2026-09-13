@@ -2,33 +2,45 @@
   "groups": [
     {
       "name": "Nybörjare 7-10 år",
-      "description": "Pingisskola för yngre barn. Lek, grundteknik och en rolig introduktion till bordtennis.",
-      "info": ""
+      "description": "Pingisskola för yngre barn. Lek, grundteknik och en rolig introduktion till bordtennis. Rack och bollar finns att låna. Glöm inte träningskläder, inneskor och vattenflaska.",
+      "info": "Lördagar 10.00 - 11.00. Föräldrar är med som hjälptränare/ledare.",
+      "forTrialSignup": true,
+      "sortOrder": 10
     },
     {
       "name": "Nybörjare 11-14 år",
-      "description": "För dig som är ny eller nästan ny i tonåren. Fokus på grundteknik och spel i lagom gruppstorlek.",
-      "info": ""
+      "description": "För dig som är ny och kanske spelat en del i skolan. Fokus på grundteknik och spel i lagom gruppstorlek. Rack och bollar finns att låna. Glöm inte träningskläder, inneskor och vattenflaska.",
+      "info": "Lördagar 10.00 - 11.00. Föräldrar är med som hjälptränare/ledare.",
+      "forTrialSignup": true,
+      "sortOrder": 20
     },
     {
       "name": "Parasport 360",
       "description": "Träning för dig med funktionsvariation. Klubben hjälper dig till rätt grupp och upplägg efter provträning.",
-      "info": ""
+      "info": "",
+      "forTrialSignup": true,
+      "sortOrder": 30
     },
     {
       "name": "Motionärer",
       "description": "Vuxna, motionärer och pensionärer som vill spela regelbundet.",
-      "info": ""
+      "info": "",
+      "forTrialSignup": true,
+      "sortOrder": 40
     },
     {
       "name": "Föräldramedlemskap",
       "description": "Tilläggsmedlemskap för föräldrar till barn i klubben — 350 kr/säsong utöver barnets avgift, utan egen träningstid.",
-      "info": ""
+      "info": "",
+      "forTrialSignup": false,
+      "sortOrder": 50
     },
     {
       "name": "Övriga spelare",
       "description": "Om du redan spelat mer eller ska placeras i seriegrupp (t.ex. C–A). Klubben hjälper dig efter provträning.",
-      "info": ""
+      "info": "",
+      "forTrialSignup": true,
+      "sortOrder": 60
     }
   ]
 }
