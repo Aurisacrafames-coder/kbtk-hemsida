@@ -122,15 +122,45 @@ function normalizeJerseyNumbersPayload(raw: Partial<PublicJerseyNumbers>): Publi
     return null;
   }
 
-  const available = raw.available
+  const listed = raw.available
     .map((value) => (typeof value === 'number' ? value : Number.parseInt(String(value), 10)))
-    .filter((value) => Number.isInteger(value) && value >= 0)
-    .sort((a, b) => a - b);
+    .filter((value) => Number.isInteger(value) && value >= 0);
 
   const min =
     typeof raw.min === 'number' && Number.isInteger(raw.min) ? raw.min : DEFAULT_JERSEY_RANGE.min;
   const max =
     typeof raw.max === 'number' && Number.isInteger(raw.max) ? raw.max : DEFAULT_JERSEY_RANGE.max;
+
+  const inRange = listed.filter((number) => number >= min && number <= max);
+  const localTaken = new Set(
+    [...takenNumbers]
+      .map((value) => Number.parseInt(value, 10))
+      .filter((value) => Number.isInteger(value)),
+  );
+  const overlapTaken =
+    inRange.length === 0
+      ? 0
+      : inRange.filter((number) => localTaken.has(number)).length / inRange.length;
+
+  /**
+   * Check-in har returnerat upptagna nummer i `available` (nästan bara kända
+   * tilldelningar). Om listan mest överlappar lokalt upptagna nummer tolkar vi
+   * den som upptagna och beräknar lediga som min–max minus listan. Annars
+   * litar vi på att `available` redan är lediga.
+   */
+  const listedLooksTaken = inRange.length > 0 && overlapTaken >= 0.8;
+  const taken = new Set(listedLooksTaken ? inRange : []);
+  const available: number[] = [];
+
+  if (listedLooksTaken) {
+    for (let number = min; number <= max; number += 1) {
+      if (!taken.has(number)) {
+        available.push(number);
+      }
+    }
+  } else {
+    available.push(...[...new Set(inRange)].sort((a, b) => a - b));
+  }
 
   return { available, min, max };
 }
