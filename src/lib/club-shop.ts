@@ -85,11 +85,113 @@ export const JERSEY_NUMBER_ASSIGNMENTS: JerseyNumberAssignment[] = [
   { number: '103', owner: 'Jägerbom' },
 ];
 
-const takenNumbers = new Set(JERSEY_NUMBER_ASSIGNMENTS.map((row) => row.number));
+const checkinBaseUrl =
+  import.meta.env.VITE_CHECKIN_URL ?? 'https://kbtk-checkin.vercel.app';
 
-export function availableJerseyNumbers() {
-  return Array.from({ length: 100 }, (_, index) => String(index).padStart(2, '0')).filter(
-    (number) => !takenNumbers.has(number),
+const takenNumbers = new Set(JERSEY_NUMBER_ASSIGNMENTS.map((row) => row.number));
+const ownerByNumber = new Map(
+  JERSEY_NUMBER_ASSIGNMENTS.map((row) => [Number.parseInt(row.number, 10), row.owner]),
+);
+
+export type PublicJerseyNumbers = {
+  available: number[];
+  min: number;
+  max: number;
+};
+
+const DEFAULT_JERSEY_RANGE = { min: 1, max: 100 } as const;
+
+/** Fallback om check-in inte svarar: lediga nummer enligt lokal lista (0–99). */
+export function availableJerseyNumbersFallback(): number[] {
+  return Array.from({ length: 100 }, (_, index) => index).filter((number) => {
+    const padded = String(number).padStart(2, '0');
+    return !takenNumbers.has(padded) && !takenNumbers.has(String(number));
+  });
+}
+
+export function formatJerseyNumber(number: number): string {
+  if (number >= 0 && number <= 9) {
+    return String(number).padStart(2, '0');
+  }
+  return String(number);
+}
+
+export function availableJerseyNumbers(): string[] {
+  return availableJerseyNumbersFallback().map(formatJerseyNumber);
+}
+
+function normalizeJerseyNumbersPayload(raw: Partial<PublicJerseyNumbers>): PublicJerseyNumbers | null {
+  if (!Array.isArray(raw.available)) {
+    return null;
+  }
+
+  const available = raw.available
+    .map((value) => (typeof value === 'number' ? value : Number.parseInt(String(value), 10)))
+    .filter((value) => Number.isInteger(value) && value >= 0)
+    .sort((a, b) => a - b);
+
+  const min =
+    typeof raw.min === 'number' && Number.isInteger(raw.min) ? raw.min : DEFAULT_JERSEY_RANGE.min;
+  const max =
+    typeof raw.max === 'number' && Number.isInteger(raw.max) ? raw.max : DEFAULT_JERSEY_RANGE.max;
+
+  return { available, min, max };
+}
+
+export async function fetchPublicJerseyNumbers(): Promise<PublicJerseyNumbers> {
+  try {
+    const response = await fetch(`${checkinBaseUrl}/api/public/jersey-numbers`);
+    if (!response.ok) {
+      throw new Error('Kunde inte ladda lediga tröjnummer från check-in');
+    }
+
+    const data = (await response.json()) as Partial<PublicJerseyNumbers>;
+    const normalized = normalizeJerseyNumbersPayload(data);
+    if (normalized) {
+      return normalized;
+    }
+  } catch {
+    // Fallback till lokal lista om check-in inte svarar.
+  }
+
+  return {
+    available: availableJerseyNumbersFallback(),
+    min: DEFAULT_JERSEY_RANGE.min,
+    max: DEFAULT_JERSEY_RANGE.max,
+  };
+}
+
+/** Upptagna nummer i intervallet, med lokal ägare när vi har den. */
+export function buildTakenJerseyAssignments(
+  jerseyNumbers: PublicJerseyNumbers,
+): JerseyNumberAssignment[] {
+  const available = new Set(jerseyNumbers.available);
+  const rows: JerseyNumberAssignment[] = [];
+
+  for (let number = jerseyNumbers.min; number <= jerseyNumbers.max; number += 1) {
+    if (available.has(number)) {
+      continue;
+    }
+
+    rows.push({
+      number: formatJerseyNumber(number),
+      owner: ownerByNumber.get(number) ?? 'Upptaget',
+    });
+  }
+
+  for (const row of JERSEY_NUMBER_ASSIGNMENTS) {
+    const numeric = Number.parseInt(row.number, 10);
+    if (
+      Number.isInteger(numeric) &&
+      (numeric < jerseyNumbers.min || numeric > jerseyNumbers.max) &&
+      !rows.some((existing) => existing.number === row.number)
+    ) {
+      rows.push(row);
+    }
+  }
+
+  return rows.sort(
+    (a, b) => Number.parseInt(a.number, 10) - Number.parseInt(b.number, 10),
   );
 }
 
