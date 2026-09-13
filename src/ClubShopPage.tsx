@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import {
   buildTakenJerseyAssignments,
   CLUB_CLOTHES_EMAIL,
+  countTakenJerseyNumbers,
   EQUIPMENT_LINKS,
   fetchPublicJerseyNumbers,
   formatJerseyNumber,
@@ -148,18 +149,19 @@ function JerseyNumberForm({
 function JerseyNumberRegistry({ jerseyNumbers }: { jerseyNumbers: PublicJerseyNumbers | null }) {
   const [query, setQuery] = useState('');
 
-  const takenAssignments = useMemo(
+  const namedAssignments = useMemo(
     () => (jerseyNumbers ? buildTakenJerseyAssignments(jerseyNumbers) : []),
     [jerseyNumbers],
   );
   const freeCount = jerseyNumbers?.available.length ?? 0;
+  const takenCount = jerseyNumbers ? countTakenJerseyNumbers(jerseyNumbers) : 0;
   const rangeLabel = jerseyNumbers
     ? `${formatJerseyNumber(jerseyNumbers.min)}–${formatJerseyNumber(jerseyNumbers.max)}`
     : '1–100';
 
   const assignments = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    const sorted = [...takenAssignments].sort((a, b) => sortJerseyNumber(a.number, b.number));
+    const sorted = [...namedAssignments].sort((a, b) => sortJerseyNumber(a.number, b.number));
 
     if (!normalizedQuery) {
       return sorted;
@@ -169,7 +171,7 @@ function JerseyNumberRegistry({ jerseyNumbers }: { jerseyNumbers: PublicJerseyNu
       (row) =>
         row.number.includes(normalizedQuery) || row.owner.toLowerCase().includes(normalizedQuery),
     );
-  }, [takenAssignments, query]);
+  }, [namedAssignments, query]);
 
   return (
     <section className="panel club-shop-numbers-panel">
@@ -178,7 +180,7 @@ function JerseyNumberRegistry({ jerseyNumbers }: { jerseyNumbers: PublicJerseyNu
           <h2>Vem har vilket nummer?</h2>
           <p className="club-shop-intro">
             {jerseyNumbers
-              ? `${takenAssignments.length} upptagna · ${freeCount} lediga (${rangeLabel})`
+              ? `${takenCount} upptagna · ${freeCount} lediga (${rangeLabel}). Namn visas när vi har dem.`
               : 'Laddar nummerlista…'}
           </p>
         </div>
