@@ -1091,6 +1091,7 @@ a {
   font-size: 0.95rem;
   font-weight: 500;
   line-height: 1.45;
+  white-space: pre-line;
 }
 
 .check-list-info {
@@ -1103,6 +1104,7 @@ a {
   background: var(--orange-soft);
   border-left: 3px solid var(--orange);
   border-radius: 0 10px 10px 0;
+  white-space: pre-line;
 }
 
 .section-heading {
@@ -1789,6 +1791,7 @@ a {
   color: var(--navy);
   font-size: 0.95rem;
   line-height: 1.55;
+  white-space: pre-line;
 }
 
 .signup-group-info-extra {
@@ -1798,6 +1801,7 @@ a {
   font-size: 0.92rem;
   line-height: 1.55;
   border-top: 1px solid rgba(7, 31, 58, 0.08);
+  white-space: pre-line;
 }
 
 .competition-list {
