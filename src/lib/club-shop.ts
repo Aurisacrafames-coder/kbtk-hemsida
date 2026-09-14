@@ -16,6 +16,7 @@ export const JERSEY_NUMBER_ASSIGNMENTS: JerseyNumberAssignment[] = [
   { number: '10', owner: 'Amir' },
   { number: '11', owner: 'T Skyman' },
   { number: '12', owner: 'Mårdby' },
+  { number: '13', owner: 'Harry Hillberg' },
   { number: '15', owner: 'W Lundgren' },
   { number: '16', owner: 'L Bengtsson' },
   { number: '17', owner: 'Lundell' },
