@@ -7,7 +7,7 @@ import {
   formatJerseyNumber,
   type PublicJerseyNumbers,
 } from './lib/club-shop';
-import { FORM_SLUG_TYPES, submitSiteForm } from './lib/forms';
+import { JERSEY_NUMBER_FORM_TYPE, submitSiteForm } from './lib/forms';
 
 function sortJerseyNumber(a: string, b: string) {
   return Number.parseInt(a, 10) - Number.parseInt(b, 10);
@@ -76,11 +76,12 @@ function JerseyNumberForm({
       }
 
       await submitSiteForm({
-        form_type: FORM_SLUG_TYPES.kontakt,
+        form_type: JERSEY_NUMBER_FORM_TYPE,
         name,
         email,
         subject: 'Matchtröja — nummeransökan',
         message: `Ansökan om nummer ${number} på matchtröja.\n\nNamn: ${name}\nE-post: ${email}`,
+        jersey_number: number,
       });
 
       setSuccess(true);

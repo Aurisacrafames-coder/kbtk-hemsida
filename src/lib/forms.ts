@@ -30,6 +30,9 @@ export const FORM_SLUG_TYPES: Record<FormSlug, string> = {
   kontakt: 'contact',
 };
 
+/** form_type för matchtröjnummer-ansökan (Klubbköp) — sorteras under Tröjnummer i check-in. */
+export const JERSEY_NUMBER_FORM_TYPE = 'jersey_number';
+
 export function getFormSlugFromPath(pathname: string): FormSlug | null {
   const match = pathname.match(/^\/form\/([^/]+)\/?$/);
   if (!match) {
