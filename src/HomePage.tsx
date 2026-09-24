@@ -33,26 +33,45 @@ const defaultAktuelltItems: AktuelltItem[] = [
   },
 ];
 
-const series = [
+const series: Array<{ name: string; href?: string }> = [
   {
-    name: 'Division 1',
-    href: 'https://www.profixio.com/fx/serieoppsett.php?t=SBTF_SERIE_AVD27187&k=LS27187&p=1',
+    name: 'Dam Division 1',
+    href: 'https://sbtfeventsott.stupaevents.com/events/417/1127/2/7/7',
   },
   {
     name: 'Division 2',
-    href: 'https://www.profixio.com/fx/serieoppsett.php?t=SBTF_SERIE_AVD27167&k=LS27167&p=1',
+    href: 'https://sbtfeventsott.stupaevents.com/events/417/1157/2/7/7',
+  },
+  {
+    name: 'Division 2',
+    href: 'https://sbtfeventsott.stupaevents.com/events/417/1158/2/7/7',
   },
   {
     name: 'Division 3',
-    href: 'https://www.profixio.com/fx/serieoppsett.php?t=SBTF_SERIE_AVD27189&k=LS27189&p=1',
+    href: 'https://sbtfeventsott.stupaevents.com/events/417/1171/2/7/7',
   },
   {
     name: 'Division 4',
-    href: 'https://www.profixio.com/fx/serieoppsett.php?t=SBTF_SERIE_AVD27376&k=LS27376&p=1',
+    href: 'https://sbtfeventsott.stupaevents.com/events/371/1059/2/7/7',
   },
   {
-    name: 'Division 6',
-    href: 'https://www.profixio.com/fx/serieoppsett.php?t=SBTF_SERIE_AVD16684&k=LS16684&p=1',
+    name: 'Division 7',
+    href: 'https://sbtfeventsott.stupaevents.com/events/371/1062/2/7/7',
+  },
+  {
+    name: 'Division 9',
+    href: 'https://sbtfeventsott.stupaevents.com/events/371/1064/2/7/7',
+  },
+  {
+    name: 'Division 10',
+    href: 'https://sbtfeventsott.stupaevents.com/events/371/1471/2/7/7',
+  },
+  {
+    name: 'Ungdomsserie Äldre',
+    href: 'https://sbtfeventsott.stupaevents.com/events/493/1496/2/7/7',
+  },
+  {
+    name: 'Ungdomsserie Yngre',
   },
 ];
 
@@ -466,11 +485,21 @@ function HomePage() {
             <div className="panel dark-panel">
               <h3>Seriestatus</h3>
               <div className="link-grid">
-                {series.map((item) => (
-                  <a key={item.name} href={item.href} rel="noreferrer" target="_blank">
-                    {item.name}
-                  </a>
-                ))}
+                {series.map((item) =>
+                  item.href ? (
+                    <a key={item.href} href={item.href} rel="noreferrer" target="_blank">
+                      {item.name}
+                    </a>
+                  ) : (
+                    <span
+                      key={item.name}
+                      className="link-grid-pending"
+                      title="Länk kommer snart"
+                    >
+                      {item.name}
+                    </span>
+                  ),
+                )}
               </div>
             </div>
 

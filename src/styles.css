@@ -1231,6 +1231,15 @@ a {
   border-radius: 10px;
 }
 
+.link-grid-pending {
+  padding: 12px 14px;
+  font-weight: 900;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.55);
+  cursor: default;
+}
+
 .quick-links {
   margin-top: 26px;
 }
