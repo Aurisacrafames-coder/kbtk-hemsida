@@ -39,11 +39,11 @@ const series: Array<{ name: string; href?: string }> = [
     href: 'https://sbtfeventsott.stupaevents.com/events/417/1127/2/7/7',
   },
   {
-    name: 'Division 2',
+    name: 'Division 2 VSN',
     href: 'https://sbtfeventsott.stupaevents.com/events/417/1157/2/7/7',
   },
   {
-    name: 'Division 2',
+    name: 'Division 2 VSS',
     href: 'https://sbtfeventsott.stupaevents.com/events/417/1158/2/7/7',
   },
   {
