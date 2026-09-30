@@ -539,6 +539,61 @@ a {
   font-size: 0.95rem;
 }
 
+.para-athletes {
+  margin-top: 42px;
+}
+
+.para-athletes-heading {
+  margin: 0 0 18px;
+  color: var(--navy);
+  font-size: 1.25rem;
+}
+
+.para-athlete-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.para-athlete {
+  margin: 0;
+}
+
+.para-athlete img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 14px;
+  background: rgba(7, 31, 58, 0.06);
+}
+
+.para-athlete figcaption {
+  display: grid;
+  gap: 2px;
+  margin-top: 12px;
+}
+
+.para-athlete strong {
+  color: var(--navy);
+  font-size: 1.05rem;
+}
+
+.para-athlete span {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.para-photo-credit {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 .split.reverse {
   grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1fr);
 }
@@ -1496,6 +1551,10 @@ a {
   .club-shop-search {
     max-width: none;
   }
+
+  .para-athletes {
+    margin-top: 32px;
+  }
 }
 
 @media (min-width: 1025px) {
@@ -1580,6 +1639,10 @@ a {
   }
 
   .equipment-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .para-athlete-grid {
     grid-template-columns: 1fr;
   }
 

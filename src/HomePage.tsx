@@ -213,6 +213,21 @@ const paraFocusAreas = [
   },
 ];
 
+const paraAthletes = [
+  {
+    name: 'Cajsa Stadler',
+    role: 'Para-landslagsspelare',
+    image: '/para/cajsa-stadler.jpg',
+    alt: 'Cajsa Stadler jublar under en para-bordtennistävling',
+  },
+  {
+    name: 'Jonas Hansson',
+    role: 'Para-landslagsspelare',
+    image: '/para/jonas-hansson.jpg',
+    alt: 'Jonas Hansson i action under en para-bordtennistävling',
+  },
+];
+
 const faqs = FAQ_ENTRIES.map((entry) => ({
   question: entry.question,
   answer: entry.answer,
@@ -372,51 +387,71 @@ function HomePage() {
           </div>
         </section>
 
-        <section className="section split" id="para" aria-labelledby="para-title">
-          <div>
-            <p className="eyebrow">ParaPingis 360</p>
-            <h2 id="para-title">Pilotförening för ParaPingis 360</h2>
-            <p>
-              Kungälvs BTK är stolta över att vara pilotförening för{' '}
-              <strong>ParaPingis 360</strong>. Vi är en förening för alla, och en av våra
-              prioriterade målgrupper är spelare med funktionsnedsättning. Genom projektet
-              tar vi ett helhetsgrepp kring rekrytering, utveckling och långsiktig
-              hållbarhet.
-            </p>
-            <p>
-              Vårt mål är att skapa rätt förutsättningar och ge varje individ de
-              möjligheter som behövs för att kunna delta, utvecklas och trivas i vår
-              verksamhet. För att para-utövare ska ha samma möjligheter till ett aktivt
-              idrottsliv arbetar vi aktivt med samarbeten.
-            </p>
-            <p>
-              Vi samarbetar nära med SBTF och andra aktörer i vår närhet för att testa och
-              utveckla våra arbetssätt — så att vi kan behålla och utveckla våra
-              para-utövare. Tillsammans skapar vi tydliga strukturer, rutiner och verktyg
-              som underlättar för både spelare, föräldrar och ledare. Allt detta ser vi
-              som en självklarhet.
-            </p>
-            <div className="quick-links">
-              <a href="/form/borja-spela">Anmäl intresse</a>
-              <a href="/form/kontakt">Kontakta klubben</a>
+        <section className="section" id="para" aria-labelledby="para-title">
+          <div className="split">
+            <div>
+              <p className="eyebrow">ParaPingis 360</p>
+              <h2 id="para-title">Pilotförening för ParaPingis 360</h2>
+              <p>
+                Kungälvs BTK är stolta över att vara pilotförening för{' '}
+                <strong>ParaPingis 360</strong>. Vi är en förening för alla, och en av våra
+                prioriterade målgrupper är spelare med funktionsnedsättning. Genom projektet
+                tar vi ett helhetsgrepp kring rekrytering, utveckling och långsiktig
+                hållbarhet.
+              </p>
+              <p>
+                Vårt mål är att skapa rätt förutsättningar och ge varje individ de
+                möjligheter som behövs för att kunna delta, utvecklas och trivas i vår
+                verksamhet. För att para-utövare ska ha samma möjligheter till ett aktivt
+                idrottsliv arbetar vi aktivt med samarbeten.
+              </p>
+              <p>
+                Vi samarbetar nära med SBTF och andra aktörer i vår närhet för att testa och
+                utveckla våra arbetssätt — så att vi kan behålla och utveckla våra
+                para-utövare. Tillsammans skapar vi tydliga strukturer, rutiner och verktyg
+                som underlättar för både spelare, föräldrar och ledare. Allt detta ser vi
+                som en självklarhet.
+              </p>
+              <div className="quick-links">
+                <a href="/form/borja-spela">Anmäl intresse</a>
+                <a href="/form/kontakt">Kontakta klubben</a>
+              </div>
+            </div>
+
+            <div className="panel para-panel">
+              <h3>Vårt helhetsgrepp</h3>
+              <ul className="para-focus-list">
+                {paraFocusAreas.map((area) => (
+                  <li key={area.title}>
+                    <strong>{area.title}</strong>
+                    <p>{area.text}</p>
+                  </li>
+                ))}
+              </ul>
+              <p className="para-panel-note">
+                Som pilotförening för ParaPingis 360 utvecklar vi arbetssätt som fler
+                föreningar kan ha nytta av. Vill du veta mer eller komma igång? Hör av dig
+                så hjälper vi dig vidare.
+              </p>
             </div>
           </div>
 
-          <div className="panel para-panel">
-            <h3>Vårt helhetsgrepp</h3>
-            <ul className="para-focus-list">
-              {paraFocusAreas.map((area) => (
-                <li key={area.title}>
-                  <strong>{area.title}</strong>
-                  <p>{area.text}</p>
+          <div className="para-athletes">
+            <h3 className="para-athletes-heading">Våra para-landslagsspelare</h3>
+            <ul className="para-athlete-grid">
+              {paraAthletes.map((athlete) => (
+                <li key={athlete.name}>
+                  <figure className="para-athlete">
+                    <img src={athlete.image} alt={athlete.alt} loading="lazy" />
+                    <figcaption>
+                      <strong>{athlete.name}</strong>
+                      <span>{athlete.role}</span>
+                    </figcaption>
+                  </figure>
                 </li>
               ))}
             </ul>
-            <p className="para-panel-note">
-              Som pilotförening för ParaPingis 360 utvecklar vi arbetssätt som fler
-              föreningar kan ha nytta av. Vill du veta mer eller komma igång? Hör av dig
-              så hjälper vi dig vidare.
-            </p>
+            <p className="para-photo-credit">Foto: SBTF</p>
           </div>
         </section>
 
