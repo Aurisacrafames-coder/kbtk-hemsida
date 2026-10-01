@@ -18,6 +18,25 @@ export type YouthOpenCompetition = {
 /** Lokal fallback om check-in API:t inte svarar (t.ex. före migration). */
 export const YOUTH_OPEN_COMPETITIONS_FALLBACK: YouthOpenCompetition[] = [
   {
+    id: 'supersondag-stenungsund-2026-10-18',
+    title: 'SuperSöndag',
+    date: '2026-10-18',
+    place: 'Stenungsunds Arena, Nösnäsvägen 2, Stenungsund',
+    audience: 'Alla välkomna (även utan licens)',
+    summary:
+      'Intern tävling i Stenungsund via elva9. Förmiddag: storpool i divisioner. Eftermiddag: dubbel. Gratis och ej rankinggrundande. Anmäl dig själv via länken.',
+    signupUrl: 'https://elva9.se/tournaments/supersondag-2026',
+    invitationPdf: '/tavlingar/SuperSondag-2026-inbjudan.pdf',
+    feeNote: 'Gratis',
+    deadlineNote: 'Anmälan stänger onsdag 14 oktober kl. 21:00',
+    highlights: [
+      'Förmiddag: storpool (divisioner om 7 med liknande ranking)',
+      'Eftermiddag: dubbel i 3-pooler med A- och B-slutspel',
+      'Ingen licens krävs',
+      '16 bord i Stenungsunds Arena',
+    ],
+  },
+  {
     id: 'lilla-gbg-smashen-2026-09-20',
     title: 'Lilla GBG-Smashen',
     date: '2026-09-20',
