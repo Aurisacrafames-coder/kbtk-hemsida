@@ -87,7 +87,7 @@ export function CompetitionListPage() {
 
       {hasYouthCompetitions ? (
         <div className="competition-list-block" id="ungdomstavlingar">
-          <h2 className="competition-list-heading">Ungdomstävlingar med egen anmälan</h2>
+          <h2 className="competition-list-heading">Tävlingar med egen anmälan</h2>
           <p className="form-hint">
             Anmäl dig själv via länken. Avgift betalas på plats enligt inbjudan — inte via klubbens
             Swish-formulär.
