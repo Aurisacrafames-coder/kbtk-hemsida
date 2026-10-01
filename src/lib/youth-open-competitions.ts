@@ -36,25 +36,25 @@ export const YOUTH_OPEN_COMPETITIONS_FALLBACK: YouthOpenCompetition[] = [
       '16 bord i Stenungsunds Arena',
     ],
   },
-  {
-    id: 'lilla-gbg-smashen-2026-09-20',
-    title: 'Lilla GBG-Smashen',
-    date: '2026-09-20',
+    {
+    id: 'lilla-gbg-smashen-2026-11-14',
+    title: 'Lilla Göteborgs-Smashen',
+    date: '2026-11-14',
     place: 'Exercishuset, Parkgatan 35, Göteborg',
-    audience: 'Ungdomar födda 2015–2019',
+    audience: 'Barn födda 2015–2019 (nybörjare och de som tävlat lite)',
     summary:
-      'Barntävling arrangerad av Göteborgs Bordtennisförbund. Anmäl dig själv via länken — avgiften betalas med Swish på plats.',
-    signupUrl: 'https://forms.gle/LXiVV7jXvWY7NpgU8',
-    invitationPdf: '/tavlingar/Inbjudan-Gbg-Smashen-20-sept-2026.pdf',
+      'Barntävling arrangerad av Göteborgs Bordtennisförbund. Anmäl dig själv via länken — avgiften betalas med Swish på plats. Platserna brukar ta slut fort.',
+    signupUrl: 'https://forms.gle/7o3yx6guDkxrK5rs7',
+    invitationPdf: '/tavlingar/Inbjudan-Gbg-Smashen-14-nov-2026.pdf',
     feeNote: '175 kr, betalas med Swish på tävlingsdagen',
-    deadlineNote: 'Anmälan senast kl. 18.00 dagen före tävlingen',
+    deadlineNote: 'Anmälan senast fredag 13 november kl. 14.00',
     highlights: [
-      'Förmiddag: start 09:00 (anmälan i sekretariatet senast 08:20)',
-      'Eftermiddag: start 13:00 (anmälan i sekretariatet senast 12:20)',
+      'Förmiddag: start 09:00 (anmälan i sekretariatet senast 08:20) — bra för helt nya',
+      'Eftermiddag: start 13:00 (anmälan i sekretariatet senast 12:20) — bra om man tävlat lite',
       'Minst B-licens krävs (ordnas via klubben)',
-      'Alla deltagare får pris',
+      'Poolspel, minst 3 matcher — alla fär pris',
     ],
-  },
+  }
 ];
 
 function todayLocalIso() {
