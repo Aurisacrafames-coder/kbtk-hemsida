@@ -643,7 +643,7 @@ function HomePage() {
                 <a href="#incheckning">Check-in i hallen</a>
                 <a href="#kontakt">Kontakta klubben</a>
                 <a href="/form/doraccess">Dörraccess</a>
-                <a href="/form/boka-hall">Boka KBTK-hallen</a>
+                <a href="/form/boka-hall">Boka hallen eller bord</a>
               </div>
             </aside>
           </div>

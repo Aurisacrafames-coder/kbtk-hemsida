@@ -17,7 +17,7 @@ export const FORM_SLUG_LABELS: Record<FormSlug, string> = {
   licens: 'Licensanmälan',
   tavling: 'Tävlingsanmälan',
   doraccess: 'Ansök om dörraccess',
-  'boka-hall': 'Boka KBTK-hallen',
+  'boka-hall': 'Boka hallen eller bord',
   kontakt: 'Kontakta oss',
 };
 

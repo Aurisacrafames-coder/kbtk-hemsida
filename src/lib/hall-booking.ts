@@ -25,14 +25,27 @@ export type HallBookingAvailability = {
   dates: HallBookingAvailableDate[];
 };
 
-/** Prislista för pingisfest / hallbokning (fre/lör 16:00–20:00). */
+export type HallBookingKind = 'hall' | 'table';
+
+export const HALL_BOOKING_KIND_LABELS: Record<HallBookingKind, string> = {
+  hall: 'Pingiskalas / hela hallen',
+  table: 'Boka bord',
+};
+
+/** Max bokningslängd i timmar per typ. */
+export const HALL_BOOKING_MAX_HOURS: Record<HallBookingKind, number> = {
+  hall: 3,
+  table: 2,
+};
+
+/** Prislista för hallbokning (fre/lör 16:00–20:00). */
 export const HALL_BOOKING_PRICE_WINDOW = 'Fredag/lördag 16:00–20:00';
 
 export const HALL_BOOKING_PRICES = [
   {
     category: 'Medlemmar',
     rows: [
-      { label: 'Pingisfest ungdomar', price: '500 kr' },
+      { label: 'Pingiskalas ungdomar', price: '500 kr' },
       { label: 'Vuxna, färre än 5 personer', price: '500 kr' },
       { label: 'Vuxna, 5 personer eller fler', price: '100 kr/person' },
     ],
@@ -40,11 +53,16 @@ export const HALL_BOOKING_PRICES = [
   {
     category: 'Ej medlemmar',
     rows: [
-      { label: 'Pingisfest ungdomar', price: '800 kr', note: true },
+      { label: 'Pingiskalas ungdomar', price: '800 kr', note: true },
       { label: 'Vuxna, färre än 5 personer', price: '800 kr', note: true },
       { label: 'Vuxna, 5 personer eller fler', price: '160 kr/person', note: true },
     ],
   },
+] as const;
+
+export const TABLE_BOOKING_PRICES = [
+  { label: 'Medlemmar', price: '50 kr/person' },
+  { label: 'Ej medlemmar', price: '100 kr/person', note: true },
 ] as const;
 
 export const HALL_BOOKING_NON_MEMBER_NOTE =
@@ -125,8 +143,15 @@ export function startHourOptions(item: HallBookingAvailableDate) {
   return hours.map(formatHour);
 }
 
-/** End hours reachable from start within the same contiguous free range. */
-export function endHourOptions(item: HallBookingAvailableDate, startTime: string) {
+/**
+ * End hours reachable from start within the same contiguous free range,
+ * capped by maxHours (default: no extra cap beyond the free range).
+ */
+export function endHourOptions(
+  item: HallBookingAvailableDate,
+  startTime: string,
+  maxHours: number = Number.POSITIVE_INFINITY,
+) {
   const startHour = parseHour(startTime);
   if (startHour == null) return [];
 
@@ -138,6 +163,7 @@ export function endHourOptions(item: HallBookingAvailableDate, startTime: string
 
     const ends: string[] = [];
     for (let hour = startHour + 1; hour <= rangeEnd; hour += 1) {
+      if (hour - startHour > maxHours) break;
       ends.push(formatHour(hour));
     }
     return ends;

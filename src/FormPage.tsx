@@ -12,14 +12,18 @@ import {
 } from './lib/forms';
 import {
   HALL_BOOKING_CLEANUP_RULE,
+  HALL_BOOKING_KIND_LABELS,
+  HALL_BOOKING_MAX_HOURS,
   HALL_BOOKING_NON_MEMBER_NOTE,
   HALL_BOOKING_PRICE_WINDOW,
   HALL_BOOKING_PRICES,
+  TABLE_BOOKING_PRICES,
   fetchHallBookingAvailability,
   formatHallBookingDateLabel,
   startHourOptions,
   endHourOptions,
   type HallBookingAvailableDate,
+  type HallBookingKind,
 } from './lib/hall-booking';
 import {
   fetchPublicSignupGroups,
@@ -631,33 +635,57 @@ function HallBookingInfoPanel() {
   return (
     <section className="hall-booking-info" aria-labelledby="hall-booking-info-title">
       <div className="hall-booking-info-intro">
-        <h2 id="hall-booking-info-title">Pingisfest i KBTK-hallen</h2>
+        <h2 id="hall-booking-info-title">Boka hallen eller bord</h2>
         <p>
-          Hallen är tillgänglig för medlemmar att ha en bordtennisfest när det inte är träning eller
-          matcher inplanerade. Betalning sker via <strong>Swish</strong> enligt priserna nedan.
+          När det inte är träning eller match kan du boka hela hallen (t.ex. Pingiskalas) eller ett
+          bord. Betalning sker via <strong>Swish</strong> enligt priserna nedan.
         </p>
         <p className="hall-booking-info-window">
           Priserna gäller <strong>{HALL_BOOKING_PRICE_WINDOW}</strong>.
         </p>
       </div>
 
-      <div className="hall-booking-price-grid">
-        {HALL_BOOKING_PRICES.map((group) => (
-          <div key={group.category} className="hall-booking-price-card">
-            <h3>{group.category}</h3>
-            <ul>
-              {group.rows.map((row) => (
-                <li key={row.label}>
-                  <span>
-                    {row.label}
-                    {'note' in row && row.note ? <sup>*</sup> : null}
-                  </span>
-                  <strong>{row.price}</strong>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      <div className="hall-booking-offer">
+        <h3>Pingiskalas / hela hallen</h3>
+        <p>Max {HALL_BOOKING_MAX_HOURS.hall} timmar. För kalas med yngre eller vuxengrupp.</p>
+        <div className="hall-booking-price-grid">
+          {HALL_BOOKING_PRICES.map((group) => (
+            <div key={group.category} className="hall-booking-price-card">
+              <h4>{group.category}</h4>
+              <ul>
+                {group.rows.map((row) => (
+                  <li key={row.label}>
+                    <span>
+                      {row.label}
+                      {'note' in row && row.note ? <sup>*</sup> : null}
+                    </span>
+                    <strong>{row.price}</strong>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="hall-booking-offer">
+        <h3>Boka bord</h3>
+        <p>
+          Ett bord, minst 1 timme och max {HALL_BOOKING_MAX_HOURS.table} timmar.
+        </p>
+        <div className="hall-booking-price-card hall-booking-table-prices">
+          <ul>
+            {TABLE_BOOKING_PRICES.map((row) => (
+              <li key={row.label}>
+                <span>
+                  {row.label}
+                  {'note' in row && row.note ? <sup>*</sup> : null}
+                </span>
+                <strong>{row.price}</strong>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <p className="hall-booking-info-note">
@@ -670,6 +698,7 @@ function HallBookingInfoPanel() {
 
 function HallBookingForm() {
   const { pending, error, success, handleSubmit } = useSiteForm(FORM_SLUG_TYPES['boka-hall']);
+  const [bookingKind, setBookingKind] = useState<HallBookingKind>('hall');
   const [isMember, setIsMember] = useState(true);
   const [dates, setDates] = useState<HallBookingAvailableDate[]>([]);
   const [loadError, setLoadError] = useState('');
@@ -687,10 +716,18 @@ function HallBookingForm() {
       .finally(() => setLoading(false));
   }, []);
 
+  const maxHours = HALL_BOOKING_MAX_HOURS[bookingKind];
   const selected = dates.find((item) => item.date === selectedDate) ?? null;
   const startOptions = selected ? startHourOptions(selected) : [];
-  const endOptions = selected && startTime ? endHourOptions(selected, startTime) : [];
+  const endOptions =
+    selected && startTime ? endHourOptions(selected, startTime, maxHours) : [];
   const canSubmit = Boolean(selected && startTime && endTime);
+
+  useEffect(() => {
+    if (!selected || !startTime || !endTime) return;
+    const ends = endHourOptions(selected, startTime, maxHours);
+    if (!ends.includes(endTime)) setEndTime('');
+  }, [bookingKind, selected, startTime, endTime, maxHours]);
 
   if (success) {
     return (
@@ -711,12 +748,12 @@ function HallBookingForm() {
 
   return (
     <FormShell
-      title="Boka KBTK-hallen"
+      title="Boka hallen eller bord"
       intro={
         <>
           <p>
-            Hallen kan bokas för bordtennisfest när ingen träning eller match är inplanerad. Välj
-            bland lediga tider tre månader framåt.
+            Boka hela hallen (Pingiskalas eller vuxengrupp) eller ett bord när ingen träning eller
+            match är inplanerad. Välj bland lediga tider tre månader framåt.
           </p>
           <p>
             <strong>Endast tider som syns i listan är bokningsbara</strong> — upptagna tider (träning,
@@ -742,6 +779,8 @@ function HallBookingForm() {
           className="site-form"
           onSubmit={(event) =>
             void handleSubmit(event, (formData) => ({
+              booking_kind: bookingKind,
+              booking_kind_label: HALL_BOOKING_KIND_LABELS[bookingKind],
               first_name: formData.get('first_name'),
               last_name: formData.get('last_name'),
               email: formData.get('email'),
@@ -760,6 +799,31 @@ function HallBookingForm() {
           <p className="form-hint hall-booking-availability-hint">
             Listan visar bara lediga tider. Upptagna pass går inte att välja.
           </p>
+          <fieldset className="hall-booking-kind">
+            <legend>Vad vill du boka?</legend>
+            <label className="checkbox-row">
+              <input
+                type="radio"
+                name="booking_kind"
+                checked={bookingKind === 'hall'}
+                onChange={() => setBookingKind('hall')}
+              />
+              <span>
+                {HALL_BOOKING_KIND_LABELS.hall} (max {HALL_BOOKING_MAX_HOURS.hall} timmar)
+              </span>
+            </label>
+            <label className="checkbox-row">
+              <input
+                type="radio"
+                name="booking_kind"
+                checked={bookingKind === 'table'}
+                onChange={() => setBookingKind('table')}
+              />
+              <span>
+                {HALL_BOOKING_KIND_LABELS.table} (1–{HALL_BOOKING_MAX_HOURS.table} timmar)
+              </span>
+            </label>
+          </fieldset>
           <label>
             Datum
             <select
@@ -790,7 +854,9 @@ function HallBookingForm() {
               onChange={(event) => {
                 const nextStart = event.target.value;
                 setStartTime(nextStart);
-                const nextEnds = selected ? endHourOptions(selected, nextStart) : [];
+                const nextEnds = selected
+                  ? endHourOptions(selected, nextStart, maxHours)
+                  : [];
                 setEndTime(nextEnds.includes(endTime) ? endTime : '');
               }}
             >
@@ -813,7 +879,9 @@ function HallBookingForm() {
               onChange={(event) => setEndTime(event.target.value)}
             >
               <option value="" disabled>
-                {startTime ? 'Välj sluttid' : 'Välj starttid först'}
+                {startTime
+                  ? `Välj sluttid (max ${maxHours} tim)`
+                  : 'Välj starttid först'}
               </option>
               {endOptions.map((hour) => (
                 <option key={hour} value={hour}>

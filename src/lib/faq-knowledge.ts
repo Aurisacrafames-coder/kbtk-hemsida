@@ -126,15 +126,18 @@ export const FAQ_ENTRIES: FaqEntry[] = [
   },
   {
     id: 'hall-booking',
-    question: 'Kan jag boka hallen?',
+    question: 'Kan jag boka hallen eller ett bord?',
     answer:
-      'Ja, för bordtennisfest när ingen träning eller match är inplanerad. Skicka en förfrågan via formuläret — endast tider som syns i listan är bokningsbara; upptagna tider går inte att boka. Priser (fre/lör 16–20): medlemmar 500 kr för ungdomsfest eller färre än 5 vuxna, annars 100 kr/person; ej medlemmar 800 kr respektive 160 kr/person (minst en medlem måste vara närvarande). Swisha efter beviljande och lämna hallen i samma skick.',
+      'Ja, när ingen träning eller match är inplanerad. Pingiskalas/hela hallen: max 3 timmar — medlemmar 500 kr för ungdomskalas eller färre än 5 vuxna, annars 100 kr/person; ej medlemmar 800 kr respektive 160 kr/person. Boka bord (ett bord, 1–2 timmar): 50 kr/person för medlemmar, 100 kr/person för ej medlemmar. Minst en medlem måste vara närvarande. Skicka förfrågan via formuläret — endast tider som syns i listan är bokningsbara. Swisha efter beviljande och lämna hallen i samma skick.',
     keywords: [
       'boka',
       'bokning',
       'hyra',
       'hall',
+      'bord',
+      'pingiskalas',
       'pingisfest',
+      'kalas',
       'fest',
       'pris',
       'swish',
@@ -144,7 +147,7 @@ export const FAQ_ENTRIES: FaqEntry[] = [
       'lördag',
       'söndag',
     ],
-    link: { label: 'Boka hallen', href: '/form/boka-hall' },
+    link: { label: 'Boka hallen eller bord', href: '/form/boka-hall' },
   },
   {
     id: 'para',
