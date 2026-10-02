@@ -686,6 +686,51 @@ a {
   justify-content: flex-start;
 }
 
+.club-info-note {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(18, 32, 51, 0.1);
+  max-width: 52rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px 18px;
+  align-items: start;
+}
+
+.club-info-note-photo {
+  width: 96px;
+  height: 120px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 10px;
+  display: block;
+}
+
+.club-info-note h3 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.club-info-note p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 520px) {
+  .club-info-note {
+    grid-template-columns: 1fr;
+  }
+
+  .club-info-note-photo {
+    width: 80px;
+    height: 100px;
+  }
+}
+
 .club-shop-page .club-shop-panel + .club-shop-panel {
   margin-top: 24px;
 }

@@ -647,6 +647,26 @@ function HomePage() {
               </div>
             </aside>
           </div>
+
+          <div className="club-info-note" id="massor">
+            <img
+              className="club-info-note-photo"
+              src="/da-massage-david.png"
+              alt="David, idrottsmassör på DA Massage"
+              width={120}
+              height={150}
+            />
+            <div>
+              <h3>Idrottsmassör</h3>
+              <p>
+                David på DA Massage är idrottsmassör och tidigare KBTK-spelare. Han är ibland
+                på plats i hallen för behandling och återhämtning.
+              </p>
+              <p>
+                <strong>Nästa tillfälle:</strong> söndag 4 oktober (informationstillfälle).
+              </p>
+            </div>
+          </div>
         </section>
 
         <section className="section fee-section" id="avgifter">

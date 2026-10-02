@@ -150,6 +150,23 @@ export const FAQ_ENTRIES: FaqEntry[] = [
     link: { label: 'Boka hallen eller bord', href: '/form/boka-hall' },
   },
   {
+    id: 'masseur',
+    question: 'Finns det massör i klubben?',
+    answer:
+      'Ja. David på DA Massage är idrottsmassör och tidigare KBTK-spelare. Han är ibland på plats i hallen för behandling och återhämtning. Nästa tillfälle är söndag 4 oktober (informationstillfälle). Hör av dig till klubben vid frågor.',
+    keywords: [
+      'massör',
+      'massage',
+      'idrottsmassör',
+      'david',
+      'da massage',
+      'återhämtning',
+      'behandling',
+      'kropp',
+    ],
+    link: { label: 'Läs mer under Klubbinfo', href: '#massor' },
+  },
+  {
     id: 'para',
     question: 'Finns det plats för spelare med funktionsnedsättning?',
     answer:
