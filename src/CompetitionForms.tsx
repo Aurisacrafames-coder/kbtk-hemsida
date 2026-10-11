@@ -6,6 +6,7 @@ import {
   formatClassesPerPassInfo,
   formatCompetitionDate,
   getCompetitionClassSelectionBlockReason,
+  isDoublesCompetitionClassLabel,
   validateClassesPerPassLimit,
   type PublicCompetition,
   type PublicCompetitionRegistrations,
@@ -245,6 +246,7 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
   const [success, setSuccess] = useState(false);
   const [name, setName] = useState('');
   const [selectedClassIds, setSelectedClassIds] = useState<string[]>([]);
+  const [partnersByClassId, setPartnersByClassId] = useState<Record<string, string>>({});
 
   useEffect(() => {
     void fetchPublishedCompetition(slug)
@@ -280,6 +282,11 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
 
     if (selectedClassIds.includes(classId)) {
       setSelectedClassIds((current) => current.filter((id) => id !== classId));
+      setPartnersByClassId((current) => {
+        const next = { ...current };
+        delete next[classId];
+        return next;
+      });
       return;
     }
 
@@ -306,6 +313,13 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
       return;
     }
 
+    const classPartners: Record<string, string> = {};
+    for (const item of selectedClasses) {
+      if (!isDoublesCompetitionClassLabel(item.label)) continue;
+      const partner = (partnersByClassId[item.id] ?? '').trim().replace(/\s+/g, ' ');
+      if (partner) classPartners[item.id] = partner;
+    }
+
     setPending(true);
     setSubmitError('');
     try {
@@ -317,6 +331,7 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
         email: formData.get('email'),
         phone: formData.get('phone'),
         selected_class_ids: selectedClassIds,
+        class_partners: classPartners,
         team_interest: formData.get('team_interest'),
         license_confirmed: formData.get('license_confirmed') === 'on',
         swish_confirmed: formData.get('swish_confirmed') === 'on',
@@ -324,6 +339,7 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
       setSuccess(true);
       event.currentTarget.reset();
       setSelectedClassIds([]);
+      setPartnersByClassId({});
       setName('');
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'Kunde inte skicka formuläret.');
@@ -404,24 +420,43 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
             const blockReason = isSelected
               ? null
               : getCompetitionClassSelectionBlockReason(competition, selectedClassIds, item.id);
+            const showPartnerField = isSelected && isDoublesCompetitionClassLabel(item.label);
 
             return (
-              <label
-                key={item.id}
-                className={`checkbox-row competition-class-option${canSelect ? '' : ' competition-class-option--disabled'}`}
-                title={blockReason ?? undefined}
-              >
-                <input
-                  type="checkbox"
-                  checked={isSelected}
-                  disabled={!canSelect}
-                  onChange={() => toggleClass(item.id)}
-                />
-                <span>
-                  {item.label} <strong>{item.fee_sek.toLocaleString('sv-SE')} kr</strong>
-                  {blockReason ? <span className="form-hint"> {blockReason}</span> : null}
-                </span>
-              </label>
+              <div key={item.id} className="competition-class-option-block">
+                <label
+                  className={`checkbox-row competition-class-option${canSelect ? '' : ' competition-class-option--disabled'}`}
+                  title={blockReason ?? undefined}
+                >
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    disabled={!canSelect}
+                    onChange={() => toggleClass(item.id)}
+                  />
+                  <span>
+                    {item.label} <strong>{item.fee_sek.toLocaleString('sv-SE')} kr</strong>
+                    {blockReason ? <span className="form-hint"> {blockReason}</span> : null}
+                  </span>
+                </label>
+                {showPartnerField ? (
+                  <label className="competition-partner-field">
+                    Dubbelpartner (om du vet)
+                    <input
+                      type="text"
+                      value={partnersByClassId[item.id] ?? ''}
+                      onChange={(event) =>
+                        setPartnersByClassId((current) => ({
+                          ...current,
+                          [item.id]: event.target.value,
+                        }))
+                      }
+                      placeholder="För- och efternamn"
+                      autoComplete="off"
+                    />
+                  </label>
+                ) : null}
+              </div>
             );
           })}
         </fieldset>

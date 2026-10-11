@@ -2090,6 +2090,27 @@ a {
   margin-top: 10px;
 }
 
+.competition-class-option-block {
+  margin-top: 10px;
+}
+
+.competition-class-option-block .competition-class-option {
+  margin-top: 0;
+}
+
+.competition-partner-field {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 4px 28px;
+  font-size: 0.92rem;
+  color: var(--navy);
+}
+
+.competition-partner-field input {
+  width: 100%;
+  max-width: 28rem;
+}
+
 .competition-class-option--disabled {
   opacity: 0.65;
   cursor: not-allowed;

@@ -278,3 +278,8 @@ export function formatCompetitionDate(value: string | null) {
     dateStyle: 'medium',
   });
 }
+
+/** True if a competition class is doubles (dubbel / mixeddubbel). */
+export function isDoublesCompetitionClassLabel(label: string | null | undefined): boolean {
+  return /dubbel/i.test(String(label ?? '').trim());
+}
