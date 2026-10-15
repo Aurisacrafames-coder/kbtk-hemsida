@@ -23,6 +23,7 @@ const FALLBACK_JERSEY_ASSIGNMENTS: JerseyNumberAssignment[] = [
   { number: '11', owner: 'T Skyman' },
   { number: '12', owner: 'Mårdby' },
   { number: '13', owner: 'Harry Hillberg' },
+  { number: '14', owner: 'Ellen Olsson' },
   { number: '15', owner: 'W Lundgren' },
   { number: '16', owner: 'L Bengtsson' },
   { number: '17', owner: 'Lundell' },
