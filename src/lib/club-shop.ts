@@ -1,10 +1,16 @@
+const checkinBaseUrl =
+  import.meta.env.VITE_CHECKIN_URL ?? 'https://kbtk-checkin.vercel.app';
+
 export type JerseyNumberAssignment = {
   number: string;
   owner: string;
 };
 
-export const JERSEY_NUMBER_ASSIGNMENTS: JerseyNumberAssignment[] = [
-  { number: '00', owner: 'R Nilsson' },
+/**
+ * Historisk namnlista som fallback tills check-in returnerar `assigned`.
+ * Lediga nummer från API:t filtreras bort så listan inte motsäger check-in.
+ */
+const FALLBACK_JERSEY_ASSIGNMENTS: JerseyNumberAssignment[] = [
   { number: '01', owner: 'L Nilsson' },
   { number: '02', owner: 'PA' },
   { number: '03', owner: 'C Stadler' },
@@ -74,37 +80,19 @@ export const JERSEY_NUMBER_ASSIGNMENTS: JerseyNumberAssignment[] = [
   { number: '103', owner: 'Jägerbom' },
 ];
 
+export type PublicAssignedJerseyNumber = {
+  number: number;
+  holder_name: string;
+};
+
 export type PublicJerseyNumbers = {
   available: number[];
+  assigned: PublicAssignedJerseyNumber[];
   min: number;
   max: number;
 };
 
-/** Intervall för valbara matchtröjnummer (00–100). 103 finns som namngivet utanför. */
-const DEFAULT_JERSEY_RANGE = { min: 0, max: 100 } as const;
-
-function takenJerseyNumberSet(): Set<number> {
-  return new Set(
-    JERSEY_NUMBER_ASSIGNMENTS.map((row) => Number.parseInt(row.number, 10)).filter((number) =>
-      Number.isInteger(number),
-    ),
-  );
-}
-
-/** Lediga nummer = nummer i intervallet som saknar namn i tilldelningslistan. */
-export function availableJerseyNumbersFromNames(
-  min: number = DEFAULT_JERSEY_RANGE.min,
-  max: number = DEFAULT_JERSEY_RANGE.max,
-): number[] {
-  const taken = takenJerseyNumberSet();
-  const available: number[] = [];
-  for (let number = min; number <= max; number += 1) {
-    if (!taken.has(number)) {
-      available.push(number);
-    }
-  }
-  return available;
-}
+const DEFAULT_JERSEY_RANGE = { min: 1, max: 100 } as const;
 
 export function formatJerseyNumber(number: number): string {
   if (number >= 0 && number <= 9) {
@@ -113,31 +101,77 @@ export function formatJerseyNumber(number: number): string {
   return String(number);
 }
 
-export function availableJerseyNumbers(): string[] {
-  return availableJerseyNumbersFromNames().map(formatJerseyNumber);
+function normalizeAssigned(
+  value: unknown,
+): PublicAssignedJerseyNumber[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => {
+      if (!item || typeof item !== 'object') return null;
+      const row = item as Record<string, unknown>;
+      const number = Number(row.number);
+      const holder_name = String(row.holder_name ?? row.owner ?? '').trim();
+      if (!Number.isInteger(number) || number < 0 || !holder_name) return null;
+      return { number, holder_name };
+    })
+    .filter((row): row is PublicAssignedJerseyNumber => row != null);
+}
+
+function normalizeAvailable(value: unknown): number[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => Number(item))
+    .filter((number) => Number.isInteger(number) && number >= 0);
+}
+
+/** Bygg namnlista: API-assigned först, annars fallback utan lediga nummer. */
+export function buildTakenJerseyAssignments(
+  jerseyNumbers: PublicJerseyNumbers,
+): JerseyNumberAssignment[] {
+  const available = new Set(jerseyNumbers.available);
+
+  if (jerseyNumbers.assigned.length > 0) {
+    return jerseyNumbers.assigned
+      .filter((row) => !available.has(row.number))
+      .map((row) => ({
+        number: formatJerseyNumber(row.number),
+        owner: row.holder_name,
+      }))
+      .sort((a, b) => Number.parseInt(a.number, 10) - Number.parseInt(b.number, 10));
+  }
+
+  return FALLBACK_JERSEY_ASSIGNMENTS.filter((row) => {
+    const number = Number.parseInt(row.number, 10);
+    return Number.isInteger(number) && !available.has(number);
+  }).sort((a, b) => Number.parseInt(a.number, 10) - Number.parseInt(b.number, 10));
 }
 
 export async function fetchPublicJerseyNumbers(): Promise<PublicJerseyNumbers> {
-  return {
-    available: availableJerseyNumbersFromNames(),
-    min: DEFAULT_JERSEY_RANGE.min,
-    max: DEFAULT_JERSEY_RANGE.max,
+  const response = await fetch(`${checkinBaseUrl}/api/public/jersey-numbers`);
+  const data = (await response.json().catch(() => ({}))) as {
+    available?: unknown;
+    assigned?: unknown;
+    min?: unknown;
+    max?: unknown;
+    error?: string;
   };
-}
 
-/** Antal upptagna nummer i intervallet (nummer som har namn). */
-export function countTakenJerseyNumbers(jerseyNumbers: PublicJerseyNumbers): number {
-  const rangeSize = Math.max(0, jerseyNumbers.max - jerseyNumbers.min + 1);
-  return Math.max(0, rangeSize - jerseyNumbers.available.length);
-}
+  if (!response.ok) {
+    throw new Error(data.error ?? 'Kunde inte ladda tröjnummer.');
+  }
 
-/** Alla namngivna tilldelningar (även utanför 00–100, t.ex. 103). */
-export function buildTakenJerseyAssignments(
-  _jerseyNumbers?: PublicJerseyNumbers,
-): JerseyNumberAssignment[] {
-  return [...JERSEY_NUMBER_ASSIGNMENTS].sort(
-    (a, b) => Number.parseInt(a.number, 10) - Number.parseInt(b.number, 10),
-  );
+  const available = normalizeAvailable(data.available);
+  const assigned = normalizeAssigned(data.assigned);
+  const min =
+    typeof data.min === 'number' && Number.isInteger(data.min)
+      ? data.min
+      : DEFAULT_JERSEY_RANGE.min;
+  const max =
+    typeof data.max === 'number' && Number.isInteger(data.max)
+      ? data.max
+      : DEFAULT_JERSEY_RANGE.max;
+
+  return { available, assigned, min, max };
 }
 
 export const CLUB_CLOTHES_EMAIL = 'sten-inge@xlntreklam.se';
