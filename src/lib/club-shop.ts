@@ -125,26 +125,34 @@ function normalizeAvailable(value: unknown): number[] {
     .filter((number) => Number.isInteger(number) && number >= 0);
 }
 
-/** Bygg namnlista: API-assigned först, annars fallback utan lediga nummer. */
+/**
+ * Namnlista för “Vem har vilket nummer?”.
+ * Check-in `assigned` vinner; fallback fyller i övriga upptagna nummer.
+ * Lediga nummer från API:t visas aldrig här.
+ */
 export function buildTakenJerseyAssignments(
   jerseyNumbers: PublicJerseyNumbers,
 ): JerseyNumberAssignment[] {
   const available = new Set(jerseyNumbers.available);
+  const byNumber = new Map<number, string>();
 
-  if (jerseyNumbers.assigned.length > 0) {
-    return jerseyNumbers.assigned
-      .filter((row) => !available.has(row.number))
-      .map((row) => ({
-        number: formatJerseyNumber(row.number),
-        owner: row.holder_name,
-      }))
-      .sort((a, b) => Number.parseInt(a.number, 10) - Number.parseInt(b.number, 10));
+  for (const row of FALLBACK_JERSEY_ASSIGNMENTS) {
+    const number = Number.parseInt(row.number, 10);
+    if (!Number.isInteger(number) || available.has(number)) continue;
+    byNumber.set(number, row.owner);
   }
 
-  return FALLBACK_JERSEY_ASSIGNMENTS.filter((row) => {
-    const number = Number.parseInt(row.number, 10);
-    return Number.isInteger(number) && !available.has(number);
-  }).sort((a, b) => Number.parseInt(a.number, 10) - Number.parseInt(b.number, 10));
+  for (const row of jerseyNumbers.assigned) {
+    if (available.has(row.number)) continue;
+    byNumber.set(row.number, row.holder_name);
+  }
+
+  return [...byNumber.entries()]
+    .map(([number, owner]) => ({
+      number: formatJerseyNumber(number),
+      owner,
+    }))
+    .sort((a, b) => Number.parseInt(a.number, 10) - Number.parseInt(b.number, 10));
 }
 
 export async function fetchPublicJerseyNumbers(): Promise<PublicJerseyNumbers> {
