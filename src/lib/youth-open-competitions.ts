@@ -52,9 +52,30 @@ export const YOUTH_OPEN_COMPETITIONS_FALLBACK: YouthOpenCompetition[] = [
       'Förmiddag: start 09:00 (anmälan i sekretariatet senast 08:20) — bra för helt nya',
       'Eftermiddag: start 13:00 (anmälan i sekretariatet senast 12:20) — bra om man tävlat lite',
       'Minst B-licens krävs (ordnas via klubben)',
-      'Poolspel, minst 3 matcher — alla fär pris',
+      'Poolspel, minst 3 matcher — alla får pris',
     ],
-  }
+  },
+  {
+    id: 'ifo-veteran-open-2026-10-30',
+    title: 'Ifo Veteran Open',
+    date: '2026-10-30',
+    place: 'Exercishuset, Heden, Göteborg',
+    audience: 'Pingisveteraner (40+)',
+    summary:
+      'Nordens största veterantävling — 47:e upplagan. Sanktionerad internationell B-tävling av SBTF. Anmäl dig själv via IFO:s länk.',
+    signupUrl:
+      'https://docs.google.com/forms/d/e/1FAIpQLScLvGPjBQ768ThjSytzA8P0Xfh1EzeXf3ufvjiToqILD8Bc4w/viewform',
+    invitationPdf: '/tavlingar/Ifo-Veteran-Open-2026-inbjudan.pdf',
+    feeNote: 'Singel 300 kr · dubbel 150 kr/spelare · mixed 75 kr/spelare · lag 300 kr/spelare',
+    deadlineNote: 'Anmälan senast 18 oktober 2026 (max 90 deltagare — först till kvarn)',
+    highlights: [
+      '30 oktober–1 november 2026',
+      'Fredag: lag · lördag: singel · söndag: dubbel/mixed',
+      'Klasser från 40+ upp till 80+',
+      'Poolspel med A- och B-slutspel (mixed i cupform)',
+      'Faktura skickas i förväg',
+    ],
+  },
 ];
 
 function todayLocalIso() {
@@ -132,7 +153,15 @@ export async function fetchYouthOpenCompetitions(): Promise<YouthOpenCompetition
           : null,
       )
       .filter((item): item is YouthOpenCompetition => item != null);
-    return getUpcomingYouthOpenCompetitions(mapped);
+
+    const known = new Set(
+      mapped.map((item) => `${item.title.toLowerCase()}|${item.date}`),
+    );
+    const extras = YOUTH_OPEN_COMPETITIONS_FALLBACK.filter(
+      (item) => !known.has(`${item.title.toLowerCase()}|${item.date}`),
+    );
+
+    return getUpcomingYouthOpenCompetitions([...mapped, ...extras]);
   } catch {
     return getUpcomingYouthOpenCompetitions(YOUTH_OPEN_COMPETITIONS_FALLBACK);
   }
