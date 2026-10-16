@@ -460,15 +460,16 @@ function HomePage() {
             <p className="eyebrow">Träning</p>
             <h2>Träningstider</h2>
             <p>
-              Här visas klubbens aktuella träningstider per grupp. Schemat
-              uppdateras automatiskt när klubben gör ändringar i check-in-systemet.
+              Här visas klubbens aktuella tider i hallen — träningar och matcher.
+              Schemat uppdateras automatiskt när klubben gör ändringar i
+              check-in-systemet.
             </p>
           </div>
 
           <div className="schedule-embed">
             <iframe
               src={checkinScheduleEmbedUrl}
-              title="KBTK träningsschema"
+              title="KBTK hallschema"
               loading="lazy"
             />
           </div>
@@ -486,7 +487,7 @@ function HomePage() {
             <p>
               Incheckningen hjälper oss att veta vem som är på plats, planera träningen
               bättre och följa närvaro. Uppgifterna ligger också till grund för
-              närvarorapportering mot Riksidrottförbundet (LOK). Träningsschemat ovan
+              närvarorapportering mot Riksidrottförbundet (LOK). Hallschemat ovan
               hämtas från samma system.
             </p>
 
