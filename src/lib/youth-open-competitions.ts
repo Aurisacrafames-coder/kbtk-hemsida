@@ -18,25 +18,6 @@ export type YouthOpenCompetition = {
 /** Lokal fallback om check-in API:t inte svarar (t.ex. före migration). */
 export const YOUTH_OPEN_COMPETITIONS_FALLBACK: YouthOpenCompetition[] = [
   {
-    id: 'supersondag-stenungsund-2026-10-18',
-    title: 'SuperSöndag',
-    date: '2026-10-18',
-    place: 'Stenungsunds Arena, Nösnäsvägen 2, Stenungsund',
-    audience: 'Alla välkomna (även utan licens)',
-    summary:
-      'Intern tävling i Stenungsund via elva9. Förmiddag: storpool i divisioner. Eftermiddag: dubbel. Gratis och ej rankinggrundande. Anmäl dig själv via länken.',
-    signupUrl: 'https://elva9.se/tournaments/supersondag-2026',
-    invitationPdf: '/tavlingar/SuperSondag-2026-inbjudan.pdf',
-    feeNote: 'Gratis',
-    deadlineNote: 'Anmälan stänger onsdag 14 oktober kl. 21:00',
-    highlights: [
-      'Förmiddag: storpool (divisioner om 7 med liknande ranking)',
-      'Eftermiddag: dubbel i 3-pooler med A- och B-slutspel',
-      'Ingen licens krävs',
-      '16 bord i Stenungsunds Arena',
-    ],
-  },
-    {
     id: 'lilla-gbg-smashen-2026-11-14',
     title: 'Lilla Göteborgs-Smashen',
     date: '2026-11-14',
@@ -86,12 +67,20 @@ function todayLocalIso() {
   return `${year}-${month}-${day}`;
 }
 
+/** Anmälningar som redan stängt men där event_date fortfarande är framåt. */
+const CLOSED_SIGNUP_URL_MARKERS = ['supersondag-2026'] as const;
+
+function isSignupStillOpen(item: YouthOpenCompetition) {
+  const url = item.signupUrl.toLowerCase();
+  return !CLOSED_SIGNUP_URL_MARKERS.some((marker) => url.includes(marker));
+}
+
 export function getUpcomingYouthOpenCompetitions(
   items: YouthOpenCompetition[] = YOUTH_OPEN_COMPETITIONS_FALLBACK,
   today = todayLocalIso(),
 ) {
   return items
-    .filter((item) => item.date >= today)
+    .filter((item) => item.date >= today && isSignupStillOpen(item))
     .sort((a, b) => a.date.localeCompare(b.date));
 }
 
@@ -154,12 +143,17 @@ export async function fetchYouthOpenCompetitions(): Promise<YouthOpenCompetition
       )
       .filter((item): item is YouthOpenCompetition => item != null);
 
-    const known = new Set(
+    const knownUrls = new Set(
+      mapped.map((item) => item.signupUrl.toLowerCase()).filter(Boolean),
+    );
+    const knownKeys = new Set(
       mapped.map((item) => `${item.title.toLowerCase()}|${item.date}`),
     );
-    const extras = YOUTH_OPEN_COMPETITIONS_FALLBACK.filter(
-      (item) => !known.has(`${item.title.toLowerCase()}|${item.date}`),
-    );
+    const extras = YOUTH_OPEN_COMPETITIONS_FALLBACK.filter((item) => {
+      if (knownUrls.has(item.signupUrl.toLowerCase())) return false;
+      if (knownKeys.has(`${item.title.toLowerCase()}|${item.date}`)) return false;
+      return true;
+    });
 
     return getUpcomingYouthOpenCompetitions([...mapped, ...extras]);
   } catch {
