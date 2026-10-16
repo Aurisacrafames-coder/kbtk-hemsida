@@ -32,6 +32,7 @@ import {
 } from './lib/signup-groups';
 import { validateSwedishPersonalId } from './lib/personal-id';
 import { buildSwishMessage } from './lib/swish';
+import { FormHoneypot } from './FormHoneypot';
 import { SignupGroupInfoPanel } from './SignupGroupInfoPanel';
 import { SwishPaymentPanel } from './SwishPaymentPanel';
 
@@ -77,6 +78,7 @@ function useSiteForm(formType: string) {
       const formData = new FormData(event.currentTarget);
       await submitSiteForm({
         form_type: formType,
+        website: String(formData.get('website') ?? ''),
         ...buildPayload(formData),
       });
       setSuccess(true);
@@ -182,6 +184,7 @@ function TrialSignupForm() {
           })
         }
       >
+        <FormHoneypot />
         <label>
           Välj gruppkategori att provträna i
           <select
@@ -382,6 +385,7 @@ function LicenseForm() {
           }))
         }
       >
+        <FormHoneypot />
         <label>
           Namn
           <input
@@ -486,6 +490,7 @@ function CompetitionForm() {
           }))
         }
       >
+        <FormHoneypot />
         <label>
           Namn
           <input
@@ -593,6 +598,7 @@ function DoorAccessForm() {
           }))
         }
       >
+        <FormHoneypot />
         <label>
           Förälderns namn
           <input name="parent_name" required />
@@ -795,6 +801,7 @@ function HallBookingForm() {
             }))
           }
         >
+        <FormHoneypot />
           <h2 className="hall-booking-form-heading">Skicka bokningsförfrågan</h2>
           <p className="form-hint hall-booking-availability-hint">
             Listan visar bara lediga tider. Upptagna pass går inte att välja.
@@ -968,6 +975,7 @@ function ContactForm() {
           }))
         }
       >
+        <FormHoneypot />
         <label>
           Namn
           <input name="name" required />

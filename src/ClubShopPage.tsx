@@ -8,6 +8,7 @@ import {
   type PublicJerseyNumbers,
 } from './lib/club-shop';
 import { JERSEY_NUMBER_FORM_TYPE, submitSiteForm } from './lib/forms';
+import { FormHoneypot } from './FormHoneypot';
 
 function sortJerseyNumber(a: string, b: string) {
   return Number.parseInt(a, 10) - Number.parseInt(b, 10);
@@ -77,6 +78,7 @@ function JerseyNumberForm({
 
       await submitSiteForm({
         form_type: JERSEY_NUMBER_FORM_TYPE,
+        website: String(formData.get('website') ?? ''),
         name,
         email,
         subject: 'Matchtröja — nummeransökan',
@@ -106,6 +108,7 @@ function JerseyNumberForm({
 
   return (
     <form className="site-form" onSubmit={(event) => void handleSubmit(event)}>
+        <FormHoneypot />
       <label>
         Namn
         <input name="name" required autoComplete="name" />

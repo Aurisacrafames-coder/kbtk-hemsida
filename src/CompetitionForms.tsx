@@ -19,6 +19,7 @@ import {
   type YouthOpenCompetition,
 } from './lib/youth-open-competitions';
 import { buildSwishMessage } from './lib/swish';
+import { FormHoneypot } from './FormHoneypot';
 import { SwishPaymentPanel } from './SwishPaymentPanel';
 import { CompetitionCalendar } from './CompetitionCalendar';
 
@@ -326,6 +327,7 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
       const formData = new FormData(event.currentTarget);
       await submitSiteForm({
         form_type: FORM_SLUG_TYPES.tavling,
+        website: String(formData.get('website') ?? ''),
         competition_slug: competition.slug,
         name: formData.get('name'),
         email: formData.get('email'),
@@ -412,6 +414,7 @@ export function CompetitionSignupPage({ slug }: { slug: string }) {
       ) : null}
 
       <form className="site-form" onSubmit={(event) => void handleSubmit(event)}>
+        <FormHoneypot />
         <fieldset className="competition-class-picker">
           <legend>Välj klasser</legend>
           {competition.classes.map((item) => {
