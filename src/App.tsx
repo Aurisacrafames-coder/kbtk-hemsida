@@ -104,6 +104,9 @@ export default function App() {
             <a href="/klubbkop" onClick={closeNav}>
               Klubbköp
             </a>
+            <a href="/#klubbinfo" onClick={closeNav}>
+              Klubbinfo
+            </a>
             <a href="/form/kontakt" onClick={closeNav}>
               Kontakt
             </a>
