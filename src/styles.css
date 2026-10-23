@@ -663,6 +663,14 @@ a {
   font-weight: 800;
 }
 
+.club-info-link-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
 .club-info-table tr:last-child th,
 .club-info-table tr:last-child td {
   border-bottom: 0;

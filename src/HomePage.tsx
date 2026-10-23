@@ -138,7 +138,14 @@ const seasonFees: Array<{
   },
 ];
 
-const clubInfoRows = [
+type ClubInfoRow = {
+  label: string;
+  value?: string;
+  href?: string;
+  links?: { label: string; href: string }[];
+};
+
+const clubInfoRows: ClubInfoRow[] = [
   { label: 'Bildad', value: '1970-09-01' },
   { label: 'Föreningsnummer', value: '6013-06' },
   { label: 'Postadress', value: 'Brushanestigen 3, 442 49 Kungälv' },
@@ -166,6 +173,23 @@ const clubInfoRows = [
     label: 'Stadgar',
     value: 'Stadgar 2024 (PDF)',
     href: '/stadgar/KBTK-stadgar-2024.pdf',
+  },
+  {
+    label: 'Årsmöte 2026',
+    links: [
+      {
+        label: 'Verksamhetsberättelse 2025/2026 (PDF)',
+        href: '/arsmote-2026/Verksamhetsberattelse-2025-2026.pdf',
+      },
+      {
+        label: 'Ekonomisk berättelse 2025/2026 (PDF)',
+        href: '/arsmote-2026/Ekonomisk-berattelse-2025-2026.pdf',
+      },
+      {
+        label: 'Protokoll 22 oktober 2026 (PDF)',
+        href: '/arsmote-2026/Protokoll-arsmote-2026-10-22.pdf',
+      },
+    ],
   },
 ];
 
@@ -615,8 +639,22 @@ function HomePage() {
                     <tr key={row.label}>
                       <th scope="row">{row.label}</th>
                       <td>
-                        {row.href ? (
-                          <a href={row.href} rel={row.href.endsWith('.pdf') ? 'noreferrer' : undefined} target={row.href.endsWith('.pdf') ? '_blank' : undefined}>
+                        {row.links && row.links.length > 0 ? (
+                          <ul className="club-info-link-list">
+                            {row.links.map((link) => (
+                              <li key={link.href}>
+                                <a href={link.href} target="_blank" rel="noreferrer">
+                                  {link.label}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : row.href ? (
+                          <a
+                            href={row.href}
+                            rel={row.href.endsWith('.pdf') ? 'noreferrer' : undefined}
+                            target={row.href.endsWith('.pdf') ? '_blank' : undefined}
+                          >
                             {row.value}
                           </a>
                         ) : (
